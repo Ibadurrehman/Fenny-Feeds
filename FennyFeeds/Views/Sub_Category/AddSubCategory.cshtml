@@ -1,0 +1,159 @@
+﻿@model FennyFeeds.ViewModels.VM_SubCategory
+
+@{
+    ViewBag.Title = "AddSubCategory";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddProduct</title>
+    <script src="~/Scripts/jquery-1.7.1.min.js"></script>
+    @* <script src="~/Scripts/jquery.validate.min.js"></script>*@
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+</head>
+<body>
+
+
+    <section class="inner-wrapper">
+        <div class="header-wrapper">
+            <h3><i class="mdi mdi-cart mr-1"></i>Add Sub Category</h3>
+        </div>
+        @using (Html.BeginForm())
+        {
+            @Html.ValidationSummary(true)
+    
+            <div class="body-wrapper">
+                <div class="row form-group">
+                    <div class="col-sm-4 text-right">
+                        <label class="lb-name">Select Category :</label>
+                    </div>
+                    <div class="col-sm-4">
+                        @* <input type="text" class="form-control" placeholder="Enter Brand Name" />*@
+                        @Html.DropDownList("Dropdown_Category", ViewBag.Dropdown_Category as SelectList, "Select Category", new { @class = "form-control", @id = "ddlCategory" })
+                        @Html.ValidationMessageFor(model => model.SubCategory)
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-sm-4 text-right">
+                        <label class="lb-name">Sub Category :</label>
+                    </div>
+                    <div class="col-sm-4">
+                        @* <input type="text" class="form-control" placeholder="Enter Brand Name" />*@
+                        @Html.TextBoxFor(model => model.SubCategory, new { @class = "form-control", @placeholder = "Enter Category Name", @id = "txtSubCategoryName" })
+                        @Html.ValidationMessageFor(model => model.SubCategory)
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-4 text-right">
+                        <label class="lb-name">Is Active :</label>
+                    </div>
+                    <div class="col-sm-4">
+                        @* <input type="text" class="form-control" placeholder="Enter Brand Name" />*@
+                        @Html.DropDownListFor(x => x.IsActive, FennyFeeds.HelperClasses.MyHelperClass.DropDownIsActive(), "Select Option", new { @class = "form-control", @id = "ddlIsActive" })
+                        @Html.ValidationMessageFor(model => model.IsActive)
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-sm-4 offset-sm-4">
+                        <div class="input-group">
+                            <button type="button" class="btn btn-success" id="Btn_AddSubCategory"><i class="mdi mdi-cart-plus mr-1"></i>Add Category</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </section>
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $("#Btn_AddSubCategory").click(function () {
+
+                $('form').validate();
+
+                if ($('form').valid()) {
+
+                    var Category_Id = $.trim($("#ddlCategory").val());
+                    var SubCategory = $.trim($("#txtSubCategoryName").val());
+                    var IsActive = $.trim($("#ddlIsActive").val());
+
+                    var obj = JSON.stringify({
+                        Category_Id: Number(Category_Id),
+                        SubCategory: SubCategory,
+                        IsActive: Boolean(IsActive)
+                    });
+
+                    $("#Btn_AddSubCategory").attr('disabled', 'disabled');
+                    $("#Btn_AddSubCategory").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...');
+
+                    ShowLoader();
+
+                    $.ajax({
+                        type: "POST",
+                        url: 'AddSubCategoryDetails',
+                        dataType: "json",
+                        data: obj,
+                        //data: function () {
+
+                        //}(),
+                        //contentType: false,
+                        processData: false,
+                        contentType: "application/json; charset=utf-8",
+                        success: function (result) {
+
+                            $("#Btn_AddSubCategory").removeAttr('disabled');
+                            $("#Btn_AddSubCategory").html('Add Product');
+
+                            HideLoader();
+
+                            //var result = JSON.parse(result);
+                            if (result == "done") {
+
+                                swal({
+                                    title: "Success!",
+                                    text: "Sub Category added successfully!",
+                                    type: "success",
+                                    icon: "success",
+                                }, function () {
+                                    window.location = "AddSubCategory";
+                                });
+
+                            }
+                            else {
+
+                                swal({
+                                    title: "Warning!",
+                                    text: "Cannot create sub category this time please try again later",
+                                    type: "error",
+                                    icon: "error",
+                                }, function () {
+                                    window.location = "AddSubCategory";
+                                });
+
+                            }
+
+                        }
+                    });
+                }
+                else {
+                    $('body, html').animate({ scrollTop: 0 }, 'slow');
+                }
+
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>

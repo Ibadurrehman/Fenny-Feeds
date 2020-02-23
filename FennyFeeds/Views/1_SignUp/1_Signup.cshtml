@@ -1,0 +1,492 @@
+﻿@model FennyFeeds.ViewModels.VM_Signup
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Fenny Feeds | Login</title>
+ 
+    <link href="~/content/css/Site.css" rel="stylesheet" />
+    <link href="~/content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/content/css/login.css" rel="stylesheet" />
+    <link href="~/content/css/materialdesignicons.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,700" rel="stylesheet" />
+
+</head>
+<body>
+
+    <div class="signin-container">
+        <div class="signin-block">
+            <div class="signin-img">
+            </div>
+            <ul class="nav sign-in-option">
+                <li id="navSignIn" class="active-tab">Sign In</li>
+                <li id="navSignUp">Sign Up</li>
+                <li id="navPassword">Reset Password</li>
+            </ul>
+            @using (Html.BeginForm())
+            {
+                @Html.ValidationSummary(true)
+    
+                <div class="default-block sign-in-option" id="SignIn">
+
+                    <div class="form-group-row text-center">
+                        @*  <img src="~/content/images/FennyFeedsLogo.png" width="250" />*@
+                        <img src="~/content/images/FennyFeedsLogo-admin.png" width="250" />
+                    </div>
+                    <h2>@ViewBag.msg</h2>
+                    <div class="form-group-row">
+                        <span class="mdi mdi-email mdi-18px signin-icon"></span>
+                        @* <input type="text" class="form-control form-properties" placeholder="Your Email" id="email" />*@
+                        @Html.TextBoxFor(model => model.Email_ID, new { @class = "form-control form-properties", @placeholder = "Your Email", @id = "login_username" })
+                        @Html.ValidationMessageFor(model => model.Email_ID)
+                    </div>
+
+                    <div class="form-group-row">
+                        <span class="mdi mdi-lock mdi-18px signin-icon"></span>
+                        @*  <input type="password" class="form-control form-properties" placeholder="Password" id="password" />*@
+                        @Html.PasswordFor(model => model.Password, new { @class = "form-control form-properties", @placeholder = "Your Password", @id = "login_password" })
+                        @Html.ValidationMessageFor(model => model.Password)
+                    </div>
+
+                    <div class="form-group-row">
+                        <button type="button" class="btn btn-block btn-curve" id="Btn_Login">Sign In</button>
+                        @*  <input type="submit" class="btn btn-block btn-curve" value="Sign In" />*@
+                    </div>
+
+                    <div class="form-group-row">
+                        <input type="checkbox" class="form-check-input check-remember" id="cbremeber" />
+                        <span class="rem_text">Remember Me</span>
+                        <a href="#" class="forgot-txt" id="forgotLink" class="pull-right">Forgot Password?</a>
+                    </div>
+
+                </div>
+                
+@*  }
+            @using (Html.BeginForm())
+            {
+                @Html.ValidationSummary(true) *@
+    
+                <div class="default-block sign-in-option" id="SignUp">
+
+                    <div class="form-group-row">
+                        <span class="mdi mdi-account mdi-18px signin-icon"></span>
+                        @*  <input type="text" class="form-control form-properties" placeholder="Your Name" id="username" />*@
+                        @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control form-properties", @placeholder = "Your Name", @id = "txtUsername" })
+                        @Html.ValidationMessageFor(model => model.FirstName)
+                    </div>
+
+                    <div class="form-group-row">
+                        <span class="mdi mdi-email mdi-18px signin-icon"></span>
+                        @*<input type="text" class="form-control form-properties" placeholder="Your Email" id="reg-email" />*@
+                        @Html.TextBoxFor(model => model.Email_ID, new { @class = "form-control form-properties", @placeholder = "Your Email", @id = "txtEmail" })
+                        @Html.ValidationMessageFor(model => model.Email_ID)
+                    </div>
+
+                    <div class="form-group-row">
+                        <span class="mdi mdi-phone mdi-18px signin-icon"></span>
+                        @* <input type="text" class="form-control form-properties" placeholder="Mobile No." id="reg-mobile" />*@
+                        @Html.TextBoxFor(model => model.Mobile, new { @class = "form-control form-properties", @placeholder = "Your Mobile", @id = "txtMobile" })
+                        @Html.ValidationMessageFor(model => model.Mobile)
+                    </div>
+
+                    <div class="form-group-row">
+                        <span class="mdi mdi-lock mdi-18px signin-icon"></span>
+                        @* <input type="password" class="form-control form-properties" placeholder="Password" id="reg-password" />*@
+                        @Html.PasswordFor(model => model.Password, new { @class = "form-control form-properties", @placeholder = "Your Password", @id = "txtPassword" })
+                        @Html.ValidationMessageFor(model => model.Password)
+                    </div>
+
+                    @*                    <div class="form-group-row">
+                        <span class="mdi mdi-lock mdi-18px signin-icon"></span>
+                        <input type="password" class="form-control form-properties" placeholder="Confirm Password" id="conf-password" />
+                    </div>*@
+
+                    <div class="form-group-row">
+                        @*<input type="submit" class="btn btn-block btn-curve" value="Sign Up" />*@
+                        <button type="button" class="btn btn-block btn-curve" id="Btn_SignUp">Sign Up</button>
+                    </div>
+
+                    <div class="form-group-row" style="display: none">
+                        <a href="#" class="pull-right">Already have an account?</a>
+                    </div>
+
+                </div>
+                
+@*}
+            @using (Html.BeginForm())
+            {
+                @Html.ValidationSummary(true)*@
+    
+                <div class="default-block sign-in-option" id="forgotPassword">
+
+                    <div class="form-group-row">
+                        <span class="mdi mdi-email-secure mdi-18px signin-icon"></span>
+                        @*    <input type="text" class="form-control form-properties" placeholder="Your Registered Email" id="txtRegisterEmail" />*@
+                        @Html.TextBoxFor(model => model.Email_ID, new { @class = "form-control form-properties", @placeholder = "Enter Registered Email Address", @id = "txtRegisterEmail" })
+                        @Html.ValidationMessageFor(model => model.Email_ID)
+                    </div>
+
+                    <div class="form-group-row">
+                        <button type="button" class="btn btn-block btn-curve" id="btnForgetPassword">Reset Password</button>
+                    </div>
+
+                    <div class="form-group-row">
+                        <a href="" id="backSign" class="pull-right rem_text">Go Back</a>
+                    </div>
+
+                </div>
+            }
+        </div>
+       
+    </div>
+
+
+    
+
+    <script src="~/content/scripts/jquery-3.3.1.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.10/jquery.validate.unobtrusive.js"></script>
+
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+    <script type="text/javascript">
+        function ShowLoader() {
+            $(".loader").show();
+            return false;
+        }
+
+        function HideLoader() {
+            $(".loader").hide();
+            return true;
+        }
+
+        var BrowserName = "Unrecognized";
+        var ip = '';
+        var country = '';
+
+        $(document).ready(function () {
+
+            var CookieUseremail = '@ViewBag.cookieUsername';
+            var CookieUserpwd = '@ViewBag.cookieUserPwd';
+
+            if ((CookieUseremail.trim() != "") && (CookieUserpwd.trim() != "")) {
+
+                $("#login_username").val(CookieUseremail);
+                $("#login_password").val(CookieUserpwd);
+
+                $("#cbremeber").prop("checked", true);
+            }
+
+            try {
+                $.post('http://www.ip-api.com/json', function (data) {
+                    country = data.country;
+                    ip = data.query;
+                });
+            } catch (e) {
+
+            }
+
+            try {
+                /* Get browser */
+                $.browser.chrome = /chrome/.test(navigator.userAgent.toLowerCase());
+
+                /* Detect Chrome */
+                if ($.browser.chrome) {
+                    BrowserName = "Google Chrome";
+                } else if ($.browser.safari) {
+                    BrowserName = "Safari";
+                } else if ($.browser.mozilla) {
+                    BrowserName = "Mozilla Firefox";
+                } else if ($.browser.msie) {
+                    BrowserName = "IE";
+                } else {
+                    BrowserName = "Unrecognized";
+                }
+            } catch (e) { }
+
+            // KEYDOWN - FOCUS
+            $("#login_username").keyup(function (e) {
+                if (e.keyCode == 13) {
+                    $("#login_password").focus();
+                }
+            });
+
+            // KEYDOWN - FOCUS
+            $("#login_password").keyup(function (e) {
+                if (e.keyCode == 13) {
+                    DoLogin();
+                }
+            });
+
+            // Login Submit Button
+            $("#Btn_Login").click(function () {
+
+                $('form').validate();
+
+                if ($('form').valid()) {
+                    DoLogin();
+                }
+            });
+
+
+            $("#Btn_SignUp").click(function () {
+
+                $('form').validate();
+
+                if ($('form').valid()) {
+
+                    var FirstName = $.trim($("#txtUsername").val());
+                    var Email_ID = $.trim($("#txtEmail").val());
+                    var Mobile = $.trim($("#txtMobile").val());
+                    var Password = $.trim($("#txtPassword").val());
+
+                    var obj = {
+                        FirstName: FirstName,
+                        Email_ID: Email_ID,
+                        Mobile: Mobile,
+                        Password: Password
+                    }
+
+                    $("#Btn_SignUp").attr('disabled', 'disabled');
+                    $("#Btn_SignUp").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...');
+
+                    ShowLoader();
+
+                    $.ajax({
+                        type: "POST",
+                        url: "SignUp/Signup",
+                        data: obj,
+                        //contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (result) {
+
+                            $("#Btn_SignUp").removeAttr('disabled');
+                            $("#Btn_SignUp").html('Sign Up');
+
+                            HideLoader();
+
+                            //var result = JSON.parse(result);
+                            if (result == "done") {
+
+                                swal({
+                                    title: "Success!",
+                                    text: "Your account create successfully!",
+                                    type: "success",
+                                    icon: "success",
+                                }, function () {
+                                    window.location = "AdminSignUp";
+                                });
+
+                            }
+                            else if (result == "emailexist") {
+
+                                swal({
+                                    title: "Alert!",
+                                    text: "This email id already exist!",
+                                    type: "info",
+                                    icon: "info",
+                                }, function () {
+                                    window.location = "AdminSignUp";
+                                });
+
+                            }
+                            else {
+
+                                swal({
+                                    title: "Warning!",
+                                    text: "Cannot create account this time please try again later",
+                                    type: "error",
+                                    icon: "error",
+                                }, function () {
+                                    window.location = "AdminSignUp";
+                                });
+
+                            }
+
+                        }
+                    });
+                }
+            });
+
+            $("#btnForgetPassword").click(function () {
+
+                $("form").validate();
+
+                if ($("form").valid()) {
+
+                    var Email = $.trim($("#txtRegisterEmail").val());
+
+                    $("#btnForgetPassword").attr('disabled', 'disabled');
+                    $("#btnForgetPassword").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...');
+
+
+                    $.ajax({
+                        type: "POST",
+                        url: "SignUp/ForgetPassword?Email=" + Email,
+                        //data: obj,
+                        //contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (result) {
+
+                            $("#btnForgetPassword").removeAttr('disabled');
+                            $("#btnForgetPassword").html('Reset Password');
+
+                            HideLoader();
+
+                            //var result = JSON.parse(result);
+                            if (result == "done") {
+
+                                swal({
+                                    title: "Success!",
+                                    text: "Change password link has been sent to your E-mail id!",
+                                    type: "success",
+                                    icon: "success",
+                                }, function () {
+                                    window.location = "AdminSignUp";
+                                });
+
+                            }
+                            else {
+
+                                swal({
+                                    title: "Warning!",
+                                    text: "Unable to verify this time .Please try again later.",
+                                    type: "error",
+                                    icon: "error",
+                                }, function () {
+                                    window.location = "AdminSignUp";
+                                });
+
+                            }
+
+                        }
+                    });
+
+                }
+            });
+        });
+
+        function DoLogin() {
+
+            var Email_ID = $.trim($("#login_username").val());
+            var Password = $.trim($("#login_password").val());
+            var cbremeber = cbremeber;
+            //var obj = {
+            //    Email_ID: Email_ID,
+            //    Password: Password,
+            //    cbremeber: cbremeber
+            //}
+
+            $("#Btn_Login").attr('disabled', 'disabled');
+            $("#Btn_Login").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...');
+
+            ShowLoader();
+
+            $.ajax({
+                type: "POST",
+                url: "User_Login?Email_ID=" + Email_ID + "&Password=" + Password + "&cbremeber=" + cbremeber,
+                //data: obj,
+                //contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+
+                    $("#Btn_Login").removeAttr('disabled');
+                    $("#Btn_Login").html('Sign In');
+
+                    HideLoader();
+                    debugger;
+                    //var json = JSON.parse(result);
+
+                    if (result.Action == "move") {
+                        window.location = result.msg;
+                    } else {
+                        $("#Btn_Login").html('Sign In');
+
+                        swal({
+                            title: "Warning!",
+                            text: result.msg,
+                            type: "error",
+                            icon: "error",
+                        }, function () {
+                            window.location = "AdminSignUp";
+                        });
+
+                    }
+
+                }
+            });
+
+        }
+
+        $(function () {
+
+            $('#navSignIn').click(function (e) {
+
+                $('form').find('input[type=text], input[type=password]').val('');
+
+                $(".input-validation-error").removeClass("input-validation-error");
+                $(".field-validation-error").children().remove();
+
+                $("#SignIn").delay(100).fadeIn(100);
+                $("#SignUp").fadeOut(100);
+                $('#navSignUp').removeClass('active-tab');
+                $(this).addClass('active-tab');
+                e.preventDefault();
+            });
+            $('#navSignUp').click(function (e) {
+
+                $('form').find('input[type=text], input[type=password]').val('');
+
+                $(".input-validation-error").removeClass("input-validation-error");
+                $(".field-validation-error").children().remove();
+
+                $("#SignUp").delay(100).fadeIn(100);
+                $("#SignIn").fadeOut(100);
+                $('#navSignIn').removeClass('active-tab');
+                $(this).addClass('active-tab');
+                e.preventDefault();
+            });
+            $('#forgotLink').click(function (e) {
+
+                $('form').find('input[type=text], input[type=password]').val('');
+
+                $(".input-validation-error").removeClass("input-validation-error");
+                $(".field-validation-error").children().remove();
+
+                $("#forgotPassword").delay(100).fadeIn(100);
+                $("#SignIn").fadeOut(100);
+                $('#navSignIn').hide();
+                $('#navSignUp').hide();
+                $('#navPassword').css('visibility', 'visible');
+                $('#navPassword').addClass('active-tab');
+                e.preventDefault();
+            });
+            $('#backSign').click(function (e) {
+
+                $('form').find('input[type=text], input[type=password]').val('');
+
+                $(".input-validation-error").removeClass("input-validation-error");
+                $(".field-validation-error").children().remove();
+
+                $("#SignIn").delay(100).fadeIn(100);
+                $("#forgotPassword").fadeOut(100);
+                $('#navSignIn').show();
+                $('#navSignUp').show();
+                $('#navPassword').css('visibility', 'hidden');
+                $('#forgotLink').removeClass('active-tab');
+                e.preventDefault();
+            });
+        });
+    </script>
+</body>
+</html>

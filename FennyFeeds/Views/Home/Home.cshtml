@@ -1,0 +1,353 @@
+﻿@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+
+<div class="wrapper-container">
+    <section id="mainSlider" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner carousel-main-slider" style="height: 300px;">
+            <div class="carousel-item active">
+                <img src="~/content/images/banner-1.jpg" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="~/content/images/banner-2.jpg" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="~/content/images/banner-3.jpg" alt="...">
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#mainSlider" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon arrow-carousel" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#mainSlider" role="button" data-slide="next">
+            <span class="carousel-control-next-icon arrow-carousel" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </section>
+
+    <section class="top-selling-slider">
+        <div class="container" id="displayfeatureds">
+           @* <div class="row">
+                <h2 class="head_collections">Drools <span>Food Product</span></h2>
+            </div>
+            <div class="row">
+                <div class="owl-carousel owl-theme owl-featured FeaturedProperties" id="FeaturedProperties">
+                    <div class="">
+                        <div class="product-grid7">
+                            <div class="product-image7">
+                                <a href="#">
+                                    <img class="pic-1" src="~/content/images/s1.jpg">
+                                    <img class="pic-2" src="~/content/images/s2.jpg">
+                                </a>
+                                <ul class="social">
+                                    <li><a href="" class="mdi mdi-magnify" data-toggle="modal" data-target="#slidermodal"></a></li>
+                                    <li><a href="" class="mdi mdi-heart" data-toggle="modal" data-target="#exampleModal"></a></li>
+                                    <li><a href="" class="mdi mdi-cart" data-toggle="modal" data-target="#slidermodal"></a></li>
+                                </ul>
+                            </div>
+                            <div class="product-content">
+                                <h3 class="title"><a href="#">Doggy Dolly Dog Peacock Design Dress</a></h3>
+
+                                <div class="price">
+                                    <span class="featured-price wrap-text"><i class="mdi mdi-currency-inr mr-2"></i>25000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="product-grid7">
+                            <div class="product-image7">
+                                <a href="#">
+                                    <img class="pic-1" src="~/content/images/s1.jpg">
+                                    <img class="pic-2" src="~/content/images/s2.jpg">
+                                </a>
+                                <ul class="social">
+                                    <li><a href="" class="mdi mdi-magnify"></a></li>
+                                    <li><a href="" class="mdi mdi-heart" data-toggle="modal" data-target="#exampleModal"></a></li>
+                                    <li><a href="" class="mdi mdi-cart" data-toggle="modal" data-target="#slidermodal"></a></li>
+                                </ul>
+                            </div>
+                            <div class="product-content">
+                                <h3 class="title"><a href="#">Doggy Dolly Dog Peacock Design Dress</a></h3>
+
+                                <div class="price">
+                                    <span class="featured-price wrap-text"><i class="mdi mdi-currency-inr mr-2"></i>25000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="product-grid7">
+                            <div class="product-image7">
+                                <a href="#">
+                                    <img class="pic-1" src="~/content/images/s1.jpg">
+                                    <img class="pic-2" src="~/content/images/s2.jpg">
+                                </a>
+                                <ul class="social">
+                                    <li><a href="" class="mdi mdi-magnify"></a></li>
+                                    <li><a href="" class="mdi mdi-heart" data-toggle="modal" data-target="#exampleModal"></a></li>
+                                    <li><a href="" class="mdi mdi-cart" data-toggle="modal" data-target="#slidermodal"></a></li>
+                                </ul>
+                            </div>
+                            <div class="product-content">
+                                <h3 class="title"><a href="#">Doggy Dolly Dog Peacock Design Dress</a></h3>
+
+                                <div class="price">
+                                    <span class="featured-price wrap-text"><i class="mdi mdi-currency-inr mr-2"></i>25000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="product-grid7">
+                            <div class="product-image7">
+                                <a href="#">
+                                    <img class="pic-1" src="~/content/images/s1.jpg">
+                                    <img class="pic-2" src="~/content/images/s2.jpg">
+                                </a>
+                                <ul class="social">
+                                    <li><a href="" class="mdi mdi-magnify"></a></li>
+                                    <li><a href="" class="mdi mdi-heart" data-toggle="modal" data-target="#exampleModal"></a></li>
+                                    <li><a href="" class="mdi mdi-cart" data-toggle="modal" data-target="#slidermodal"></a></li>
+                                </ul>
+                            </div>
+                            <div class="product-content">
+                                <h3 class="title"><a href="#">Doggy Dolly Dog Peacock Design Dress</a></h3>
+
+                                <div class="price">
+                                    <span class="featured-price wrap-text"><i class="mdi mdi-currency-inr mr-2"></i>25000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="product-grid7">
+                            <div class="product-image7">
+                                <a href="#">
+                                    <img class="pic-1" src="~/content/images/s1.jpg">
+                                    <img class="pic-2" src="~/content/images/s2.jpg">
+                                </a>
+                                <ul class="social">
+                                    <li><a href="" class="mdi mdi-magnify"></a></li>
+                                    <li><a href="" class="mdi mdi-heart" data-toggle="modal" data-target="#exampleModal"></a></li>
+                                    <li><a href="" class="mdi mdi-cart" data-toggle="modal" data-target="#slidermodal"></a></li>
+                                </ul>
+                            </div>
+                            <div class="product-content">
+                                <h3 class="title"><a href="#">Doggy Dolly Dog Peacock Design Dress</a></h3>
+
+                                <div class="price">
+                                    <span class="featured-price wrap-text"><i class="mdi mdi-currency-inr mr-2"></i>25000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="product-grid7">
+                            <div class="product-image7">
+                                <a href="#">
+                                    <img class="pic-1" src="~/content/images/s1.jpg">
+                                    <img class="pic-2" src="~/content/images/s2.jpg">
+                                </a>
+                                <ul class="social">
+                                    <li><a href="" class="mdi mdi-magnify"></a></li>
+                                    <li><a href="" class="mdi mdi-heart" data-toggle="modal" data-target="#exampleModal"></a></li>
+                                    <li><a href="" class="mdi mdi-cart" data-toggle="modal" data-target="#slidermodal"></a></li>
+                                </ul>
+                            </div>
+                            <div class="product-content">
+                                <h3 class="title"><a href="#">Doggy Dolly Dog Peacock Design Dress</a></h3>
+
+                                <div class="price">
+                                    <span class="featured-price wrap-text"><i class="mdi mdi-currency-inr mr-2"></i>25000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <h2 class="head_collections">Featured <span>Collections</span></h2>
+            </div>
+            <div class="row">
+                <div class="owl-carousel owl-theme owl-featured FeaturedProperties" id="FeaturedProperties1">
+                    <div class="">
+                        <div class="product-grid7">
+                            <div class="product-image7">
+                                <a href="#">
+                                    <img class="pic-1" src="~/content/images/s1.jpg">
+                                    <img class="pic-2" src="~/content/images/s2.jpg">
+                                </a>
+                                <ul class="social">
+                                    <li><a href="" class="mdi mdi-magnify"></a></li>
+                                    <li><a href="" class="mdi mdi-heart" data-toggle="modal" data-target="#exampleModal"></a></li>
+                                    <li><a href="" class="mdi mdi-cart" data-toggle="modal" data-target="#slidermodal"></a></li>
+                                </ul>
+                            </div>
+                            <div class="product-content">
+                                <h3 class="title"><a href="#">Doggy Dolly Dog Peacock Design Dress</a></h3>
+
+                                <div class="price">
+                                    <span class="featured-price wrap-text"><i class="mdi mdi-currency-inr mr-2"></i>25000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="product-grid7">
+                            <div class="product-image7">
+                                <a href="#">
+                                    <img class="pic-1" src="~/content/images/s1.jpg">
+                                    <img class="pic-2" src="~/content/images/s2.jpg">
+                                </a>
+                                <ul class="social">
+                                    <li><a href="" class="mdi mdi-magnify"></a></li>
+                                    <li><a href="" class="mdi mdi-heart" data-toggle="modal" data-target="#exampleModal"></a></li>
+                                    <li><a href="" class="mdi mdi-cart" data-toggle="modal" data-target="#slidermodal"></a></li>
+                                </ul>
+                            </div>
+                            <div class="product-content">
+                                <h3 class="title"><a href="#">Doggy Dolly Dog Peacock Design Dress</a></h3>
+
+                                <div class="price">
+                                    <span class="featured-price wrap-text"><i class="mdi mdi-currency-inr mr-2"></i>25000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="product-grid7">
+                            <div class="product-image7">
+                                <a href="#">
+                                    <img class="pic-1" src="~/content/images/s1.jpg">
+                                    <img class="pic-2" src="~/content/images/s2.jpg">
+                                </a>
+                                <ul class="social">
+                                    <li><a href="" class="mdi mdi-magnify"></a></li>
+                                    <li><a href="" class="mdi mdi-heart" data-toggle="modal" data-target="#exampleModal"></a></li>
+                                    <li><a href="" class="mdi mdi-cart" data-toggle="modal" data-target="#slidermodal"></a></li>
+                                </ul>
+                            </div>
+                            <div class="product-content">
+                                <h3 class="title"><a href="#">Doggy Dolly Dog Peacock Design Dress</a></h3>
+
+                                <div class="price">
+                                    <span class="featured-price wrap-text"><i class="mdi mdi-currency-inr mr-2"></i>25000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="product-grid7">
+                            <div class="product-image7">
+                                <a href="#">
+                                    <img class="pic-1" src="~/content/images/s1.jpg">
+                                    <img class="pic-2" src="~/content/images/s2.jpg">
+                                </a>
+                                <ul class="social">
+                                    <li><a href="" class="mdi mdi-magnify"></a></li>
+                                    <li><a href="" class="mdi mdi-heart" data-toggle="modal" data-target="#exampleModal"></a></li>
+                                    <li><a href="" class="mdi mdi-cart" data-toggle="modal" data-target="#slidermodal"></a></li>
+                                </ul>
+                            </div>
+                            <div class="product-content">
+                                <h3 class="title"><a href="#">Doggy Dolly Dog Peacock Design Dress</a></h3>
+
+                                <div class="price">
+                                    <span class="featured-price wrap-text"><i class="mdi mdi-currency-inr mr-2"></i>25000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="product-grid7">
+                            <div class="product-image7">
+                                <a href="#">
+                                    <img class="pic-1" src="~/content/images/s1.jpg">
+                                    <img class="pic-2" src="~/content/images/s2.jpg">
+                                </a>
+                                <ul class="social">
+                                    <li><a href="" class="mdi mdi-magnify"></a></li>
+                                    <li><a href="" class="mdi mdi-heart" data-toggle="modal" data-target="#exampleModal"></a></li>
+                                    <li><a href="" class="mdi mdi-cart" data-toggle="modal" data-target="#slidermodal"></a></li>
+                                </ul>
+                            </div>
+                            <div class="product-content">
+                                <h3 class="title"><a href="#">Doggy Dolly Dog Peacock Design Dress</a></h3>
+
+                                <div class="price">
+                                    <span class="featured-price wrap-text"><i class="mdi mdi-currency-inr mr-2"></i>25000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="product-grid7">
+                            <div class="product-image7">
+                                <a href="#">
+                                    <img class="pic-1" src="~/content/images/s1.jpg">
+                                    <img class="pic-2" src="~/content/images/s2.jpg">
+                                </a>
+                                <ul class="social">
+                                    <li><a href="" class="mdi mdi-magnify"></a></li>
+                                    <li><a href="" class="mdi mdi-heart" data-toggle="modal" data-target="#exampleModal"></a></li>
+                                    <li><a href="" class="mdi mdi-cart" data-toggle="modal" data-target="#slidermodal"></a></li>
+                                </ul>
+                            </div>
+                            <div class="product-content">
+                                <h3 class="title"><a href="#">Doggy Dolly Dog Peacock Design Dress</a></h3>
+
+                                <div class="price">
+                                    <span class="featured-price wrap-text"><i class="mdi mdi-currency-inr mr-2"></i>25000</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>*@
+
+        </div>
+    </section>
+
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog addcart-popup" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="addcart-cross fa fa-close" onclick="hideaddcart(this)" data-dismiss="modal" aria-label="Close"></div>
+                <div class="cart-image">
+                    <img src="~/content/images/s1.jpg">
+                </div>
+                <h4>Bed Room Furniture</h4>
+                <p>
+                    Red, Small
+                </p>
+                <div class="alert alert-success txt-cartmsg" style="font-weight: bold">
+                    Product successfully added to your wishlist
+                </div>
+
+                <div class="btn_addcart text-center">
+                    <button type="button" class="btn btn-warning addcart-btn" onclick="hideaddcart(this)">
+                        Continue Shoping</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end-->
+
+<script>
+
+    $(document).ready(function () {
+        Get_AllFeaturedProducts();
+    });
+
+</script>

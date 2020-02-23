@@ -1,0 +1,299 @@
+﻿@{
+    ViewBag.Title = "CartList";
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+
+<style type="text/css">
+    .shopping-summary {
+        background-color:#fff;
+        width: 100%;
+        height: auto;
+        display: inline-block;
+        padding-top: 30px;
+        padding-bottom: 50px;
+    }
+
+    .order-strip {
+        width: 100%;
+        height: 70px;
+        position: relative;
+        border-bottom: 1px solid #b1b1b1;
+    }
+
+    .container {
+        width: 1280px;
+    }
+
+    .order-strip h1 {
+        font-weight: bold;
+        color: #333;
+        position: absolute;
+        margin: 0;
+        top: 20px;
+    }
+
+    .order-strip span {
+        font-size: 14px;
+        font-weight: bold;
+        float: right;
+        color: #333;
+        margin-top: 40px;
+    }
+
+    .order-summary {
+        width: 100%;
+        height: auto;
+        display: inline-block;
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+
+    .order-steps {
+        width: 100%;
+        height: auto;
+        display: inline-block;
+        padding-left: 0;
+    }
+
+    ul.order-steps li {
+        float: left;
+        width: 20%;
+        text-align: left;
+        border: 1px solid;
+        border-top-color: #cacaca;
+        border-bottom-color: #b1b1b1;
+        border-right-color: #b7b7b7;
+        border-left-color: #b7b7b7;
+        background-color: #f5f5f5;
+    }
+
+    li.step_current {
+        background-color: #b3b3b3 !important;
+    }
+
+    .order-steps li {
+        list-style: none;
+        float: left;
+    }
+
+    ul.order-steps li span {
+        display: block;
+        border: 1px solid;
+        border-color: #fff;
+        color: #333;
+        position: relative;
+        line-height: 49px;
+        padding-left: 40px;
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+    li.step_current span {
+        color: #fff !important;
+        border-color: #ccc !important;
+    }ul.order-steps li span:after {
+    content: ".";
+    position: absolute;
+    top: 0;
+    right: -31px;
+    z-index: 5;
+    text-indent: -5000px;
+    display: block;
+    width: 31px;
+    height: 52px;
+    margin-top: -2px;
+}.pr-order-details {
+    width: 100%;
+    height: auto;
+    display: inline-block;
+}.table-bordered {
+    border: 1px solid #ddd;
+}.order-table > thead:first-child > tr:first-child > th {
+    text-align: center;
+}.responsive {
+    width: 100%;
+    height: auto;
+}.order-btn {
+    background-color: #333;
+    border-radius: 0px;
+    color: #fff;
+    border: 0;
+}
+ .width15 {
+    width: 15%;
+    text-align: center;
+    font-weight: bold;
+}
+ .width30 {
+    width: 30%;
+}
+ .width5 {
+    width: 5%;
+}
+ .width10 {
+    width: 10%;
+}
+</style>
+<div class="shopping-summary">
+    <div class="order-strip">
+        <div class="container">
+            <h1>Shopping-Cart Summary</h1>
+            <span>Your shopping cart contains: 1 product</span>
+        </div>
+    </div>
+    <div class="order-summary">
+        <div class="container">
+            <ul class="order-steps">
+                <li class="step_current"><span>01. Summary</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="pr-order-details">
+        <div class="container">
+            <table class="table table-bordered order-table">
+                <thead style="background-color: #f5f5f5">
+                    <tr>
+                        <th class="width15">Product
+                        </th>
+                        <th class="width30">Description
+                        </th>
+                        <th class="width10">Availability
+                        </th>
+                        <th class="width15">Unit price
+                        </th>
+                        <th class="width10">Qty
+                        </th>
+                        <th class="width15">Total
+                        </th>
+                        <th class="width5"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="width15">
+                           <img class="responsive" alt="" src="~/content/images/s1.jpg"> 
+                        </td>
+                        <td class="width30">
+                            <h4>Doggy Dolly Dog Peacock Design Dress</h4>
+                            <p>
+                                <span>Product Code : </span><span>#LRF00215</span>
+                            </p>
+                            <p>
+                                <span>Color : </span><span>Brown</span>
+                            </p>
+                        </td>
+                        <td class="width10" style="text-align: center;">
+                            <span class="label label-success">In Stock</span>
+                        </td>
+                        <td class="width15">
+                            <span>£1499</span>
+                        </td>
+                        <td class="width10">
+                            <p>
+                                <span>1</span>
+                            </p>
+                        </td>
+                        <td class="width15">
+                            <span>£1499</span>
+                        </td>
+                        <td class="width5">
+                            <span class="order-remove"><i class="fa fa-trash"></i></span>
+                        </td>
+                    </tr>
+                    <tr class="order-total-pr">
+                        <td rowspan="4" colspan="3"></td>
+                        <td rowspan="1" colspan="2">
+                            <span>Total Products</span>
+                        </td>
+                        <td rowspan="1" colspan="2">
+                            <span>£1499</span>
+                        </td>
+                    </tr>
+                    <tr class="order-total-pr">
+                        <td rowspan="1" colspan="2">
+                            <span>Total shipping</span>
+                        </td>
+                        <td rowspan="1" colspan="2">
+                            <span>£6</span>
+                        </td>
+                    </tr>
+                    <tr class="order-total-pr" style="font-size: 20px">
+                        <td rowspan="1" colspan="2">
+                            <span>TOTAL</span>
+                        </td>
+                        <td rowspan="1" colspan="2">
+                            <span>£1505</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="container">
+            <div class="btn-group">
+                <button type="button" class="btn btn-warning order-btn" style="margin-right: 10px">
+                    <i class="fa fa-chevron-left" style="margin-right: 10px"></i>Continue Shopping</button>
+                <button type="button" class="btn btn-warning order-btn">
+                    Proceed to Checkout<i class="fa fa-chevron-right" style="margin-left: 10px"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!--mobility-->
+
+    <div class="boxdisplay_mob" style="display:none">
+        <div class="check_table">
+            <div class="check_row text-left">
+                <div class="check_col width15 text-left">
+                    <img src="images/view0.jpg" class="responsive" alt="">
+                </div>
+                <div class="check_col width30 text-left">
+                    <h4>LIVING ROOM FURNITURE</h4>
+                    <div>
+                        <span>Product Code : </span><span>#LRF0025</span>
+                    </div>
+                    <div>
+                        <span>Color : </span><span>Brown</span>
+                    </div>
+                </div>
+                <div class="check_col width10 text-left marign10 float_right">
+                    <span class="label label-success">In Stock</span>
+                </div>
+                <div class="check_col width10 text-left float_right">
+                    <div>
+                        <span>QTY :</span>
+                        <span>1</span>
+                    </div>
+                </div>
+                <div class="check_col width10 text-left float_right">
+                    <span style="color: #F44336;">£1499</span>
+                </div>
+                <div class="check_col width5 text-left">
+                    <span class="fa fa-times order-remove"></span>
+                </div>
+
+            </div>
+        </div>
+        <div class="check_table" style="border-left: solid 3px #b6ff00;">
+            <div class="check_row text-left padding10">
+                <div class="check_totalproduct">
+                    <span>Total Products
+                    </span>
+                    <span class="price_check">£1499
+                    </span>
+                </div>
+                <div class="check_totalproduct">
+                    <span>Total Shipping
+                    </span>
+                    <span class="price_check">£6
+                    </span>
+                </div>
+                <div class="check_totalproduct" style="border-top: solid thin #ccc;">
+                    <span>Total
+                    </span>
+                    <span class="price_checktotal">£1505
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

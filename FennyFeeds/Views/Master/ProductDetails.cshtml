@@ -1,0 +1,274 @@
+﻿@model FennyFeeds.ViewModels.VM_Product
+
+@{
+    ViewBag.Title = "ProductDetails";
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+
+<style type="text/css">
+    .productinfocontainr {
+        background-color: #fff;
+        overflow: hidden;
+        padding: 50px 0px;
+    }
+
+    .star-cb-group {
+        display: flex;
+        flex-direction: row-reverse;
+        width: 120px;
+    }
+
+        .star-cb-group > input {
+            display: none;
+        }
+
+            .star-cb-group > input + label {
+                /* only enough room for the star */
+                display: inline-block;
+                overflow: hidden;
+                text-indent: 9999px;
+                width: 1em;
+                white-space: nowrap;
+                cursor: pointer;
+                font-size: 24px;
+                margin-bottom: 0;
+            }
+
+                .star-cb-group > input + label:before {
+                    display: inline-block;
+                    text-indent: -9999px;
+                    content: "☆";
+                    color: #888;
+                }
+
+                .star-cb-group > input:checked ~ label:before, .star-cb-group > input + label:hover ~ label:before, .star-cb-group > input + label:hover:before {
+                    content: "★";
+                    color: #fe9126;
+                }
+
+        .star-cb-group > .star-cb-clear + label {
+            text-indent: -9999px;
+            width: .5em;
+            margin-left: -.5em;
+        }
+
+            .star-cb-group > .star-cb-clear + label:before {
+                width: .5em;
+            }
+
+        .star-cb-group:hover > input + label:before {
+            content: "☆";
+            color: #888;
+            text-shadow: none;
+        }
+
+        .star-cb-group:hover > input + label:hover ~ label:before, .star-cb-group:hover > input + label:hover:before {
+            content: "★";
+            color: #fe9126;
+        }
+
+    .color-list {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        min-height: 38px;
+        margin-left: .5rem;
+    }
+
+        .color-list li {
+            display: inline-block;
+        }
+
+            .color-list li + li {
+                margin-left: 8px;
+            }
+
+    .color {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        background-color: attr(data-color);
+        transition: transform 0.3s;
+        position: relative;
+        transition: .3s;
+    }
+
+        .color.active:before {
+            content: '\f12c';
+            font-family: 'Material Design Icons';
+            position: absolute;
+            font-size: 22px;
+            color: #fff;
+            transition: .3s;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            left: 50%;
+            margin-left: -15px;
+        }
+
+    .color-picker {
+        display: flex;
+        margin-top: 1rem;
+        align-items: center;
+    }
+    .color-list
+    {
+        margin-left:0;
+    }
+</style>
+<div class="wrapper-container productinfocontainr">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="thumb-crusel" id="main_area">
+                    <!-- Slider -->
+                    <div class="col-xs-12" id="slider">
+                        <div class="row">
+                            <div id="carousel-bounding-box">
+                                <div class="carousel slide" id="myCarousel">
+                                    <!-- Carousel items -->
+                                    <div class="carousel-inner carousel-st">
+                                        <div class="item" data-slide-number="0">
+                                            <img class="pic-1" src="~/content/images/s1.jpg">
+                                        </div>
+                                        <div class="item active" data-slide-number="1">
+                                            <img class="pic-1" src="~/content/images/s2.jpg">
+                                        </div>
+                                        <div class="item" data-slide-number="2">
+                                            <img class="pic-1" src="~/content/images/s3.jpg">
+                                        </div>
+                                        <!-- Carousel nav -->
+                                        <a class="left carousel-control crt-arrow" href="#myCarousel" role="button" data-slide="prev">
+                                            <span class="fa fa-angle-left faslider-icons"></span>
+                                        </a>
+
+                                        <a class="right carousel-control crt-arrow" href="#myCarousel" role="button" data-slide="next">
+                                            <span class="fa fa-angle-right faslider-icons"></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row hidden-xs" id="slider-thumbs">
+                            <!-- Bottom switcher of slider -->
+                            <ul class="hide-bullets row">
+                                <li class="col-sm-4">
+                                    <a class="thumbnail" id="carousel-selector-0">
+                                        <img class="pic-1" src="~/content/images/s1.jpg">
+                                    </a>
+                                </li>
+                                <li class="col-sm-4">
+                                    <a class="thumbnail" id="carousel-selector-1">
+                                        <img class="pic-1" src="~/content/images/s2.jpg">
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="product_description">
+                    <h1 class="qv-title">Living Room Furniture</h1>
+                    @*<div class="qv-rating "></div>*@
+                    <span class="star-cb-group">
+                        <input type="radio" id="rating-5" name="rating" value="5" /><label for="rating-5">5</label>
+                        <input type="radio" id="rating-4" name="rating" value="4" checked="checked" /><label for="rating-4">4</label>
+                        <input type="radio" id="rating-3" name="rating" value="3" /><label for="rating-3">3</label>
+                        <input type="radio" id="rating-2" name="rating" value="2" /><label for="rating-2">2</label>
+                        <input type="radio" id="rating-1" name="rating" value="1" /><label for="rating-1">1</label>
+                        <input type="radio" id="rating-0" name="rating" value="0" class="star-cb-clear" /><label for="rating-0">0</label>
+                    </span>
+                    <div class="qv-code">
+                        <span>Product Code : </span><span>#LRF00215 </span>
+                    </div>
+                    <div class="qv-stock">
+                        <span>Availability : </span><span style="color: #40b631;">In Stock </span>
+                    </div>
+                    <div class="qv-price-detail">
+                        <span style="font-weight: bold; padding-right: 20px;">Price:</span><del><span>£1999</span></del>
+                        <span class="price-qv">£1499</span>
+                    </div>
+                    <p class="about-qv">
+                        The choice of the modern living room furniture determines the overall look of the
+                        house since the room is one to be visited first by the guests. Arrangement of the
+                        furniture in this room counts as another important thing that responsibly accentuates
+                        the level of your comfort. Explore our impeccable collection and add style to your
+                        home.
+                    </p>
+                    <div class="qty-size">
+                        <div class="quatity-qv">
+                            <span>Qty : </span>
+                            <input type="number" class="form-control txt-quatity" value="1">
+                        </div>
+                        <div class="quatity-qv size-select">
+                            <span>Size :</span>
+                            <ul>
+                                <li class="active"><i>S</i></li>
+                                <li><i>M</i></li>
+                                <li><i>L</i></li>
+                                <li><i>XL</i></li>
+                            </ul>
+                        </div>
+                        <div class="color-picker block-center">
+                            <span>Color :</span>
+                            <ul class="color-list">
+                                <li class="color" data-color="#F56651"></li>
+                                <li class="color" data-color="#7AE9C9"></li>
+                                <li class="color" data-color="#606A92"></li>
+                                <li class="color" data-color="#FDCD47"></li>
+                            </ul>
+                            @*<form>
+                                    <input type="text" class="form-control" id="setColor" />
+                                </form>*@
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-cart">
+                        <i class="mdi mdi-cart-plus"></i>Add Cart
+                    </button>
+                    <button type="button" class="btn btn-wish">
+                        <i class="mdi mdi-heart"></i>Wish List
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/content/scripts/jquery.zoom.min.js"></script>
+<script>
+    $(document).ready(function () {
+        Get_ProductDetails();
+
+        var logID = 'log',
+  log = $('<div id="' + logID + '"></div>');
+        $('body').append(log);
+        $('[type*="radio"]').change(function () {
+            var me = $(this);
+            log.html(me.attr('value'));
+        });
+
+        var selector = '.color-list .color';
+        $(".color").css('background', function () {
+            return $(this).data('color')
+        });
+
+        $(selector).on('click', function () {
+            var colorHEX = $(this).data('color');
+            $(selector).removeClass('active');
+            $(this).addClass('active');
+            $('#setColor').val(colorHEX);
+        });
+    });
+
+    /*Image Zoom*/
+
+    $('.pic-1').zoom();
+
+</script>
+

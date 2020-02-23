@@ -1,0 +1,213 @@
+﻿@model FennyFeeds.ViewModels.VM_Request_Blood
+
+@{
+    ViewBag.Title = "RequestBlood";
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+
+<div class="wrapper-container">
+    <div class="header-blood">
+        <div class="banner-text">
+            <h1>Request Blood For Your Pets</h1>
+            <p>Please fill your pet's details below</p>
+        </div>
+    </div>
+
+
+    <div class="form-blood-donner">
+        <div class="container">
+            <div class="row mb-3">
+                <h3 class="center-header">Owner Information</h3>
+            </div>
+
+            @using (Html.BeginForm())
+            {
+                @Html.ValidationSummary(true)
+
+                <div class="row mb-4">
+                    <div class="col-sm-6 mb-2">
+                        <label class="label-subtitle field-important">Your Name</label>
+                        @*  <input type="text" class="form-control" placeholder="Enter your Name" id="" />*@
+                        @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", @placeholder = "Enter Your Name", @id = "txtUserName" })
+                        @Html.ValidationMessageFor(model => model.UserName)
+                    </div>
+
+                    <div class="col-sm-6 mb-2">
+                        <label class="label-subtitle field-important">Your Email</label>
+                        @*<input type="text" class="form-control" placeholder="Enter your Email" id="" />*@
+                        @Html.TextBoxFor(model => model.Email_ID, new { @class = "form-control", @placeholder = "Enter Your Email", @id = "txtEmail" })
+                        @Html.ValidationMessageFor(model => model.Email_ID)
+                    </div>
+
+                    <div class="col-sm-6 mb-2">
+                        <label class="label-subtitle field-important">Mobile No.</label>
+                        @* <input type="text" class="form-control" placeholder="Enter your Mobile No." id="mo-number" />*@
+                        @Html.TextBoxFor(model => model.Mobile, new { @class = "form-control", @placeholder = "Enter Your Mobile", @id = "txtMobile" })
+                        @Html.ValidationMessageFor(model => model.Mobile)
+                    </div>
+
+                    <div class="col-sm-6 mb-2">
+                        <label class="label-subtitle field-important">Address</label>
+                        @*<input type="text" class="form-control" placeholder="Address" id="" />*@
+                        @Html.TextAreaFor(model => model.Address, new { @class = "form-control", @placeholder = "Enter Your Address", @id = "txtAddress" })
+                        @Html.ValidationMessageFor(model => model.Address)
+                    </div>
+
+                    <div class="col-sm-6 mb-2">
+                        <label class="label-subtitle field-important">Pincode</label>
+                        @*<input type="text" class="form-control" placeholder="Pincode" id="" />*@
+                        @Html.TextBoxFor(model => model.PinCode, new { @class = "form-control", @placeholder = "Enter Your PinCode", @id = "txtPinCode" })
+                        @Html.ValidationMessageFor(model => model.PinCode)
+                    </div>
+
+                    <div class="col-sm-6 mb-2">
+                        <label class="label-subtitle field-important">City</label>
+                        @Html.DropDownListFor(x => x.City, FennyFeeds.HelperClasses.MyHelperClass.DropdownCity(), "Select City", new { @class = "form-control", @id = "ddlCity" })
+                        @Html.ValidationMessageFor(model => model.City)
+                    </div>
+
+                    <div class="col-sm-6 mb-2">
+                        <label class="label-subtitle field-important">State</label>
+                        @Html.DropDownListFor(x => x.State, FennyFeeds.HelperClasses.MyHelperClass.DropdownState(), "Select State", new { @class = "form-control", @id = "ddlState" })
+                        @Html.ValidationMessageFor(model => model.State)
+                    </div>
+
+                    @*<div class="col-sm-6 mb-2">
+                        <label class="label-subtitle">County</label>
+                        <select class="form-control" id="country">
+                            <option class="0">Country</option>
+                            <option class="1">India</option>
+                            <option class="2">China</option>
+                            <option class="3">Nepal</option>
+                        </select>
+                    </div>*@
+
+                </div>
+
+                <div class="row mb-3">
+                    <h3 class="center-header">Pet's Information</h3>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-sm-6 mb-2">
+                        <label class="label-subtitle field-important">Pet's Name</label>
+                        @*<input type="text" class="form-control" placeholder="Enter your Pet's Name" id="" />*@
+                        @Html.TextBoxFor(model => model.Pet_Name, new { @class = "form-control", @placeholder = "Enter Your Pet's Name", @id = "txtPetName" })
+                        @Html.ValidationMessageFor(model => model.Pet_Name)
+                    </div>
+
+                    <div class="col-sm-6 mb-2">
+                        <label class="label-subtitle field-important">Pet's Breed</label>
+                        @*<input type="text" class="form-control" placeholder="Pet's Breed" id="" />*@
+                        @Html.DropDownListFor(x => x.Pet_Breed, FennyFeeds.HelperClasses.MyHelperClass.DropdownPet_Breed(), "Select Pet's Breed", new { @class = "form-control", @id = "ddlPet_Breed" })
+                        @Html.ValidationMessageFor(model => model.Pet_Breed)
+                    </div>
+
+                </div>
+
+                <button type="button" class="btn btn-form" id="Btn_RequestBlood"><i class="mdi mdi-send"></i>Submit Form</button>
+            }
+        </div>
+    </div>
+</div>
+@*<script src="~/Scripts/jquery-1.7.1.min.js"></script>*@
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#Btn_RequestBlood").click(function () {
+         
+            $('form').validate();
+
+            if ($('form').valid()) {
+
+                //Owner Information//
+                var UserName = $.trim($("#txtUserName").val());
+                var Email_ID = $.trim($("#txtEmail").val());
+                var Mobile = $.trim($("#txtMobile").val());
+                var Address = $.trim($("#txtAddress").val());
+                var PinCode = $.trim($("#txtPinCode").val());
+                var City = $.trim($("#ddlCity").val());
+                var State = $.trim($("#ddlState").val());
+
+                //Pet Information//
+                var Pet_Name = $.trim($("#txtPetName").val());
+                var Pet_Breed = $.trim($("#ddlPet_Breed").val());
+
+                var obj = {
+                    UserName: UserName,
+                    Email_ID: Email_ID,
+                    Mobile: Mobile,
+                    Address: Address,
+                    PinCode: PinCode,
+                    City: City,
+                    State: State,
+                    Pet_Name: Pet_Name,
+                    Pet_Breed: Pet_Breed
+                }
+
+                $("#Btn_RequestBlood").attr('disabled', 'disabled');
+                $("#Btn_RequestBlood").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...');
+
+                ShowLoader();
+
+                $.ajax({
+                    type: "POST",
+                    url: "RequestBlood",
+                    data: obj,
+                    //contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (result) {
+
+                        $("#Btn_RequestBlood").removeAttr('disabled');
+                        $("#Btn_RequestBlood").html('Submit Form');
+
+                        HideLoader();
+
+                        //var result = JSON.parse(result);
+                        if (result == "done") {
+
+                            swal({
+                                title: "Success!",
+                                text: "You have requested successfully for blood!",
+                                type: "success",
+                                icon: "success",
+                            }, function () {
+                                window.location = "RequestBlood";
+                            });
+
+                        }
+
+                        else {
+
+                            swal({
+                                title: "Warning!",
+                                text: "Your request is failed this time please try again later",
+                                type: "error",
+                                icon: "error",
+                            }, function () {
+                                window.location = "RequestBlood";
+                            });
+
+                        }
+
+                    }
+                });
+            }
+            else {
+                //$('body, html').animate({ scrollTop: 0 }, 'slow');
+                //$('body, html').animate({ scrollTop: $('form').offset().top }, 'slow');
+                $(".input-validation-error").first().focus();
+            }
+        });
+
+    });
+
+
+    $('#ddlPet_Breed, #ddlCity, #ddlState').select2({
+        //minimumResultsForSearch: Infinity
+    });
+
+</script>
+

@@ -1,0 +1,274 @@
+﻿@model FennyFeeds.ViewModels.VM_User_Role
+
+@{
+    ViewBag.Title = "UserRoleList";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<section class="inner-wrapper">
+    <div class="header-wrapper">
+        <h3><i class="mdi mdi-cart mr-1"></i>User Role List</h3>
+    </div>
+    <div class="body-wrapper body-grid">
+        @*<div class="btn-group" onclick="BulkDelete();">
+            <button type="button" class="btn btn-danger btn-sm"><span class="mdi mdi-delete"></span></button>
+            <button type="button" class="btn btn-danger btn-sm">Delete</button>
+        </div>*@
+        <table class="table table-bordered bg-white table-product" id="RoleList">
+            <thead>
+                <tr>
+                    <th class="wd-checkbox">
+                        <div class="td-center">
+                            <input type="checkbox" id="CheckboxHead" />
+                        </div>
+                    </th>
+                    <th class="wd-10">User Name</th>
+                    <th class="wd-10">Role</th>
+                    <th class="wd-105">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            <tfoot>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th class="wd-10">User Name</th>
+                        <th class="wd-10">Role</th>
+                        <th class="wd-105">Action</th>
+                    </tr>
+                </thead>
+            </tfoot>
+        </table>
+    </div>
+
+</section>
+
+<script src="~/content/scripts/jquery-3.3.1.min.js"></script>
+<script src="~/content/scripts/select2.min.js"></script>
+<script src="~/content/scripts/bootstrap.bundle.min.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+        ShowLoader();
+        $.ajax({
+            url: "@Url.Action("Get_UserRoleList")",
+            method: "get",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                HideLoader();
+                $('#RoleList').DataTable({
+                    data: data,
+                    //"createdRow": [{
+                    //    "data": "Product_Is_Hide",
+                    //    "render": function (row, data, index) {
+                    //        return $(row).addClass(data);
+                    //        //$('td', row).eq(5).addClass('highlight');
+                    //    }
+                    //}],
+                    "createdRow": function (row, data, Index) {
+                        if (data.Product_Is_Hide != "") {
+                            return $(row).addClass(data.Product_Is_Hide);
+                        }
+                    },
+                    'columnDefs': [{
+                        "data": "Record_ID",
+                        'targets': 0,
+                        'searchable': false,
+                        'orderable': false,
+                        'className': 'dt-body-center',
+                        'render': function (data, type, full, meta) {
+                            return '<input type="checkbox" name="checkboxChild" onchange"ChildChangeEvent();" value="' + data + '">';
+                            //return '<input type="checkbox" name="id[]" value="'
+                            //   + $('<div/>').text(data).html() + '">';
+                        }
+                    }],
+
+                    //"lengthMenu": [[10, 25, 50, -1], ["10 Record", "25 Record", "50 Record", "All"]],
+                    order: [[0, 'dsc']],
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'copyHtml5',
+                        'excelHtml5',
+                        'csvHtml5',
+                        'pdfHtml5',
+                        'print'
+                    ],
+                    columns: [
+                    { "": "" },
+                    { "data": "UserName" },
+                    { "data": "RoleName" },
+                    {
+                        "data": "Record_ID", "className": "options-overflow", "render": function (data) { // <-- `ID` instead of `id`
+                            return "<button Onclick=RemoveMeIamUserRole(this," + data + ");>D</button>"
+                            //return "<td class='options-overflow'><div class='dropdown'><a class='btn btn-warning btn-sm dropdown-toggle' href='#' role='button' id='dropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Options</a><div class='dropdown-menu dropdown-menu-right' aria-labelledby='dropdownMenuLink'><a class='dropdown-item' href='#' data-toggle='modal' data-target='#viewProduct'><i class='mdi mdi-eye mr-2'></i>More Details</a><a class='dropdown-item' href='#' data-toggle='modal' data-target='#editProduct'><i class='mdi mdi-pencil mr-2'></i>Edit</a><a class='dropdown-item' href='#'><i class='mdi mdi-delete mr-2'></i>Delete</a></div></div></td>"
+                        },
+                    }
+                     //{
+                     //    data: null,
+                     //    className: "center",
+                     //    defaultContent: '<button onclick="EditProduct(' + Record_ID + ')">E</button> / <button onclick="EditProduct(Record_ID)">D</button> / <button onclick="EditProduct(Record_ID)">M</button>'
+                     //}
+                    //{
+                    //    data: null,
+                    //    className: "center",
+                    //    defaultContent: buttonString
+                    //}
+
+                    ]
+
+
+                });
+            }
+        });
+
+
+        $("#CheckboxHead").change(function () {
+            $('input[type="checkbox"]').prop("checked", $(this).prop("checked"));
+        });
+
+    });
+
+
+    function RemoveMeIamUserRole(that, Record_ID) {
+
+        swal({
+            title: "Confirmation?",
+            text: "Are you sure want to delete this record.",
+            type: "info",
+            icon: "info",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes",
+            cancelButtonText: "No",
+            closeOnConfirm: false,
+            closeOnCancel: true
+        }, function (isConfirm) {
+            if (isConfirm) {
+
+                $.ajax({
+                    type: "POST",
+                    url: 'DeleteUserRoleSingleRecord?Record_ID=' + Record_ID,
+                    dataType: "json",
+                    data: function () {
+
+                    }(),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+
+                        if (result.Action == "done") {
+                            swal({
+                                title: "Deleted!",
+                                text: result.msg,
+                                type: "success",
+                                icon: "success"
+                            });
+
+                            $(that).parent().parent().remove();
+                        }
+                        else {
+                            swal({
+                                title: "Not Deleted!",
+                                text: result.msg,
+                                type: "error",
+                                icon: "error"
+                            });
+
+                        }
+                    }
+                });
+
+            } else {
+                //swal("Cancelled", "Your imaginary file is safe :)", "error");
+            }
+        });
+
+    }
+
+    //function ChildChangeEvent() {
+    //    $("#CheckboxHead").prop("checked", false);
+    //}
+
+    //function BulkDelete() {
+
+    //    if (Number($('input[name="checkboxChild"]:checked').length) == 0) {
+    //        swal({
+    //            title: "Warning!",
+    //            text: "Please select record first",
+    //            type: "error",
+    //            icon: "error"
+    //        });
+    //        return false;
+    //    }
+
+    //    var RecordIds = [];
+
+    //    $('input[name="checkboxChild"]:checked').each(function () {
+    //        RecordIds.push($(this).val());
+    //    });
+
+    //    RemoveDisplayProductInBulk(RecordIds.join(","));
+    //}
+
+    //function RemoveDisplayProductInBulk(RecordIds) {
+    //    debugger;
+
+    //    swal({
+    //        title: "Confirmation?",
+    //        text: "Are you sure want to delete this record.",
+    //        type: "info",
+    //        icon: "info",
+    //        showCancelButton: true,
+    //        confirmButtonColor: "#DD6B55",
+    //        confirmButtonText: "Yes",
+    //        cancelButtonText: "No",
+    //        closeOnConfirm: false,
+    //        closeOnCancel: true
+    //    }, function (isConfirm) {
+    //        if (isConfirm) {
+
+    //            var obj = JSON.stringify({ RecordIds: RecordIds });
+
+    //            $.ajax({
+    //                type: "POST",
+    //                url: 'DeleteDisplayProductMultipleRecord',
+    //                dataType: "json",
+    //                data: obj,
+    //                contentType: "application/json; charset=utf-8",
+    //                success: function (result) {
+
+    //                    if (result.Action == "done") {
+    //                        swal({
+    //                            title: "Deleted!",
+    //                            text: result.msg,
+    //                            type: "success",
+    //                            icon: "success"
+    //                        },function () {
+    //                            window.location = "DisplayProductList";
+    //                        });
+
+    //                    }
+    //                    else {
+    //                        swal({
+    //                            title: "Not Deleted!",
+    //                            text: result.msg,
+    //                            type: "error",
+    //                            icon: "error"
+    //                        });
+
+    //                    }
+    //                }
+    //            });
+
+    //        } else {
+    //            //swal("Cancelled", "Your imaginary file is safe :)", "error");
+    //        }
+    //    });
+
+    //}
+
+
+</script>
+
+

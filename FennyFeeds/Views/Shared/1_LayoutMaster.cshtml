@@ -1,0 +1,179 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Fenny Feeds | Online Shop for Pets</title>
+    <link href="~/content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/content/css/materialdesignicons.min.css" rel="stylesheet" />
+    <link href="~/content/css/owl.carousel.min.css" rel="stylesheet" />
+    <link href="~/content/css/style.css" rel="stylesheet" />
+
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,700" rel="stylesheet" />
+    <link href="~/content/css/select2.css" rel="stylesheet" />
+</head>
+<body>
+    <main class="main-container">
+    <nav class="header-second">
+    
+    <div class="main-logo">
+        <img src="~/content/images/FennyFeedsLogo.png" width="280" />
+    </div>
+
+    <div class="header-address">
+    <ul>
+    <li><span class="mdi mdi-whatsapp"></span><a href="+91-7047879999">+91-7047879999</a></li>
+    <li><span class="mdi mdi-email"></span><a href="mailto:info@fennyfeeds.com">info@fennyfeeds.com</a></li>
+    </ul>
+    </div>
+    
+    </nav>
+    <header class="navigation-header">
+    <nav class="navbar navbar-expand-lg navbar-bg">
+            <div class="navbar-header">
+                
+            </div>
+    
+            <div class="navbar-collapse collapset">
+                <div class="container">
+                <div class="row">
+                <div class="search-content">
+                <div class="input-group main-search">
+                <input type="text" class="form-control" placeholder="Search">
+                 <a href="#" class="input-group-append">
+                    <span class="mdi mdi-magnify"></span>
+                </a>
+                </div>
+                
+                <ul class="nav navbar-nav navbar-ul">
+                    <li><a href="Home/Login"><i class="mdi mdi-account"></i> Login</a></li>
+                    <li><a href="#"><i class="mdi mdi-cart"></i> Cart</a></li>
+                    <li><a href="#"><i class="mdi mdi-heart"></i> Wish List</a></li>
+                </ul>
+                </div>
+                </div>
+                </div>
+            </div>
+    </nav>
+    <nav class="top-menu">
+    <div class="container">
+    <div class="row">
+    <div class="top-menu-ul">
+    <ul>
+    <li><a href="#">Home</a></li>
+    <li>
+    <a href="#">Shop by Pet <span class="mdi mdi-chevron-down"></span></a>
+    <div class="inner-menu">
+    <ul>
+    <li><a href="#">Sample 1</a></li>
+    <li><a href="#">Sample 1</a></li>
+    <li><a href="#">Sample 1</a></li>
+    <li><a href="#">Sample 1</a></li>
+    </ul>
+    </div>
+    </li>
+    <li><a href="#">Brand</a></li>
+    <li><a href="#">Pharmacy</a></li>
+    <li><a href="#">Services</a></li>
+    </ul>
+    </div>
+    </div>
+    </div>
+    </nav>
+    </header>
+    @RenderBody()
+
+
+    <footer class="footer-container">
+    <div class="footer-subscribe">
+    <div class="subscribe-holder">
+
+   <div class="row">
+    <div class="col-sm-8 pr-0">
+    <input type="text" class="form-control" placeholder="Your Email" />
+    </div>
+    <div class="col-sm-4">
+    <button type="button" class="btn btn-dark">Subscribe Now</button>
+    </div>
+   </div>
+    </div>
+    </div>
+        <div class="footer-top-section">
+        <div class="container">
+<div class="row">
+<div class="col-sm-3">
+<div class="footer-content footer-links">
+<h4>QUICK LINKS</h4>
+<ul>
+<li><a href="#"><i class="mdi mdi-chevron-right"></i>Home</a></li>
+<li><a href="#"><i class="mdi mdi-chevron-right"></i>About</a></li>
+<li><a href="#"><i class="mdi mdi-chevron-right"></i>Contact</a></li>
+</ul>
+</div>
+</div>
+<div class="col-sm-3">
+<div class="footer-content">
+<h4>ACCOUNTS</h4>
+<ul>
+<li><a href="#"><i class="mdi mdi-cart"></i>My Cart</a></li>
+<li><a href="#"><i class="mdi mdi-account"></i>Login</a></li>
+<li><a href="#"><i class="mdi mdi-account-plus"></i>Create Account</a></li>
+</ul>
+</div>
+</div>
+<div class="col-sm-3">
+<div class="footer-content">
+<h4>CONTACT US</h4>
+<ul>
+<li><a href="#"><i class="mdi mdi-map-marker"></i>Street no. 7 Sadar Bazar Jabalpur</a></li>
+<li><a href="mailto:info@fennyfeeds.com"><i class="mdi mdi-email"></i>info@fennyfeeds.com</a></li>
+<li><a href="callto:+91-7047879999"><i class="mdi mdi-phone"></i>+91-7047879999</a></li>
+</ul>
+</div>
+</div>
+<div class="col-sm-3">
+<div class="footer-content">
+<h4>STAY CONNECTED</h4>
+<p>Enter your email to be the first to know when a new product hites the site.</p>
+<ul><li><a href="#"><span class="glyphicon glyphicon-facebook"></span></a></li></ul>
+</div>
+</div>
+</div>
+        </div>
+        </div>
+        <div class="footer-copyright"><span>&copy; @DateTime.Now.Year - All Rights Reserved | Designed by <strong>Fenny Feeds</strong></span></div>
+            
+     </footer>
+    </main>
+
+    <script src="~/content/scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/content/scripts/bootstrap.bundle.min.js"></script>
+    <script src="~/content/scripts/owl.carousel.min.js"></script>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+    <script type="text/javascript">
+        $('#FeaturedProperties').owlCarousel({
+            loop: true,
+            margin: 5,
+            nav: true,
+            dots: false,
+            autoplay: true,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 2
+                },
+                1000: {
+                    items: 3
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

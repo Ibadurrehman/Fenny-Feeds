@@ -1,0 +1,130 @@
+﻿@model FennyFeeds.ViewModels.VM_HomePage_Display_Product
+
+<!--Edit Modal -->
+
+<div class="modal-body" id="">
+    <div class="modal-dialog modal-lg" role="document">
+        @using (Html.BeginForm(new { @id = "" }))
+        {
+            @Html.ValidationSummary(true)
+    
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="mdi mdi-cart mr-1"></i>Edit product</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row form-group">
+                        <div class="col-sm-4 text-right">
+                            <label class="lb-name">Product Category partial:</label>
+                            @Html.HiddenFor(model => model.ID, new { @id = "txthiddenId" })
+                        </div>
+                        <div class="col-sm-4">
+                            @* @Html.DropDownList("Dropdown_Category", ViewBag.Dropdown_Category as SelectList, new { @class = "form-control", @id = "ddlEditCategory" })*@
+                            @Html.DropDownListFor(model => model.Category_ID, ViewBag.Dropdown_Category as SelectList, "Select", new { @class = "form-control", @id = "ddlEditCategory"})
+                            @Html.ValidationMessageFor(model => model.Category_ID)
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-sm-4 text-right">
+                            <label class="lb-name">Brand :</label>
+                        </div>
+                        <div class="col-sm-4">
+                            @* <input type="text" class="form-control" placeholder="Enter Brand Name" />*@
+                            @Html.TextBoxFor(model => model.Title, new { @class = "form-control", value = "", @placeholder = "Enter Brand Name", @id = "EdittxtTitle" })
+                            @Html.ValidationMessageFor(model => model.Title)
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                 @*   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>*@
+                    <button type="button" class="btn btn-success" id="Btn_DisplayProduct_Update"><i class="mdi mdi-cart mr-1"></i>Update</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+        //$('#ddlEditCategory').select2({
+        //    //minimumResultsForSearch: Infinity
+        //});
+
+        $("#Btn_DisplayProduct_Update").click(function () {
+
+            $('form').validate();
+
+            if ($('form').valid()) {
+
+                ShowLoader();
+                debugger;
+                var Record_ID = $.trim($("#txthiddenId").val());
+                var Category_ID = $.trim($("#ddlEditCategory").val());
+                var Title = $.trim($("#EdittxtTitle").val());
+
+                var obj = JSON.stringify({
+                    Record_ID: Record_ID,
+                    Category_ID: Category_ID,
+                    Title: Title
+                })
+
+                $("#Btn_DisplayProduct_Update").attr('disabled', 'disabled');
+                $("#Btn_DisplayProduct_Update").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...');
+
+                $.ajax({
+                    type: "POST",
+                    url: 'EditProduct_Display_Details',
+                    data: obj,
+                    processData: false,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+
+                        $("#Btn_DisplayProduct_Update").removeAttr('disabled');
+                        $("#Btn_DisplayProduct_Update").html('<i class="mdi mdi-cart mr-1"></i>Update');
+
+                        HideLoader();
+
+                        //var result = JSON.parse(result);
+                        if (result.Action == "done") {
+                            swal({
+                                title: "Success!",
+                                text: result.msg,
+                                type: "success",
+                                icon: "success",
+                            },function () {
+                                window.location = "DisplayProductList";
+                            });
+
+                        }
+                        else {
+                            swal({
+                                title: "Error!",
+                                text: result.msg,
+                                type: "error",
+                                icon: "error",
+                            },function () {
+                                window.location = "DisplayProductList";
+                            });
+
+                        }
+
+                    }
+                });
+
+            }
+            else {
+                $('body, html').animate({ scrollTop: 0 }, 'slow');
+            }
+
+        });
+
+
+    });
+
+</script>

@@ -1,0 +1,149 @@
+﻿@model FennyFeeds.ViewModels.VM_HomePage_Display_Product
+
+@{
+    ViewBag.Title = "Add_Category_ToDisplayProduct";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddProduct</title>
+    <script src="~/Scripts/jquery-1.7.1.min.js"></script>
+    @* <script src="~/Scripts/jquery.validate.min.js"></script>*@
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <link href="~/content/css/select2.css" rel="stylesheet" />
+    <script src="~/content/scripts/select2.min.js"></script>
+
+
+</head>
+<body>
+
+
+    <section class="inner-wrapper">
+        <div class="header-wrapper">
+            <h3><i class="mdi mdi-cart mr-1"></i>Add Category To Display Product</h3>
+        </div>
+        @using (Html.BeginForm(new { @id = "form1" }))
+        {
+            @Html.ValidationSummary(true)
+    
+            <div class="body-wrapper">
+                <div class="row form-group">
+                    <div class="col-sm-4 text-right">
+                        <label class="lb-name">Product Category :</label>
+                    </div>
+                    <div class="col-sm-4">
+                        @Html.DropDownList("Dropdown_Category", ViewBag.Dropdown_Category as SelectList, new { @class = "form-control", @id = "ddlCategory" })
+                        @Html.ValidationMessageFor(model => model.Category)
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-4 text-right">
+                        <label class="lb-name">Title :</label>
+                    </div>
+                    <div class="col-sm-4">
+                        @* <input type="text" class="form-control" placeholder="Enter Brand Name" />*@
+                        @Html.TextBoxFor(model => model.Title, new { @class = "form-control", @placeholder = "Enter Title", @id = "txtTitle" })
+                        @Html.ValidationMessageFor(model => model.Title)
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-4 offset-sm-4">
+                        <div class="input-group">
+                            <button type="button" class="btn btn-success" id="Btn_AddCategoryToProductDisplay"><i class="mdi mdi-cart-plus mr-1"></i>Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </section>
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+          
+            $("#Btn_AddCategoryToProductDisplay").click(function () {
+
+                $('form').validate();
+
+                if ($('form').valid()) {
+
+                    var Category_ID = $.trim($("#ddlCategory").val());
+                    var Title = $.trim($("#txtTitle").val());
+
+                    var obj = JSON.stringify({
+                        Category_ID: Category_ID,
+                        Title: Title
+                    })
+
+                    $("#Btn_AddCategoryToProductDisplay").attr('disabled', 'disabled');
+                    $("#Btn_AddCategoryToProductDisplay").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...');
+
+                    ShowLoader();
+
+                    $.ajax({
+                        type: "POST",
+                        url: 'AddProduct_Display_Details',
+                        // url: 'AddProductDetails' + qString,
+                        //dataType: "json",
+                        data: obj,
+                        processData: false,
+                        contentType: "application/json; charset=utf-8",
+                        success: function (result) {
+
+                            $("#Btn_AddCategoryToProductDisplay").removeAttr('disabled');
+                            $("#Btn_AddCategoryToProductDisplay").html('<i class="mdi mdi-cart-plus mr-1"></i>Submit');
+
+                            HideLoader();
+
+                            //var result = JSON.parse(result);
+                            if (result.Action == "done") {
+
+                                swal({
+                                    title: "Success!",
+                                    text: result.msg,
+                                    type: "success",
+                                    icon: "success",
+                                }, function () {
+                                    window.location = "Add_Category_ToDisplayProduct";
+                                });
+                         
+                            }
+                            else {
+
+                                swal({
+                                    title: "Warning!",
+                                    text: result.msg,
+                                    type: "error",
+                                    icon: "error",
+                                }, function () {
+                                    window.location = "Add_Category_ToDisplayProduct";
+                                });
+
+                            }
+
+                        }
+                    });
+
+                }
+                else {
+                    $('body, html').animate({ scrollTop: 0 }, 'slow');
+                }
+
+            });
+
+        });
+
+        $('#ddlCategory').select2({
+            //minimumResultsForSearch: Infinity
+        });
+
+    </script>
+
+</body>
+</html>

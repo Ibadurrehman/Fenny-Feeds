@@ -1,0 +1,145 @@
+﻿@model FennyFeeds.ViewModels.VM_Category
+
+@{
+    ViewBag.Title = "AddCategory";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddProduct</title>
+    <script src="~/Scripts/jquery-1.7.1.min.js"></script>
+    @* <script src="~/Scripts/jquery.validate.min.js"></script>*@
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+</head>
+<body>
+
+
+    <section class="inner-wrapper">
+        <div class="header-wrapper">
+            <h3><i class="mdi mdi-cart mr-1"></i>Add Category</h3>
+        </div>
+        @using (Html.BeginForm())
+        {
+            @Html.ValidationSummary(true)
+    
+            <div class="body-wrapper">
+                <div class="row form-group">
+                    <div class="col-sm-4 text-right">
+                        <label class="lb-name">Category :</label>
+                    </div>
+                    <div class="col-sm-4">
+                        @* <input type="text" class="form-control" placeholder="Enter Brand Name" />*@
+                        @Html.TextBoxFor(model => model.Category, new { @class = "form-control", @placeholder = "Enter Category Name", @id = "txtCategoryName" })
+                        @Html.ValidationMessageFor(model => model.Category)
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-4 text-right">
+                        <label class="lb-name">Is Active :</label>
+                    </div>
+                    <div class="col-sm-4">
+                        @* <input type="text" class="form-control" placeholder="Enter Brand Name" />*@
+                        @Html.DropDownListFor(x => x.IsActive, FennyFeeds.HelperClasses.MyHelperClass.DropDownIsActive(), "Select Option", new { @class = "form-control", @id = "ddlIsActive" })
+                        @Html.ValidationMessageFor(model => model.IsActive)
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-4 offset-sm-4">
+                        <div class="input-group">
+                            <button type="button" class="btn btn-success" id="Btn_AddCategory"><i class="mdi mdi-cart-plus mr-1"></i>Add Category</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </section>
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $("#Btn_AddCategory").click(function () {
+
+                $('form').validate();
+
+                if ($('form').valid()) {
+                    debugger;
+                    var Category = $.trim($("#txtCategoryName").val());
+                    var IsActive = $.trim($("#ddlIsActive").val());
+
+                    var obj = JSON.stringify({
+                        Category: Category,
+                        IsActive: Boolean(IsActive)
+                    });
+
+                    $("#Btn_AddCategory").attr('disabled', 'disabled');
+                    $("#Btn_AddCategory").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...');
+
+                    ShowLoader();
+
+                    $.ajax({
+                        type: "POST",
+                        url: 'AddCategoryDetails',
+                        dataType: "json",
+                        data: obj,
+                        //data: function () {
+
+                        //}(),
+                        //contentType: false,
+                        processData: false,
+                        contentType: "application/json; charset=utf-8",
+                        success: function (result) {
+
+                            $("#Btn_AddCategory").removeAttr('disabled');
+                            $("#Btn_AddCategory").html('Add Product');
+
+                            HideLoader();
+
+                            //var result = JSON.parse(result);
+                            if (result == "done") {
+
+                                swal({
+                                    title: "Success!",
+                                    text: "Category added successfully!",
+                                    type: "success",
+                                    icon: "success",
+                                }, function () {
+                                    window.location = "AddCategory";
+                                });
+
+                            }
+                            else {
+
+                                swal({
+                                    title: "Warning!",
+                                    text: "Cannot create category this time please try again later",
+                                    type: "error",
+                                    icon: "error",
+                                }, function () {
+                                    window.location = "AddCategory";
+                                });
+
+                            }
+
+                        }
+                    });
+                }
+                else {
+                    $('body, html').animate({ scrollTop: 0 }, 'slow');
+                }
+
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>

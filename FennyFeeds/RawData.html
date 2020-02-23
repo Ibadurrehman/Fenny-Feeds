@@ -1,0 +1,1588 @@
+﻿    success: function (result) {
+                HideLoader();
+
+                var div = "";
+                var img_div = "";
+                for (var i in result) {
+                    debugger;
+                    if (result[i].ImageCollection != 0) {
+                        debugger;
+                        //loop for all product images
+                        for (var j in result[i].ImageCollection) {
+                            img_div += '<li><div class="uploaded-images"><img src="../content/Product_Image/' + Product_Id + "/" + result[i].ImageCollection[j] + '" /></div></li>';
+                        }
+
+                    }
+                    else {
+                        img_div = '<li><div class="uploaded-images"><img src="../content/Product_Image/no_image.jpg" /></div></li>';
+                    }
+
+                    div = '<div class="product-details-table">'
+                        + '<table class="table table-bordered table-hover">'
+                        + '<tbody>'
+                        + '<tr><td>Product Category</td><td>' + result[i].Category + '</td></tr>'
+                        + '<tr><td>Brand</td><td>' + result[i].BrandName + '</td></tr>'
+                        + '<tr><td>Product Name</td><td>' + result[i].ProductName + '</td></tr>'
+                        + '<tr><td>Product Code</td><td>' + result[i].ProductCode + '</td></tr>'
+                        + '<tr><td>Product Unit Price</td><td>' + result[i].ProductPrice + '</td></tr>'
+                        + '<tr><td>Product Quantity</td><td>' + result[i].ProductQuantity + '</td></tr>'
+                        + '<tr><td>Product Discount</td><td>' + result[i].ProductDiscount + '%</td></tr>'
+                        + '<tr><td>Creation Date</td><td>' + result[i].CreationDate + '</td></tr>'
+                        //+ '<tr><td>Product Description</td><td>' + result[i].CreationDate + '</td></tr>'
+                        + '<tr><td>Product Images</td>'
+                        + '<td>'
+                        + '<div class="pro_img_container">'
+                        + '<ul>'
+                        + img_div
+                        + '</ul>'
+                        + '</div>'
+                        + '</td>'
+                        + '</tr>'
+                        + '</tbody>'
+                        + '</table>'
+                        + '</div>'
+                }
+
+                $("#ProductDetails").html(div);
+                $("#viewProduct").modal("show");
+
+            }
+
+
+
+swal({
+            title: "Sweet!",
+            text: "Here's a custom image.",
+            imageUrl: '~/content/images/FennyFeedsLogo.png'
+        });
+
+
+
+            $("#Btn_AddProduct").click(function () {
+
+                $('form').validate();
+
+                if ($('form').valid()) {
+
+                    ShowLoader();
+
+                    var Category_ID = $.trim($("#ddlCategory").val());
+                    var Sub_Category_ID = $.trim($("#ddlSubCategory").val());
+                    var Product_Variant_Id = $.trim($("#ddlProduct_Variant").val());
+                    var Brand = $.trim($("#txtBrandName").val());
+                    var Product_Name = $.trim($("#txtProductName").val());
+                    var Product_Code = $.trim($("#txtProductCode").val());
+                    var Price = $.trim($("#txtProductPrice").val());
+                    var Quantity = $.trim($("#txtProductQuantity").val());
+                    var Discount = $.trim($("#txtProductDiscount").val());
+                    //var Description = $.trim($("#txtProductDescription").val());
+                    var Description = CKEDITOR.instances.txtProductDescription.getData();
+                    //Description = JSON.stringify(Description);
+
+                    //var obj = JSON.stringify({
+                    //    Category_ID: Category_ID,
+                    //    Brand: Brand,
+                    //    Product_Name: Product_Name,
+                    //    Product_Code: Product_Code,
+                    //    Price: Price,
+                    //    Quantity: Quantity,
+                    //    Discount: Discount,
+                    //    Description: Description,
+                    //})
+
+                    //var qString = '?Category_ID=' + Category_ID + '&Brand=' + Brand + '&Product_Name=' + Product_Name + '&Product_Code=' + Product_Code + '&Price=' + Price + '&Quantity=' + Quantity + '&Discount=' + Discount + '&Description=' + Description;
+
+                    $("#Btn_AddProduct").attr('disabled', 'disabled');
+                    $("#Btn_AddProduct").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...');
+
+                    $.ajax({
+                        type: "POST",
+                        url: 'AddProductDetails',
+                        // url: 'AddProductDetails' + qString,
+                        //dataType: "json",
+                        //data: obj,
+                        data: function () {
+                            var files = $('#fUpload').prop("files");
+                            var formdata = new FormData();
+                            for (var i = 0; i < files.length; i++) {
+                                formdata.append(files[i].name, files[i]);
+                            }
+
+                            var varcollec = [];
+                            //var VariantCollection = [];
+                            $(".CommonClass").each(function () {
+                                debugger;
+                                if (GlobalVariantType != "4") {
+                                    debugger;
+                                    var First_Input = $(this).find('.first').val();
+                                    var Second_Input = $(this).find('.second').val();
+                                    var Third_Input = $(this).find('.third').val();
+
+                                    //VariantCollection.push({First_Input: First_Input, Second_Input: Second_Input, Third_Input: Third_Input })
+
+                                    varcollec.push(First_Input + "|" + Second_Input + "|" + Third_Input);
+                                }
+                                else {
+                                    debugger;
+                                    var First_Input = $(this).find('.first').val();
+                                    var Second_Input = $(this).find('.second').val();
+                                    var Third_Input = $(this).find('.third').val();
+                                    var Fourth_Input = $(this).find('.fourth').val();
+
+                                    //VariantCollection.push({ First_Input: First_Input, Second_Input: Second_Input, Third_Input: Third_Input, Fourth_Input: Fourth_Input })
+
+                                    varcollec.push(First_Input + "|" + Second_Input + "|" + Third_Input + "|" + Fourth_Input);
+                                }
+
+                            });
+                            debugger;
+                            var VariantCollection = varcollec.join("<|>");
+
+                            //$('input[type="file"]').each(function () {
+                            //    debugger;
+                            //    if (!$(this).val() == "") {
+                            //        var file = $(this).get(0).files;
+                            //        formdata.append(file[0].name, file[0]);
+                            //    }
+                            //});
+                            formdata.append('Category_ID', Category_ID);
+                            formdata.append('Sub_Category_ID', Sub_Category_ID);
+                            formdata.append('Product_Variant_Id', Product_Variant_Id);
+                            formdata.append('Brand', Brand);
+                            formdata.append('Product_Name', Product_Name);
+                            formdata.append('Product_Code', Product_Code);
+                            formdata.append('Price', Price);
+                            formdata.append('Quantity', Quantity);
+                            formdata.append('Discount', Discount);
+                            formdata.append('Description', Description);
+                            formdata.append('VariantCollection', VariantCollection);
+
+                            return formdata;
+                        }(),
+                        contentType: false,
+                        processData: false,
+                        //contentType: "application/json; charset=utf-8",
+                        success: function (result) {
+                            debugger;
+                            $("#Btn_AddProduct").removeAttr('disabled');
+                            $("#Btn_AddProduct").html('Add Product');
+
+                            HideLoader();
+
+                            //var result = JSON.parse(result);
+                            if (result == "done") {
+
+                                swal({
+                                    title: "Success!",
+                                    text: "Product added successfully!",
+                                    type: "success",
+                                    icon: "success",
+                                }, function () {
+                                    window.location = "AddProduct";
+                                });
+
+                            }
+                            else {
+
+                                swal({
+                                    title: "Warning!",
+                                    text: "Cannot create product this time please try again later",
+                                    type: "error",
+                                    icon: "error",
+                                }, function () {
+                                    window.location = "AddProduct";
+                                });
+
+                            }
+
+                        }
+                    });
+
+                }
+                else {
+                    $('body, html').animate({ scrollTop: 0 }, 'slow');
+                }
+
+            });
+
+
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace FennyFeeds.ViewModels
+{
+    public class VM_Product : Variant
+    {
+        public int ID { get; set; }
+        public int Category_ID { get; set; }
+        public int Sub_Category_ID { get; set; }
+        public int Product_Variant_Id { get; set; }
+        [Required(ErrorMessage = "Please Select Category")]
+        public string Category { get; set; }
+        [Required(ErrorMessage = "Please Select Sub Category")]
+        public string SubCategory { get; set; }
+        public string Brand { get; set; }
+        [Required(ErrorMessage = "Please Enter Product Name")]
+        public string Product_Name { get; set; }
+        public string Product_Code { get; set; }
+        //[Required]
+        public decimal Price { get; set; }
+        //[Required]
+        //[RegularExpression("([0-9]+)", ErrorMessage = "Please Enter Product Quantity")]
+        public string Quantity { get; set; }
+        [AllowHtml]
+        public string Description { get; set; }
+        public string Image { get; set; }
+        //[Required(ErrorMessage = "Please Enter Product Discount")]
+        public string Discount { get; set; }
+        //public System.DateTime Creation_Date { get; set; }
+        //public Nullable<bool> IsProduct_Hide { get; set; }
+
+        public List<string> ImageCollection { get; set; }
+        public string VariantCollection { get; set; }
+        public List<VariantCollection> VariantCollectionList { get; set; }
+
+
+    }
+    public class VariantCollection
+    {
+        public string First_Input { get; set; }
+        public string Second_Input { get; set; }
+        public string Third_Input { get; set; }
+        public string Fourth_Input { get; set; }
+        //public string Quantity { get; set; }
+
+        //public string Size { get; set; }
+        //public string Colour { get; set; }
+        //public string Weight { get; set; }
+        //public string Price { get; set; }
+        //public string Quantity { get; set; }
+
+    }
+
+    public class Variant
+    {
+        ////For Variant
+        //[Required(ErrorMessage = "Please Enter Variant Name")]
+        public string FirstVariant { get; set; }
+        //[Required(ErrorMessage = "Please Enter Variant Name")]
+        public string SecondVariant { get; set; }
+
+        //[Required(ErrorMessage = "Please Enter Variant Name")]
+        //public string first_inpt { get; set; }
+        //[Required(ErrorMessage = "Please Enter Variant Name")]
+        //public string Second_inpt { get; set; }
+        //[Required(ErrorMessage = "Please Enter Variant Name")]
+        //public string third_inpt { get; set; }
+        //[Required(ErrorMessage = "Please Enter Variant Name")]
+        //public string fourth_inpt { get; set; }
+
+    }
+
+}
+
+
+
+        [HttpPost]
+        [SessionTimeout]
+        [Authorize(Roles = "admin")]
+        public ActionResult AddProductDetails(VM_Product product)//VM_Product product, HttpPostedFileBase file1 //string Category_ID, string Brand
+        {
+            try
+            {
+                //return View();
+                int User_ID = Convert.ToInt32(SessionObject.userid ?? 0);
+
+                FF_Products p = new FF_Products();
+                p.Category_ID = Convert.ToInt32(product.Category_ID);
+                p.Sub_Category_ID = Convert.ToInt32(product.Sub_Category_ID);
+                p.User_ID = User_ID;
+                p.Brand = product.Brand;
+                p.Product_Name = product.Product_Name;
+                p.Product_Code = product.Product_Code;
+                p.Price = product.Price.ToString();
+                p.Quantity = product.Quantity;
+                p.Discount = product.Discount;
+                p.Description = product.Description;
+                p.Creation_Date = DateTime.UtcNow;
+                //p.IsProduct_Hide = "0";
+
+                interfaceobj.InsertModel(p);
+                interfaceobj.Save();
+
+                //string VariantCollection = product.VariantCollection.ToString();
+
+                //// BELOW CODE IS TO ADD PRODUCT VARIANT//
+                //if (!string.IsNullOrEmpty(VariantCollection))
+                //{
+
+                //    string[] coll = VariantCollection.Split(new string[] { "<|>" }, StringSplitOptions.RemoveEmptyEntries);
+
+                //    int sumofvariantquantiy = 0;
+
+                //    foreach (var item in coll)
+                //    {
+                //        FF_Product_SubTable PST = new FF_Product_SubTable();
+
+                //        string[] split2 = item.Split(new string[] { "|" }, StringSplitOptions.RemoveEmptyEntries);
+                //        PST.Product_Id = p.ID;
+                //        PST.Product_Variant_Id = product.Product_Variant_Id;
+
+                //        string GlobalVariantText = split2[0];
+
+                //        if (GlobalVariantText.ToLower() == "colour/size")
+                //        {
+                //            PST.Product_Size = split2[1];
+                //            PST.Product_Colour = split2[2];
+                //            PST.Product_Price = split2[3];
+                //            PST.Product_Quantity = split2[4];
+
+                //            sumofvariantquantiy += Convert.ToInt32(split2[4]);
+                //        }
+                //        else
+                //        {
+                //            if (GlobalVariantText.ToLower() == "size")
+                //            {
+                //                PST.Product_Size = split2[1];
+                //            }
+                //            else if (GlobalVariantText.ToLower() == "colour")
+                //            {
+                //                PST.Product_Colour = split2[1];
+                //            }
+                //            else if (GlobalVariantText.ToLower() == "weight")
+                //            {
+                //                PST.Product_Weight = split2[1];
+                //            }
+
+                //            PST.Product_Price = split2[2];
+                //            PST.Product_Quantity = split2[3];
+
+                //            sumofvariantquantiy += Convert.ToInt32(split2[3]);
+                //        }
+                //        interfaceobj_Product_SubTable.InsertModel(PST);
+
+                //    }
+
+                //    interfaceobj_Product_SubTable.Save();
+
+                //    //UPDATE QUANTITY(SUM) IN PRODUCT MAIN TABLE
+                //    p.Quantity = sumofvariantquantiy.ToString();
+
+                //    interfaceobj.UpdateModel(p);
+                //    interfaceobj.Save();
+
+
+                //}
+                // END//
+
+                //return View();
+
+                //Product Image Uploding code
+                int filecount = Request.Files.Count;
+                if (filecount > 0)
+                {
+                    //  Get all files from Request object  
+                    //HttpPostedFileBase postedfile = Request.Files[0];
+                    HttpFileCollectionBase files = Request.Files;
+                    for (int i = 0; i < files.Count; i++)
+                    {
+
+                        HttpPostedFileBase postedfile = files[i];
+
+                        string savepath = HttpContext.Server.MapPath("~/content/Product_Image/");
+                        if (System.IO.Directory.Exists(savepath))
+                        {
+                            //savepath += "Product_Image/";
+                            //if (!System.IO.Directory.Exists(savepath))
+                            //{
+                            //    System.IO.Directory.CreateDirectory(savepath);
+                            //}
+                            int ProductID = p.ID;
+
+                            savepath += ProductID + "/";
+                            if (!System.IO.Directory.Exists(savepath))
+                            {
+                                System.IO.Directory.CreateDirectory(savepath);
+                            }
+
+                            int A = postedfile.FileName.LastIndexOf(".");
+                            int length = postedfile.FileName.Length;
+                            string extention = postedfile.FileName.Substring(A, length - A);
+
+                            if (System.IO.File.Exists(savepath + "Image-" + i + ".jpg"))
+                            {
+                                System.IO.File.SetAttributes(savepath + "Image-" + i + ".jpg", System.IO.FileAttributes.Normal);
+                                System.IO.File.Delete(savepath + "Image-" + i + ".jpg");
+                            }
+
+                            postedfile.SaveAs(savepath + "Image-" + i + ".jpg");
+
+                            //LinqConnection dc = new LinqConnection();
+
+                            //var UpdateImage = dc.FF_Products.FirstOrDefault(a => a.ID == ProductID);
+
+                            //if (UpdateImage != null)
+                            //{
+                            //    UpdateImage.Image = ProductID + ".jpg";
+                            //    dc.SubmitChanges();
+                            //}
+
+                            // return Json("done", JsonRequestBehavior.AllowGet);
+                        }
+                    }
+
+                }
+
+                return Json("done", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json("error", JsonRequestBehavior.AllowGet);
+            }
+
+
+        }
+
+
+
+
+
+ [Authorize(Roles = "admin")]
+        public ActionResult GetProductRecordsForEdit()
+        {
+            int Product_Id = Convert.ToInt32(Request.QueryString["Product_Id"]);
+
+            //Product Main Table//
+            var productrecord = interfaceobj.GetModel().Where(a => a.ID == Product_Id).AsEnumerable();
+
+            DataContext dc = new DataContext();
+
+            //Category for dropdownlist
+            var catlist = dc.FF_Category;
+            ViewBag.Dropdown_Category = new SelectList(catlist, "ID", "Category");
+
+            //Sub Category for dropdownlist
+            var subcatlist = dc.FF_Sub_Category;
+            ViewBag.Dropdown_SubCategory = new SelectList(subcatlist, "ID", "SubCategory");
+
+            //Product Variant for dropdownlist
+            var variantlist = dc.FF_Product_Variants;
+            ViewBag.Dropdown_Variant = new SelectList(variantlist, "ID", "Variants_Name", "Select Variant");
+
+
+            VM_Product modal = new VM_Product();
+
+            var Product_Variant_Id = ((dc.FF_Product_SubTable.Where(a => a.Product_Id == Product_Id).Count() > 0) ? dc.FF_Product_SubTable.Where(a => a.Product_Id == Product_Id).First().Product_Variant_Id : 0);
+
+            modal.ID = Product_Id;
+            modal.Category_ID = productrecord.FirstOrDefault().Category_ID;
+            modal.Sub_Category_ID = productrecord.FirstOrDefault().Sub_Category_ID;
+            //modal.Product_Variant_Id = dc.FF_Product_SubTable.FirstOrDefault(a => a.Product_Id == Product_Id).Product_Variant_Id;
+            modal.Product_Variant_Id = Product_Variant_Id;
+
+            modal.Brand = productrecord.FirstOrDefault().Brand;
+            modal.Product_Name = productrecord.FirstOrDefault().Product_Name;
+            modal.Product_Code = productrecord.FirstOrDefault().Product_Code;
+            modal.Price = Convert.ToDecimal(productrecord.FirstOrDefault().Price);
+            modal.Quantity = productrecord.FirstOrDefault().Quantity;
+            modal.Discount = productrecord.FirstOrDefault().Discount;
+            modal.Description = productrecord.FirstOrDefault().Description;
+            modal.ImageCollection = MyHelperClass.GetProduct_Images(Product_Id);
+            if (Product_Variant_Id != 4 && Product_Variant_Id != 0)
+            {
+                modal.VariantCollectionList = dc.FF_Product_SubTable.Where(f => f.Product_Id == Product_Id).Select(s => new VariantCollection
+                {
+
+                    First_Input = s.Product_Size,
+                    Second_Input = s.Product_Colour,
+                    Third_Input = s.Product_Price,
+                    Fourth_Input = s.Product_Quantity
+                    //Size = s.Product_Size,
+                    //Colour = s.Product_Colour,
+                    //Weight = s.Product_Weight,
+                    //Price = s.Product_Price,
+                    //Quantity = s.Product_Quantity
+
+                }).ToList();
+
+            }
+            else if (Product_Variant_Id == 4)
+            {
+                modal.VariantCollectionList = dc.FF_Product_SubTable.Where(f => f.Product_Id == Product_Id).Select(s => new VariantCollection
+                {
+                    First_Input = s.Product_Size,
+                    Second_Input = s.Product_Colour,
+                    Third_Input = s.Product_Price
+                    //Size = s.Product_Size,
+                    //Colour = s.Product_Colour,
+                    //Weight = s.Product_Weight,
+                    //Price = s.Product_Price,
+                    //Quantity = s.Product_Quantity
+
+                }).ToList();
+
+
+            }
+
+            return View("PV_EditProduct", modal);
+            //return Json(productrecord, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+Product Variant
+https://laracasts.com/discuss/channels/general-discussion/custom-ecommerce-dynamic-product-variants
+
+
+var div = "";
+
+                for (var i in result.TitleList) {
+                    debugger;
+
+                    div += "<div class='row'>"
+                        + "<h2 class='head_collections'>" + result.TitleList[i].Title + " <span>Collections</span></h2>"
+                        + "</div>"
+                        + "<div class='row'>"
+                        + "<div class='owl-carousel owl-theme owl-featured' id='Div1'>"
+
+                    for (var j in result.ProductList) {
+                        debugger;
+
+                        //div="<div class='row'>"
+                        //    +"<h2 class='head_collections'>Titlee<span>Food Product</span></h2>"
+                        //    +"</div>"
+                        //    +"<div class='row'>"
+                        //    +"<div class='owl-carousel owl-theme owl-featured' id='Div2'>"
+                        div += "<div class=''>"
+                                + "<div class='product-grid7'>"
+                                + "<div class='product-image7'>"
+                                + "<a href='#'>"
+                                +"<img class='pic-1' src='~/content/images/s1.jpg'>"
+                                +"<img class='pic-2' src='~/content/images/s2.jpg'>"
+                                + "</a>"
+                                + "<ul class='social'>"
+                                + "<li><a href='' class='mdi mdi-magnify' data-toggle='modal' data-target='#slidermodal'></a></li>"
+                                + "<li><a href='' class='mdi mdi-heart' data-toggle='modal' data-target='#exampleModal'></a></li>"
+                                + "<li><a href='' class='mdi mdi-cart' data-toggle='modal' data-target='#slidermodal'></a></li>"
+                                + "</ul>"
+                                + "</div>"
+                                + "<div class='product-content'>"
+                                + "<h3 class='title'><a href='#'>" + result.ProductList[j].Product_Name + "</a></h3>"
+                                + "<div class='price'>"
+                                + "<span class='featured-price wrap-text'><i class='mdi mdi-currency-inr mr-2'></i>" + result.ProductList[j].Price + "</span>"
+                                + "</div>"
+                                + "</div>"
+                                + "</div>"
+                                + "</div>"
+                        //+"</div>"
+                        //+"</div>"
+                        //debugger;
+                        //console.log(result[i].ID);
+                        //console.log(result[i].Product_Name);
+                        //console.log(result[i].Image);
+                        //console.log(result[i].Price);
+
+
+
+                    }
+                    div += "</div>"
+                    + "</div>"
+
+                }
+
+
+
+
+                        //Build.Append("");
+                         Build.Append("<div class='row'>");
+                         Build.Append("<h2 class='head_collections'>"+item.Title+"<span>Food Product</span></h2>");
+                         Build.Append("</div>");
+                         Build.Append("<div class='row'>");
+                         Build.Append("<div class='owl-carousel owl-theme owl-featured' id='FeaturedProperties'>");
+                         Build.Append("<div class=''>");
+                         Build.Append("<div class='product-grid7'>");
+                         Build.Append("<div class='product-image7'>");
+                         Build.Append("<a href='#'>");
+                         Build.Append("<img class='pic-1' src='~/content/images/s1.jpg'>");
+                         Build.Append("<img class='pic-2' src='~/content/images/s2.jpg'>");
+                         Build.Append("</a>");
+                         Build.Append("<ul class='social'>");
+                         Build.Append("<li><a href='' class='mdi mdi-magnify' data-toggle='modal' data-target='#slidermodal'></a></li>");
+                         Build.Append("<li><a href='' class='mdi mdi-heart' data-toggle='modal' data-target='#exampleModal'></a></li>");
+                         Build.Append("<li><a href='' class='mdi mdi-cart' data-toggle='modal' data-target='#slidermodal'></a></li>");
+                         Build.Append("</ul>");
+                         Build.Append("</div>");
+                         Build.Append("<div class='product-content'>");
+                         Build.Append("<h3 class='title'><a href='#'>"+item1.Product_Name+"</a></h3>");
+                         Build.Append("");
+                         Build.Append("<div class='price'>");
+                         Build.Append("<span class='featured-price wrap-text'><i class='mdi mdi-currency-inr mr-2'></i>"+item1.Price+"</span>");
+                         Build.Append("</div>");
+                         Build.Append("</div>");
+                         Build.Append("</div>");
+                         Build.Append("</div>");
+                         Build.Append("</div>");
+                         Build.Append("</div>");
+
+
+
+
+swal({
+                                title: "Deleted!",
+                                text: result.msg,
+                                type: "success",
+                                icon: "success"
+                            },function () {
+                                window.location = "DisplayProductList";
+                            });
+
+
+
+        swal({
+            //title: 'Sweet!',
+            //text: 'Modal with a custom image.',
+            //imageUrl: 'https://unsplash.it/400/200',
+            //imageWidth: 400,
+            //imageHeight: 200,
+            //imageAlt: 'Custom image',
+            //icon: 'warning',
+            //showCancelButton: true,
+            //confirmButtonColor: '#000',
+            //cancelButtonColor: '#000',
+            //confirmButtonText: 'Yes, delete it!'
+            title: "Are you sure?",
+            text: "But you will still be able to retrieve this file.",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, archive it!",
+            cancelButtonText: "No, cancel please!",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+function (isConfirm) {
+    if (isConfirm) {
+        alert();         // submitting the form when user press yes
+    } else {
+        swal("Cancelled", "Your imaginary file is safe :)", "error");
+    }
+});
+
+  
+
+//swal.fire({
+        //    title: "Sweet!",
+        //    text: "Here's a custom image.",
+        //    imageUrl: "~/content/images/FennyFeedsLogo.png"
+        //});
+        debugger;
+
+
+    //    Swal.fire({
+        //        title: 'Sweet!',
+        //        text: 'Modal with a custom image.',
+        //        imageUrl: 'https://unsplash.it/400/200',
+        //        imageWidth: 400,
+        //        imageHeight: 200,
+        //        imageAlt: 'Custom image',
+        //        icon: 'warning',
+        //        showCancelButton: true,
+        //        confirmButtonColor: '#3085d6',
+        //        cancelButtonColor: '#000',
+        //        confirmButtonText: 'Yes, delete it!'
+        //    }).then(
+        //  function (success) {
+        //      if (success) {
+        //          swal("Deleted!", "Your file has been deleted.", "success");
+        //      }
+        //  },
+        //  function () {
+        //      alert();
+        //      //console.log('BACK');
+        //  }
+        //);
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.value) {
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+        }
+        })
+
+        //    swal({
+        //        title: "Confirm?",
+        //        text: "Are you sure?",
+        //        buttons: {
+        //            cancle:true,
+        //            confirm:"submit"
+        //        }
+        //        //type: "warning",
+        //        //showCancelButton: true,
+        //        //confirmButtonColor: "#DD6B55",
+        //        //confirmButtonText: "Confirm",
+        //        //cancelButtonText: "Back",
+        //        //closeOnConfirm: false,
+        //        //confirmButtonClass: 'btn-danger',
+        //    }
+        //).then(
+        //  function (isConfirm) {
+        //      if (isConfirm) {
+        //          swal("Deleted!", "Your file has been deleted.", "success");
+        //      }
+        //  },
+        //  function () {
+        //      //console.log('BACK');
+        //  }
+        //);
+        return false;
+        //swal({
+        //    title: 'Are you sure?',
+        //    text: "It will permanently deleted !",
+        //    type: 'warning',
+        //    confirmButtonClass: 'btn-danger',
+        //    showCancelButton: true,
+        //    confirmButtonText: 'Yes, delete it!',
+        //    closeOnConfirm : false
+        //},
+        //function () {
+        //    swal("Deleted!","Your file has been deleted.","success");
+        //});
+
+
+
+
+
+
+        [HttpPost]
+        public ActionResult AddProductDetails(VM_Product product)//VM_Product product, HttpPostedFileBase file1 //string Category_ID, string Brand
+        {
+            try
+            {
+               
+                HttpFileCollectionBase files = Request.Files;
+                return View();
+
+                //Receive all value from query string
+                string Category_ID = Request.QueryString["Category_ID"];
+                string Brand = Request.QueryString["Brand"];
+                string Product_Name = Request.QueryString["Product_Name"];
+                string Product_Code = Request.QueryString["Product_Code"];
+                string Price = Request.QueryString["Price"];
+                string Quantity = Request.QueryString["Quantity"];
+                string Discount = Request.QueryString["Discount"];
+                string Description = Request.QueryString["Description"];
+
+
+                FF_Products p = new FF_Products();
+                p.Category_ID = Convert.ToInt32(Category_ID);
+                p.Brand = Brand;
+                p.Product_Name = Product_Name;
+                p.Product_Code = Product_Code;
+                p.Price = Price;
+                p.Quantity = Quantity;
+                p.Discount = Discount;
+                p.Description = Description;
+                p.Creation_Date = DateTime.UtcNow;
+                //p.IsProduct_Hide = "0";
+
+                interfaceobj.InsertModel(p);
+                interfaceobj.Save();
+
+                //Product Image Uploding code
+                int filecount = Request.Files.Count;
+                if (filecount > 0)
+                {
+                    //  Get all files from Request object  
+                    //HttpPostedFileBase postedfile = Request.Files[0];
+                    //HttpFileCollectionBase files = Request.Files;
+                    for (int i = 0; i < files.Count; i++)
+                    {
+
+                        HttpPostedFileBase postedfile = files[i];
+
+                        string savepath = HttpContext.Server.MapPath("~/content/Product_Image/");
+                        if (System.IO.Directory.Exists(savepath))
+                        {
+                            //savepath += "Product_Image/";
+                            //if (!System.IO.Directory.Exists(savepath))
+                            //{
+                            //    System.IO.Directory.CreateDirectory(savepath);
+                            //}
+                            int ProductID = p.ID;
+
+                            savepath += ProductID + "/";
+                            if (!System.IO.Directory.Exists(savepath))
+                            {
+                                System.IO.Directory.CreateDirectory(savepath);
+                            }
+
+                            int A = postedfile.FileName.LastIndexOf(".");
+                            int length = postedfile.FileName.Length;
+                            string extention = postedfile.FileName.Substring(A, length - A);
+
+                            if (System.IO.File.Exists(savepath + "Image-" + i + ".jpg"))
+                            {
+                                System.IO.File.SetAttributes(savepath + "Image-" + i + ".jpg", System.IO.FileAttributes.Normal);
+                                System.IO.File.Delete(savepath + "Image-" + i + ".jpg");
+                            }
+
+                            postedfile.SaveAs(savepath + "Image-" + i + ".jpg");
+
+                            //LinqConnection dc = new LinqConnection();
+
+                            //var UpdateImage = dc.FF_Products.FirstOrDefault(a => a.ID == ProductID);
+
+                            //if (UpdateImage != null)
+                            //{
+                            //    UpdateImage.Image = ProductID + ".jpg";
+                            //    dc.SubmitChanges();
+                            //}
+
+                            return Json("done", JsonRequestBehavior.AllowGet);
+                        }
+                    }
+
+                }
+
+                return Json("done", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json("error", JsonRequestBehavior.AllowGet);
+            }
+
+
+        }
+
+
+
+<div class="modal fade" id="editProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        @using (Html.BeginForm(new { @id = "" }))
+        {
+            @Html.ValidationSummary(true)
+    
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="mdi mdi-cart mr-1"></i>Edit product</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row form-group">
+                        <div class="col-sm-4 text-right">
+                            <label class="lb-name">Product Category partial:</label>
+                        </div>
+                        <div class="col-sm-4">
+                            @Html.DropDownList("Dropdown_Category", ViewBag.Dropdown_Category as SelectList, new { @class = "form-control", @id = "ddlEditCategory" })
+                            
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-sm-4 text-right">
+                            <label class="lb-name">Brand :</label>
+                        </div>
+                        <div class="col-sm-4">
+                            @*
+                            <input type="text" class="form-control" placeholder="Enter Brand Name" />*@
+                            @Html.TextBoxFor(model => model.Brand, new { @class = "form-control", value = "", @placeholder = "Enter Brand Name", @id = "EdittxtBrandName" })
+                            @Html.ValidationMessageFor(model => model.Brand)
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-sm-4 text-right">
+                            <label class="lb-name">Product Name :</label>
+                        </div>
+                        <div class="col-sm-4">
+                            @*<input type="text" class="form-control" placeholder="Enter Product Name" />*@
+                            @Html.TextBoxFor(model => model.Product_Name, new { @class = "form-control", @placeholder = "Enter Product Name", @id = "EdittxtProductName" })
+                            @Html.ValidationMessageFor(model => model.Product_Name)
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-sm-4 text-right">
+                            <label class="lb-name">Product Code :</label>
+                        </div>
+                        <div class="col-sm-4">
+                            @* 
+                            <input type="text" class="form-control" placeholder="P1023456" disabled />*@
+                            @Html.TextBoxFor(model => model.Product_Code, new { @class = "form-control", @placeholder = "Enter Product Code", @Value = "", @readonly = "readonly", @id = "EdittxtProductCode", @disabled = "disabled" })
+                            @Html.ValidationMessageFor(model => model.Product_Code)
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-sm-4 text-right">
+                            <label class="lb-name">Product Unit Price :</label>
+                        </div>
+                        <div class="col-sm-4">
+                            @Html.TextBoxFor(model => model.Price, new { @class = "form-control", @placeholder = "Enter Product Price", @id = "EdittxtProductPrice" })
+                            @Html.ValidationMessageFor(model => model.Price)
+                            @*<div class="input-group">
+                                <input type="number" class="form-control" placeholder="Price" />
+                                <input type="number" class="form-control" placeholder="Size" />
+                                <input type="number" class="form-control" placeholder="Weight" />
+                            </div>
+                            *@
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-sm-4 text-right">
+                            <label class="lb-name">Product Quantity :</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                @*
+                                <input type="number" class="form-control" placeholder="Quantity" />*@
+                                @Html.TextBoxFor(model => model.Quantity, new { @class = "form-control", @placeholder = "Enter Product Quantity", @id = "EdittxtProductQuantity" })
+                                @Html.ValidationMessageFor(model => model.Quantity)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-sm-4 text-right">
+                            <label class="lb-name">Product Discount :</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                @*
+                                <input type="text" class="form-control" placeholder="10%" />*@
+                                @Html.TextBoxFor(model => model.Discount, new { @class = "form-control", @placeholder = "Enter Product Discount", @id = "EdittxtProductDiscount" })
+                                @Html.ValidationMessageFor(model => model.Discount)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-sm-4 text-right">
+                            <label class="lb-name">Product Discription :</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @placeholder = "Enter Product Description", @id = "EdittxtProductDesc" })
+                                @Html.ValidationMessageFor(model => model.Description)
+
+                                @*   
+                                <textarea name="txtProductDescription"></textarea>*@
+                                <script>
+                                    CKEDITOR.replace('EdittxtProductDesc');
+                                </script>
+                                @*<h1>Hello world!</h1>
+                                <p>I'm an instance of <a href="https://ckeditor.com">CKEditor</a>.</p>
+                                *@
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-sm-4 text-right">
+                            <label class="lb-name">Product Images :</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="pro_img_container">
+                                <ul>
+                                    <li>
+                                        <div class="add-pro-images">
+                                            <span class="mdi mdi-plus"></span>
+                                            <input type="file" id="file0" name="filename" />
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="uploaded-images" style="display: none;">
+                                            <img src="~/content/images/s1.jpg" class="img" id="img0" width="100%" height="auto" />
+                                            <span class="mdi mdi-close-circle circle-remove"></span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="add-pro-images">
+                                            <span class="mdi mdi-plus"></span>
+                                            <input type="file" id="file1" name="filename" />
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="uploaded-images" style="display: none;">
+                                            <img src="~/content/images/s1.jpg" class="img" id="img1" width="100%" height="auto" />
+                                            <span class="mdi mdi-close-circle circle-remove"></span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="add-pro-images">
+                                            <span class="mdi mdi-plus"></span>
+                                            <input type="file" id="file2" name="filename" />
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="uploaded-images" style="display: none;">
+                                            <img src="~/content/images/s1.jpg" class="img" id="img2" width="100%" height="auto" />
+                                            <span class="mdi mdi-close-circle circle-remove"></span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="add-pro-images">
+                                            <span class="mdi mdi-plus"></span>
+                                            <input type="file" id="file3" name="filename" />
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="uploaded-images" style="display: none;">
+                                            <img src="~/content/images/s1.jpg" class="img" id="img3" width="100%" height="auto" />
+                                            <span class="mdi mdi-close-circle circle-remove"></span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="add-pro-images">
+                                            <span class="mdi mdi-plus"></span>
+                                            <input type="file" id="file4" name="filename" />
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="uploaded-images" style="display: none;">
+                                            <img src="~/content/images/s1.jpg" class="img" id="img4" width="100%" height="auto" />
+                                            <span class="mdi mdi-close-circle circle-remove"></span>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" id="Btn_Product_Update"><i class="mdi mdi-cart mr-1"></i>Update</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+
+
+
+
+//Alpha numeric
+[RegularExpression("^[a-zA-Z0-9]*$", ErrorMessage = "Only Alphabets and Numbers allowed.")]
+
+//Email address
+[Required(ErrorMessage = "Email is required.")]
+[EmailAddress(ErrorMessage = "Invalid Email Address.")]
+
+//Mobile
+[RegularExpression(@"^([0-9]{10})$", ErrorMessage = "Invalid Mobile Number.")]
+
+//Range
+ [Range(1, 10)]
+        
+  public static IEnumerable<selectlistitem> DropdownPet_Weight()
+        {
+            IList<SelectListItem> pet_weight = new List<SelectListItem>
+            {
+               new SelectListItem() {Value="1", Text="Weight below 5 Kg"},
+               new SelectListItem() {Value="2", Text="Weight between 5-10 Kg"},
+               new SelectListItem() {Value="3", Text="Weight above 10 Kg"}
+            };
+            return pet_weight;
+        }
+
+  //public static List<FF_Category> Dropdown_Category()
+        //{
+
+        //    using (DataContext dc = new DataContext())
+        //    {
+        //        var Category = dc.FF_Category.ToList();
+        //        return Category;
+
+        //        //var Category = dc.FF_Category;
+
+        //        //return string.Join("", Category.Select(s => "<option value=\"" + s.ID + "\">" + s.Category + "));
+        //    }
+
+        //}
+
+
+
+    //public static IEnumerable<SelectListItem> DropdownGender()
+        //{
+        //    IList<SelectListItem> gender = new List<SelectListItem>
+        //    {
+        //       new SelectListItem() {Value="Male", Text="Male"},
+        //       new SelectListItem() {Value="Female", Text="Female"}
+        //    };
+        //    return gender;
+        //}
+
+
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  For more information on how to configure your ASP.NET application, please visit
+  http://go.microsoft.com/fwlink/?LinkId=169433
+  -->
+<configuration>
+  <configSections>
+    <section name="entityFramework" type="System.Data.Entity.Internal.ConfigFile.EntityFrameworkSection, EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" />
+    <!-- For more information on Entity Framework configuration, visit http://go.microsoft.com/fwlink/?LinkID=237468 -->
+  </configSections>
+  <appSettings>
+    <add key="webpages:Version" value="2.0.0.0" />
+    <add key="webpages:Enabled" value="false" />
+    <add key="PreserveLoginUrl" value="true" />
+    <add key="ClientValidationEnabled" value="true" />
+    <add key="UnobtrusiveJavaScriptEnabled" value="true" />
+  </appSettings>
+  <system.web>
+    <httpRuntime targetFramework="4.5" />
+    <compilation debug="true" targetFramework="4.5">
+      <assemblies>
+        <add assembly="System.Data.Entity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+      </assemblies>
+    </compilation>
+    <pages>
+      <namespaces>
+        <add namespace="System.Web.Helpers" />
+        <add namespace="System.Web.Mvc" />
+        <add namespace="System.Web.Mvc.Ajax" />
+        <add namespace="System.Web.Mvc.Html" />
+        <add namespace="System.Web.Routing" />
+        <add namespace="System.Web.WebPages" />
+      </namespaces>
+    </pages>
+  </system.web>
+  <system.webServer>
+    <validation validateIntegratedModeConfiguration="false" />
+    <handlers>
+      <remove name="ExtensionlessUrlHandler-Integrated-4.0" />
+      <remove name="OPTIONSVerbHandler" />
+      <remove name="TRACEVerbHandler" />
+      <add name="ExtensionlessUrlHandler-Integrated-4.0" path="*." verb="*" type="System.Web.Handlers.TransferRequestHandler" preCondition="integratedMode,runtimeVersionv4.0" />
+    </handlers>
+  </system.webServer>
+  <connectionStrings>
+    <add name="DataContext" connectionString="metadata=res://*/Models.Model1.csdl|res://*/Models.Model1.ssdl|res://*/Models.Model1.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=HP-PC;initial catalog=DB_FennyFeeds;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;" providerName="System.Data.EntityClient" />
+  </connectionStrings>
+  <entityFramework>
+    <defaultConnectionFactory type="System.Data.Entity.Infrastructure.LocalDbConnectionFactory, EntityFramework">
+      <parameters>
+        <parameter value="v11.0" />
+      </parameters>
+    </defaultConnectionFactory>
+    <providers>
+      <provider invariantName="System.Data.SqlClient" type="System.Data.Entity.SqlServer.SqlProviderServices, EntityFramework.SqlServer" />
+    </providers>
+  </entityFramework>
+  <runtime>
+    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+      <dependentAssembly>
+        <assemblyIdentity name="System.Web.Http" publicKeyToken="31bf3856ad364e35" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-4.0.0.0" newVersion="4.0.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Net.Http.Formatting" publicKeyToken="31bf3856ad364e35" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-4.0.0.0" newVersion="4.0.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Web.Helpers" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="1.0.0.0-3.0.0.0" newVersion="3.0.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Web.WebPages" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="1.0.0.0-3.0.0.0" newVersion="3.0.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Web.Mvc" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="1.0.0.0-5.2.7.0" newVersion="5.2.7.0" />
+      </dependentAssembly>
+    </assemblyBinding>
+  </runtime>
+</configuration>
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+
+</body>
+</html>
+  @Html.DropDownList("Category", (List<SelectListItem>)ViewBag.Dropdown_Category, "Select country", new { @class = "form-control", @id = "ddlCategory" })
+                        @*  @Html.DropDownList("Category", ViewBag.Category as SelectList);*@
+                        @*  @Html.DropDownListFor(model => model., ViewBag.Category as SelectList, "--Select 1--", new { @class = "form-control", @id = "txtBrandName" })*@
+                        @* <select class="form-control" id="txtProductCategory">
+                            <option value="0">Select Category</option>
+                            @foreach (var item in ViewBag.Dropdown_Category as List<FennyFeeds.Models.FF_Category>)
+                            {
+                                <option  value="@item.ID">@item.Category </option>
+                            }
+
+                        </select>*@
+
+ @*  @Html.DropDownList("Category", (List<SelectListItem>)ViewBag.Dropdown_Category, new { @class = "form-control", @id = "ddlEditCategory" })*@
+
+                            @* <select class="form-control" id="ddlEditCategory">
+                                <option value="0">Select Category</option>
+                                @foreach (var item in (List<SelectListItem>)ViewBag.Dropdown_Category)
+                                {
+                                    <option  value="@item.Value" @item.Selected>@item.Text </option>
+                                }
+
+                            </select>*@
+
+
+
+        //public static List<SelectListItem> Dropdown_Category()
+        //{
+
+        //    using (DataContext dc = new DataContext())
+        //    {
+        //        List<SelectListItem> selectListItems = new List<SelectListItem>();
+
+        //        foreach (var item in dc.FF_Category)
+        //        {
+        //            SelectListItem selectlist = new SelectListItem
+        //            {
+        //                Text = item.Category,
+        //                Value = item.ID.ToString(),
+        //                //Selected = true
+        //            };
+        //            selectListItems.Add(selectlist);
+        //        }
+        //        return selectListItems;
+               
+        //    }
+
+        //}
+
+
+
+
+
+
+  //var list = from l in interfaceobj.GetModel() select l;
+
+            //return View(list);
+
+            //List<FF_Products> productlist = new List<FF_Products>();
+            //productlist = interfaceobj.GetModel().ToList();
+
+            //List<VM_Product>
+productlist = interfaceobj.GetModel().AsEnumerable().Select(s => new VM_Product
+            //{
+            //    Category = s.FF_Category.Category,
+            //    Brand = s.Brand,
+            //    Product_Name = s.Product_Name,
+            //    Product_Code = s.Product_Code,
+            //    Price = s.Price,
+            //    Quantity = s.Quantity,
+            //    Discount = s.Discount,
+            //    Description = s.Description
+
+            //}).ToList();
+            //return View(productlist);
+
+    //$('#ProductList').DataTable({
+        //    "searching": true,
+        //    "ordering": true,
+        //    "pagingType": "full_numbers",
+        //    "ajax": "ProductList",
+        //    "columns": [
+        //		{ "data": "Product_Name" },
+        //		{ "data": "Product_Code" },
+        //		{ "data": "Category" },
+        //		{ "data": "Brand" },
+        //		{ "data": "Price" },
+        //		{ "data": "Quantity" },
+        //		{ "data": "Discount" },
+        //		{ "data": "Description" }
+        //    ]
+        //});
+        //$("#ProductList").DataTable({
+        //    "ajax": {
+        //        "url": "ProductList",
+        //        "tye": "GET",
+        //        "datatype": "json",
+        //    },
+        //    "columns": [
+        //                { "data": "Product_Name", "autowidth": true },
+        //                { "data": "Product_Code", "autowidth": true },
+        //                { "data": "Category", "autowidth": true },
+        //                { "data": "Brand", "autowidth": true },
+        //                { "data": "Price", "autowidth": true },
+        //                { "data": "Quantity", "autowidth": true },
+        //                { "data": "Discount", "autowidth": true },
+        //                { "data": "Description", "autowidth": true }
+
+        //    ]
+        //});
+
+        //$.ajax({
+        //    type: "GET",
+        //    url: "ProductList1",
+        //    contentType: "application/json; charset=utf-8",
+        //    dataType: "json",
+        //    success: function (data) {
+        //        debugger;
+        //        //datasource = data;
+        //        $('#ProductList').DataTable({
+        //            //"aaData": JSON.parse(data.d),
+        //            //"columns": [
+        //            //    { "data": "Product_Name", "autowidth": true },
+        //            //    { "data": "Product_Code", "autowidth": true },
+        //            //    { "data": "Category", "autowidth": true },
+        //            //    { "data": "Brand", "autowidth": true },
+        //            //    { "data": "Price", "autowidth": true },
+        //            //    { "data": "Quantity", "autowidth": true },
+        //            //    { "data": "Discount", "autowidth": true },
+        //            //    { "data": "Description", "autowidth": true }
+
+        //            //]
+        //            "columns": [
+        //            { "data": "Product_Name" },
+        //            { "data": "Product_Code" },
+        //            { "data": "Category" },
+        //            { "data": "Brand" },
+        //            { "data": "Price" },
+        //            { "data": "Quantity" },
+        //            { "data": "Discount" },
+        //            { "data": "Description" }
+        //            ]
+        //        });
+
+        //    },
+        //    error: function (err) {
+        //        alert(err);
+        //    }
+        //})
+
+
+
+@*$(function () {
+        debugger;
+        $("#ProductList").DataTable({
+            "searching": true,
+            "ordering": true,
+            "pagingType": "full_numbers",
+            "ajax": {
+                "url": "@Url.Action("ProductList1")",
+                "tye": "GET",
+                "datatype": "json",
+                },
+            "columns": [
+            { "data": "Product_Name" },
+            { "data": "Product_Code" },
+            { "data": "Category" },
+            { "data": "Brand" },
+            { "data": "Price" },
+            { "data": "Quantity" },
+            { "data": "Discount" }
+            //{ "data": "Description" }
+            ]
+        });
+    })*@
+
+
+ columns: [
+            {
+                "className":      'details-control',
+                "orderable":      false,
+                "searchable":     false,
+                "data":           null,
+                "defaultContent": ''
+            },
+            { data: 'id', name: 'id', orderable:true},
+            { data: 'nama_bank', name: 'nama_bank', orderable:true },
+            { data: 'nama_akun', name: 'nama_akun',orderable:true },
+            { data: 'no_rek', name: 'no_rek',orderable:true },
+            { data: 'action', name: 'action', 'searchable':false },
+        ],
+
+  //var form = $("#form1");
+                //form.validate();
+                //if (!$("#form1").valid()) {
+                //    return false;
+                //}
+
+
+ //debugger;
+                //var formdata = new FormData();
+                //$('input[type="file"]').each(function () {
+                //    debugger;
+                //    //if (Number($(this).parent().parent().find(".hd-uploded_doc").length) > 0) {
+                //    if (!$(this).val()=="") {
+                //        var file = $(this).get(0).files;
+                //        formdata.append(file[0].name, file[0]);
+                //    }
+                //});
+                //debugger;
+                ////var formdata = new FormData();
+                //var file = $('input[type="file"]').get(0).files;
+                //for (var i = 0; i < file.length; i++) {
+                //    formdata.append(file[i].name, file[i]);
+                //}
+                //formdata.append("Brand", Brand);
+
+
+//var qString = '?Category_ID=' + Category_ID + '&Brand=' + Brand + '&Product_Name=' + Product_Name + '&Product_Code=' + Product_Code + '&Price=' + Price + '&Quantity=' + Quantity + '&Discount=' + Discount + '&Description=' + Description;
+
+
+                $.ajax({
+                    url: "AddProduct",  //+qString,
+                    type: "POST",
+                    //data: formdata,
+                    data: function () {
+
+                        //debugger;
+                        //var formdata = new FormData();
+                        //$('input[type="file"]').each(function () {
+                        //    debugger;
+                        //    //if (Number($(this).parent().parent().find(".hd-uploded_doc").length) > 0) {
+                        //    if (!$(this).val() == "") {
+                        //        var file = $(this).get(0).files;
+                        //        formdata.append(file[0].name, file[0]);
+                        //    }
+                        //});
+
+                        //console.log(formdata);
+                        //debugger;
+                        //var formdata = new FormData();
+                        //var file = $('input[type="file"]').get(0).files;
+                        //for (var i = 0; i < file.length; i++) {
+                        //    debugger;
+                        //    if (!$(this).val()=="") {
+                        //        formdata.append(file[i].name, file[i]);
+                        //    }
+                            
+                        //}
+                        //formdata.append("Brand", Brand);
+
+                        //return formdata;
+
+                        var data = new FormData();
+                        //data.append("Brand", Brand);
+                        data.append("file", $("#file").get(0).files[0]);
+                        data.append("file1", $("#file1").get(0).files[0]);
+                        return data;
+                    }(),
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                    },
+                    error: function (jqXHR, textStatus, errorMessage) {
+                        console.log(errorMessage);
+                    }
+                });
+
+
+
+                $.ajax({
+                    url: "AddProduct",  //+qString,
+                    type: "POST",
+                    //data: formdata,
+                    data: function () {
+
+                        //debugger;
+                        //var formdata = new FormData();
+                        //$('input[type="file"]').each(function () {
+                        //    debugger;
+                        //    //if (Number($(this).parent().parent().find(".hd-uploded_doc").length) > 0) {
+                        //    if (!$(this).val() == "") {
+                        //        var file = $(this).get(0).files;
+                        //        formdata.append(file[0].name, file[0]);
+                        //    }
+                        //});
+
+                        //console.log(formdata);
+                        //debugger;
+                        //var formdata = new FormData();
+                        //var file = $('input[type="file"]').get(0).files;
+                        //for (var i = 0; i < file.length; i++) {
+                        //    debugger;
+                        //    if (!$(this).val()=="") {
+                        //        formdata.append(file[i].name, file[i]);
+                        //    }
+                            
+                        //}
+                        //formdata.append("Brand", Brand);
+
+                        //return formdata;
+
+                        var data = new FormData();
+                        //data.append("Brand", Brand);
+                        data.append("file", $("#file").get(0).files[0]);
+                        data.append("file1", $("#file1").get(0).files[0]);
+                        return data;
+                    }(),
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                    },
+                    error: function (jqXHR, textStatus, errorMessage) {
+                        console.log(errorMessage);
+                    }
+                });
+
+
+
+                //int filecount = Request.Files.Count;
+                //if (filecount > 0)
+                //{
+                //    HttpFileCollection filecoll = Request.Files;
+
+                //    for (int i = 0; i < filecoll.Count; i++)
+                //    {
+                //        HttpPostedFile postedfile = filecoll[i];
+
+                //        string savepath = context.Server.MapPath("~/Docs/");
+
+
+                //        savepath += "Project/";
+
+                //        if (!System.IO.Directory.Exists(savepath))
+                //        {
+                //            System.IO.Directory.CreateDirectory(savepath);
+                //        }
+
+                //        if (!System.IO.Directory.Exists(savepath + PtojectID + "/"))
+                //        {
+                //            System.IO.Directory.CreateDirectory(savepath + PtojectID);
+                //        }
+
+                //        int A = postedfile.FileName.LastIndexOf(".");
+                //        int length = postedfile.FileName.Length;
+                //        string extention = postedfile.FileName.Substring(A, length - A);
+                //        postedfile.SaveAs(savepath + PtojectID + "/" + (i + 1) + extention);
+
+                //    }
+
+                //}
+

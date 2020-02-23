@@ -1,0 +1,95 @@
+﻿@model FennyFeeds.ViewModels.VM_Product
+
+<!--Start-->
+<div class="modal-content">
+    <div class="modal-body">
+        <div class="addcart-cross fa fa-close" onclick="hideaddcart(this)" data-dismiss="modal" aria-label="Close"></div>
+        <div class="modal-body-content">
+            <div class="row">
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="thumb-crusel" id="main_area">
+                        <!-- Slider -->
+                        <div class="col-xs-12" id="slider">
+                            <div class="row">
+                                <div id="carousel-bounding-box">
+                                    <div class="carousel slide" id="myCarousel">
+                                        <!-- Carousel items -->
+                                        <div class="carousel-inner">
+                                            <div class="item" data-slide-number="0">
+                                                <img class="pic-1" src="~/content/images/s1.jpg">
+                                            </div>
+                                            <div class="item active" data-slide-number="1">
+                                                <img class="pic-1" src="~/content/images/s2.jpg">
+                                            </div>
+                                            <div class="item" data-slide-number="2">
+                                                <img class="pic-1" src="~/content/images/s3.jpg">
+                                            </div>
+                                            <!-- Carousel nav -->
+                                            <a class="left carousel-control crt-arrow" href="#myCarousel" role="button" data-slide="prev">
+                                                <span class="fa fa-angle-left faslider-icons"></span></a>
+
+                                            <a class="right carousel-control crt-arrow" href="#myCarousel" role="button" data-slide="next">
+                                                <span class="fa fa-angle-right faslider-icons"></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row hidden-xs" id="slider-thumbs">
+                                <!-- Bottom switcher of slider -->
+                                <ul class="hide-bullets">
+                                    <div class="row">
+                                        <li class="col-sm-4"><a class="thumbnail" id="carousel-selector-0">
+                                            <img class="pic-1" src="~/content/images/s1.jpg"></a> </li>
+                                        <li class="col-sm-4"><a class="thumbnail" id="carousel-selector-1">
+                                            <img class="pic-1" src="~/content/images/s2.jpg"></a> </li>
+                                        <li class="col-sm-4"><a class="thumbnail" id="carousel-selector-2">
+                                            <img class="pic-1" src="~/content/images/s3.jpg"></a> </li>
+                                    </div>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="product_description">
+                        <h1 class="qv-title">@Html.DisplayFor(model => model.Product_Name)</h1>
+                        <div class="qv-rating ">
+                        </div>
+                        <div class="qv-code">
+                            <span>Product Code : </span><span>@Html.DisplayFor(model => model.Product_Code) </span>
+                        </div>
+                        <div class="qv-stock">
+                            <span>Availability : </span><span style="color: #40b631;">In Stock </span>
+                        </div>
+                        <div class="qv-price-detail">
+                            <span style="font-weight: bold; padding-right: 20px;">Price:</span><del><span>@Html.Raw(FennyFeeds.HelperClasses.Utility_FF.Currency)@Html.DisplayFor(model => model.Price)</span></del>
+                            <span class="price-qv">@Html.Raw(FennyFeeds.HelperClasses.Utility_FF.Currency)@Html.DisplayFor(model => model.Price)</span>
+                        </div>
+                        <p class="about-qv">
+                            @Html.Raw(Model.Description)
+                        </p>
+                        <div class="quatity-qv">
+                            <span>Qty : </span><span style="margin-left: 10px;">
+                                <input type="text" class="form-control txt-quatity" value="1">
+                            </span>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-warning btn-cart">
+                                <i class="mdi mdi-cart" style="padding-right: 10px"></i>ADD TO CART</button>
+                            <button type="button" class="btn btn-warning btn-wish">
+                                <i class="mdi mdi-heart" style="padding-right: 10px"></i>CHECKOUT</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end-->
+
+
+<script>
+
+</script>

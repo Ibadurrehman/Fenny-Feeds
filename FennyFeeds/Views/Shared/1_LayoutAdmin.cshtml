@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Fenny Feeds | Admin</title>
+    <link href="~/content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/content/css/materialdesignicons.min.css" rel="stylesheet" />
+    <link href="~/content/css/admin.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans:400,700" rel="stylesheet" />
+    @*<link href="~/content/css/samples.css" rel="stylesheet" />*@
+    <link href="~/content/css/select2.css" rel="stylesheet" />
+
+</head>
+<body class="main-body">
+    <main class="admin-container">
+    <nav class="navbar navbar-expand-lg navbar-bg navbar-admin">
+    <span class="mdi mdi-menu mdi-24px menu-bars" id="menu-bar"></span>
+
+                    <ul class="nav navbar-nav pull-right nav-ul">
+                        <li><i class="mdi mdi-bell mdi-24px"></i><span class="badge badge-notification">2</span>
+                        </li>
+                        <li class="dropdown"><i class="mdi mdi-account mdi-24px" data-toggle="dropdown"></i>
+                        <div class="dropdown-menu dropdown-menu-right menu-account" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="#"><i class="mdi mdi-account mr-2"></i>Account</a>
+                        <a class="dropdown-item" href="#"><i class="mdi mdi-logout mr-2"></i>Logout</a>
+                        </div>
+                        </li>
+                    </ul>
+    </nav>
+    <aside class="left-menu-bar" id="slide-menu">
+                <a href="#" class="admin-brand"><img src="~/content/images/FennyFeedsLogo-admin.png" /></a>
+                <div class="user-profile">
+                    <div class="user-picture">
+                      <img src="~/content/images/user-image.jpg" alt="Admin" /> 
+                    </div>
+                    <div class="login-user">
+                        <h4>Mayank Gupta</h4>
+                        <span>Admin</span>
+                    </div>
+                </div>
+                <div class="left-menu-list">
+                    <ul class="list-group">
+                        <li class="nav-menu-li">
+                            <a href="Dashboard"><span class="mdi mdi-speedometer md-icon-left"></span>Dashboard</a>
+                        </li>
+                        <li class="nav-menu-li">
+                            <a href="javascript:;">
+                            <span class="mdi mdi-cart md-icon-left"></span> Products
+                            <i class="mdi mdi-chevron-right icon-left-arrow"></i>
+                            </a>
+                            
+                            <ul class="list-group sub-menu">
+                                <li>
+                                    <a href="AddProduct">Add Product</a>
+                                </li>
+                                <li>
+                                    <a href="ProductList">Product List</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-menu-li">
+                            <a href="javascript:;">
+                            <span class="mdi mdi-water md-icon-left"></span>Blood Bank
+                            <i class="mdi mdi-chevron-right icon-left-arrow"></i>
+                            </a>
+                            
+                            <ul class="list-group sub-menu">
+                                <li>
+                                    <a href="BloodDonner">Blood Donner</a>
+                                </li>
+                                <li>
+                                    <a href="BloodReceiver">Blood Receiver</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </aside>
+        @RenderBody()
+    </main>
+    
+    <div class="spinner-grow" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+
+<script src="~/content/scripts/jquery-3.3.1.min.js"></script>
+<script src="~/content/scripts/select2.min.js"></script>
+<script src="~/content/scripts/bootstrap.bundle.min.js"></script>
+
+
+     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+   
+
+@*<script src="~/content/scripts/sample.js"></script>
+<script src="~/content/scripts/ckeditor.js"></script>*@
+<script type="text/javascript">
+    function ShowLoader() {
+        $(".spinner-grow").show();
+        return false;
+    }
+
+    function HideLoader() {
+        $(".spinner-grow").hide();
+        return true;
+    }
+
+        $(document).ready(function () {
+            $("#menu-bar").click(function () {
+                if ($('#slide-menu').hasClass('left-menu-open')) {
+                    $('#slide-menu').removeClass('left-menu-open');
+                }
+                else {
+                    $('#slide-menu').addClass('left-menu-open');
+                }
+            });
+            $('.nav-menu-li').click(function ()
+                {
+                $('.sub-menu').slideUp();
+                $('.nav-menu-li').find('i').removeClass('open-icon');
+                if ($(this).find('.sub-menu').is(':visible')) {
+                    $(this).find('.sub-menu').slideUp();
+                    $(this).find('i').removeClass('open-icon');
+                }
+                else {
+                    $(this).find('.sub-menu').slideDown();
+                    $(this).find('i').addClass('open-icon');
+                }            
+            });
+           
+            $("#productCategory").select2();
+
+        });
+
+
+        //initSample();
+        //$('#editor').ckeditor();
+        
+</script>
+    
+
+</body>
+</html>

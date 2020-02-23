@@ -1,0 +1,1032 @@
+﻿@model FennyFeeds.ViewModels.VM_Product
+<script src="~/Scripts/ckeditor/ckeditor.js"></script>
+<link href="~/content/css/select2.css" rel="stylesheet" />
+<script src="~/content/scripts/select2.min.js"></script>
+
+<!--Edit Modal -->
+
+@using (Html.BeginForm(new { @id = "" }))
+{
+    @Html.ValidationSummary(true)
+    
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title"><i class="mdi mdi-cart mr-1"></i>Edit product</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            @ViewBag.Message
+        </div>
+        <div id="switch_button">
+            <a href="#" id="addproduct"><i class="mdi mdi-plus mr-1"></i>Add Product</a>
+            <a href="#" id="addvariant"><i class="mdi mdi-plus mr-1"></i>Add Variant</a>
+        </div>
+
+        <div class="modal-body">
+            <div id="_add_product">
+                <div class="row form-group">
+                    <div class="col-sm-4 text-right">
+                        <label class="lb-name">Product Category :</label>
+                        @Html.HiddenFor(model => model.ID, new { @id = "txthiddenId" })
+                    </div>
+                    <div class="col-sm-4">
+                        @if (ViewBag.Dropdown_Category != null)
+                        {
+@* @Html.DropDownList("Dropdown_Category", ViewBag.Dropdown_Category as SelectList, new { @class = "form-control", @id = "ddlEditCategory" })*@
+                            @Html.DropDownListFor(model => model.Category_ID, ViewBag.Dropdown_Category as SelectList, "Select", new { @class = "form-control", @id = "ddlEditCategory" })
+
+                        }
+
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-4 text-right">
+                        <label class="lb-name">Product Sub Category :</label>
+                    </div>
+                    <div class="col-sm-4">
+                        @if (ViewBag.Dropdown_SubCategory != null)
+                        {
+@* @Html.DropDownList("Dropdown_Category", ViewBag.Dropdown_Category as SelectList, new { @class = "form-control", @id = "ddlEditCategory" })*@
+                            @Html.DropDownListFor(model => model.Sub_Category_ID, ViewBag.Dropdown_SubCategory as SelectList, "Select", new { @class = "form-control", @id = "ddlEditSubCategory" })
+
+                        }
+
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-4 text-right">
+                        <label class="lb-name">Brand :</label>
+                    </div>
+                    <div class="col-sm-4">
+                        @* <input type="text" class="form-control" placeholder="Enter Brand Name" />*@
+                        @Html.TextBoxFor(model => model.Brand, new { @class = "form-control", value = "", @placeholder = "Enter Brand Name", @id = "EdittxtBrandName" })
+                        @Html.ValidationMessageFor(model => model.Brand)
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-4 text-right">
+                        <label class="lb-name">Product Name :</label>
+                    </div>
+                    <div class="col-sm-4">
+                        @*<input type="text" class="form-control" placeholder="Enter Product Name" />*@
+                        @Html.TextBoxFor(model => model.Product_Name, new { @class = "form-control", @placeholder = "Enter Product Name", @id = "EdittxtProductName" })
+                        @Html.ValidationMessageFor(model => model.Product_Name)
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-4 text-right">
+                        <label class="lb-name">Product Code :</label>
+                    </div>
+                    <div class="col-sm-4">
+                        @*  <input type="text" class="form-control" placeholder="P1023456" disabled />*@
+                        @Html.TextBoxFor(model => model.Product_Code, new { @class = "form-control", @placeholder = "Enter Product Code", @readonly = "readonly", @id = "EdittxtProductCode", @disabled = "disabled" })
+                        @Html.ValidationMessageFor(model => model.Product_Code)
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-4 text-right">
+                        <label class="lb-name">Product Unit Price :</label>
+                    </div>
+                    <div class="col-sm-4">
+                        @Html.TextBoxFor(model => model.Price, new { @class = "form-control", @placeholder = "Enter Product Price", @id = "EdittxtProductPrice" })
+                        @Html.ValidationMessageFor(model => model.Price)
+                        @*<div class="input-group">
+                            <input type="number" class="form-control" placeholder="Price" />
+                            <input type="number" class="form-control" placeholder="Size" />
+                            <input type="number" class="form-control" placeholder="Weight" />
+                        </div>*@
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-4 text-right">
+                        <label class="lb-name">Product Quantity :</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            @* <input type="number" class="form-control" placeholder="Quantity" />*@
+                            @Html.TextBoxFor(model => model.Quantity, new { @class = "form-control", @placeholder = "Enter Product Quantity", @id = "EdittxtProductQuantity" })
+                            @Html.ValidationMessageFor(model => model.Quantity)
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-4 text-right">
+                        <label class="lb-name">Product Discount :</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            @* <input type="text" class="form-control" placeholder="10%" />*@
+                            @Html.TextBoxFor(model => model.Discount, new { @class = "form-control", @placeholder = "Enter Product Discount", @id = "EdittxtProductDiscount" })
+                            @Html.ValidationMessageFor(model => model.Discount)
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-4 text-right">
+                        <label class="lb-name">Product Discription :</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @placeholder = "Enter Product Description", @id = "EdittxtProductDesc" })
+                            @Html.ValidationMessageFor(model => model.Description)
+
+                            @*    <textarea name="txtProductDescription"></textarea>*@
+                            <script>
+                                CKEDITOR.replace('EdittxtProductDesc');
+                            </script>
+                            @*<h1>Hello world!</h1>
+                                <p>I'm an instance of <a href="https://ckeditor.com">CKEditor</a>.</p>*@
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-sm-4 text-right">
+                        <label class="lb-name">Product Images : @ViewBag.Message</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="pro_img_container">
+                            <ul id="ulid">
+                                <li>
+                                    <div class="add-pro-images">
+                                        <span class="mdi mdi-plus"></span>
+                                        <input type="file" id="fUpload" multiple />
+                                    </div>
+                                </li>
+
+                                @foreach (var item in Model.ImageCollection)
+                                {
+                                    <li>
+                                        <div class="uploaded-images" style="">
+                                            <img src="../content/Product_Image/@Model.ID/@item" id="" width="100%" height="auto" />
+                                            <span class="mdi mdi-close-circle circle-remove" onclick="DeleteImage(this,@Model.ID,'@item')"></span>@*id="deleteimage_Edit" data-productid="@Model.ID" data-imagename="@item"*@
+                                        </div>
+                                    </li>
+                                }
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="body-wrapper" id="_add_variant" style="display: none;">
+                <div class="row form-group">
+                    <div class="col-sm-4 text-right">
+                        <label class="lb-name">Select Variant :</label>
+                    </div>
+                    <div class="col-sm-4">
+                        @if (ViewBag.Dropdown_Variant != null)
+                        {
+@*@Html.DropDownList("Dropdown_Category", ViewBag.Dropdown_Category as SelectList, "Select Category", new { @class = "form-control", @id = "ddlCategory" })*@
+                            @Html.DropDownListFor(model => model.Product_Variant_Id, ViewBag.Dropdown_Variant as SelectList, "Select Category", new { @class = "form-control", @id = "ddlProduct_Variant", @disabled = "disabled" })
+                            @Html.ValidationMessageFor(model => model.Product_Variant_Id)
+                        }
+
+                    </div>
+                </div>
+
+
+                <div class="row form-group" id="_first_variant" style="display: none">
+                    <div class="col-sm-4 text-right">
+                        <label class="lb-name" id="lable_first">Size :</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            @* <input type="text" class="form-control" placeholder="10%" />*@
+                            @Html.TextBoxFor(model => model.FirstVariant, new { @class = "form-control", @id = "txt_firstinput" })
+                            @Html.ValidationMessageFor(model => model.FirstVariant)
+                            @*<i class="mdi mdi-plus mr-1" id="btnPlus_First"></i>*@
+                        </div>
+                        <ul id="_all_first_variant"></ul>
+                    </div>
+                </div>
+
+                <div class="row form-group" id="_second_variant" style="display: none">
+                    <div class="col-sm-4 text-right">
+                        <label class="lb-name">Colour :</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            @* <input type="text" class="form-control" placeholder="10%" />*@
+                            @Html.TextBoxFor(model => model.SecondVariant, new { @class = "form-control", @id = "txt_secondinput" })
+                            @Html.ValidationMessageFor(model => model.SecondVariant)
+                            @*<i class="mdi mdi-plus mr-1" id="btnPlus_Second"></i>*@
+                        </div>
+                        <div id="_all_second_variant"></div>
+                    </div>
+                </div>
+
+                <div class="row form-group" id="_variantbutton" style="display: none;">
+                    <div class="col-sm-4 offset-sm-4">
+                        <div class="input-group">
+                            <button type="button" class="btn btn-success" id="Btn_AddVariant"><i class="mdi mdi-cart-plus mr-1"></i>Add Variant</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="variantTable" style="display: none;">
+                    <table class="table table-bordered bg-white table-product">
+                        <thead>
+                            <tr>
+                                @*<th class="wd-checkbox">
+                            <div class="td-center">
+                                <input type="checkbox" id="CheckboxHead" />
+                            </div>
+                        </th>*@
+                                <th class="wd-10" id="dy1">Size/Colour</th>
+                                <th class="wd-10" id="dy2">Size</th>
+                                <th class="wd-10" id="dy3">Colour</th>
+                                <th class="wd-10">Price</th>
+                                <th class="wd-10">Quantity</th>
+                                <th class="wd-10">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="varianl_List">
+                            @if (Model.VariantCollectionList != null)
+                            {
+                                foreach (var item in Model.VariantCollectionList)
+                                {
+                                    if (Model.Product_Variant_Id == 4)
+                                    {
+                                <tr class="CommonClass">
+                                    <th class="wd-10">
+                                        <input type="text" class="form-control" readonly="readonly" value="@item.First_Input / @item.Second_Input">
+                                    </th>
+                                    <th class="wd-10">
+                                        <input type="text" class="form-control first" value="@item.First_Input">
+                                    </th>
+                                    <th class="wd-10">
+                                        <input type="text" class="form-control second" value="@item.Second_Input">
+                                    </th>
+                                    <th class="wd-10">
+                                        <input type="text" class="form-control third" value="@item.Third_Input">
+                                    </th>
+                                    <th class="wd-10">
+                                        <input type="text" class="form-control fourth" value="@item.Fourth_Input">
+                                    </th>
+                                    <th class="wd-10">
+                                        <i class="mdi mdi-delete-forever" onclick="DeleteVariantFromList(this,@item.Product_Sub_Table_ID)"></i>
+                                    </th>
+                                </tr>    
+                                
+                                    }
+                                    else
+                                    {
+                                <tr class="CommonClass">
+                                    <th class="wd-10">
+                                        <input type="text" class="form-control" readonly="readonly" value="@item.First_Input">
+                                    </th>
+                                    <th class="wd-10">
+                                        <input type="text" class="form-control first" value="@item.First_Input">
+                                    </th>
+                                    <th class="wd-10">
+                                        <input type="text" class="form-control second" value="@item.Second_Input">
+                                    </th>
+                                    <th class="wd-10">
+                                        <input type="text" class="form-control third" value="@item.Third_Input">
+                                    </th>
+
+                                    <th class="wd-10">
+                                        <i class="mdi mdi-delete-forever" onclick="DeleteVariantFromList(this,@item.Product_Sub_Table_ID)"></i>
+                                    </th>
+                                </tr>   
+                                
+                                    }
+                                }
+
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                    <div class="col-sm-4 offset-sm-4">
+                        <div class="input-group">
+                            <button type="button" class="btn btn-success" id="Btn_AddVariantList"><i class="mdi mdi-cart-plus mr-1"></i>Add List</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-success" id="Btn_Product_Update"><i class="mdi mdi-cart mr-1"></i>Update</button>
+        </div>
+
+    </div>
+}
+
+<script>
+    var first_variant_array = [];
+    var second_variant_array = [];
+
+    $(document).ready(function () {
+
+        var GlobalVariantType = "@Model.Product_Variant_Id";
+
+        if (GlobalVariantType == 0) {
+            $("#switch_button").hide();
+        }
+        else {
+            $("#switch_button").show();
+        }
+        $("#addproduct").click(function () {
+
+            $("#_add_variant").hide();
+            $("#_add_product").show();
+
+        });
+        $("#addvariant").click(function () {
+
+            if (GlobalVariantType == 4) {
+                $("#variantTable").show();
+                $("#_first_variant").show();
+                $("#_second_variant").show();
+                $("#_variantbutton").show();
+            }
+            else if (GlobalVariantType != 0) {
+                var GlobalVariantText = $("#select2-ddlProduct_Variant-container").attr("title");
+                $("#lable_first").text(GlobalVariantText);
+                $("#dy1").text(GlobalVariantText);
+                $("#dy2").text(GlobalVariantText);
+                $("#dy3").hide();
+
+                $("#variantTable").show();
+                $("#_first_variant").show();
+                $("#_variantbutton").show();
+            }
+
+            $("#_add_product").hide();
+            $("#_add_variant").show();
+
+        });
+
+        $("#Btn_AddVariantList").click(function () {
+
+            $("#varianl_List").find("input[type=text]").each(function () {
+
+                var inputval = $.trim($(this).val());
+                if (inputval == "") {
+                    swal({
+                        title: "Warning!",
+                        text: "Please fill all variant values",
+                        type: "error",
+                        icon: "error",
+                    }, function () {
+                        //window.location = "AddProduct";
+                    });
+
+                    //$(this).focus();
+                    //$(this).first("input[type=text]").focus();
+                }
+                else {
+
+                    $("#varianl_List").find("input[type=text]").each(function () {
+
+                        if ($(this).val() != "") {
+                            $(this).attr('disabled', 'disabled');
+                        }
+
+                    });
+
+                }
+            });
+
+        });
+
+
+        $('#ddlEditCategory').select2({
+            //minimumResultsForSearch: Infinity
+        });
+        $('#ddlEditSubCategory').select2({
+            //minimumResultsForSearch: Infinity
+        });
+        $('#ddlProduct_Variant').select2({
+            //minimumResultsForSearch: Infinity
+        });
+
+
+        //var GlobalVariantType = "";
+        //var GlobalVariantText = "";
+        //$("#ddlProduct_Variant").on("change", function () {
+        //    //$("#variantTable").hide();
+        //    $("#Btn_AddVariant").show();
+        //    $("#txt_firstinput").val("");
+        //    $("#txt_secondinput").val("");
+
+        //    var variantType = $("#ddlProduct_Variant").val();
+        //    GlobalVariantType = variantType;
+        //    var variantText = $("#select2-ddlProduct_Variant-container").attr("title");
+        //    GlobalVariantText = variantText;
+
+        //    if (variantType == "4") {
+        //        $("#_all_first_variant").html("");
+        //        $("#_all_second_variant").html("");
+        //        $("#lable_first").text("size");
+        //        $("#_first_variant").show();
+        //        $("#_second_variant").show();
+        //        $("#_variantbutton").show();
+
+        //    }
+        //    else {
+
+        //        if (variantText == "Select Variant") {
+        //            $("#_all_first_variant").html("");
+        //            $("#_all_second_variant").html("");
+        //            $("#_second_variant").hide();
+        //            $("#_first_variant").hide();
+        //            $("#_variantbutton").hide();
+        //        }
+        //        else {
+        //            $("#_all_first_variant").html("");
+        //            $("#_all_second_variant").html("");
+        //            $("#lable_first").text(variantText);
+        //            $("#_second_variant").hide();
+        //            $("#_first_variant").show();
+        //            $("#_variantbutton").show();
+        //        }
+
+        //    }
+        //});
+
+        var arr = [];
+        $("#txt_firstinput").keypress(function (e) {
+            if (e.keyCode == "13") {
+                var value = $.trim($("#txt_firstinput").val());
+                if (value != "") {
+                    first_variant_array.push(value);
+                    $("#_all_first_variant").append("<span class=''>" + value + "<a href='javascript:;' class='mdi mdi-close mr-1' id='firstremoveselection'></a></span>");
+                    $("#txt_firstinput").val("");
+                }
+            }
+
+        });
+        $("#txt_secondinput").keypress(function (e) {
+            if (e.keyCode == "13") {
+                var value = $.trim($("#txt_secondinput").val());
+                if (value != "") {
+                    second_variant_array.push(value);
+                    $("#_all_second_variant").append("<span class=''>" + value + "<a href='javascript:;' class='mdi mdi-close mr-1' id='secondremoveselection'></a></span>");
+                    $("#txt_secondinput").val("");
+                }
+            }
+
+        });
+
+        $("#Btn_AddVariant").click(function () {
+
+            if (GlobalVariantType != "4") {
+                if ($("#_all_first_variant").children().length == 0) {
+                    swal({
+                        title: "Warning!",
+                        text: "Please enter variant value",
+                        type: "error",
+                        icon: "error",
+                    }, function () {
+                        //window.location = "AddProduct";
+                    });
+
+                    return false;
+                }
+
+                //$("#dy1").text(GlobalVariantText);
+                //$("#dy2").text(GlobalVariantText);
+                $("#dy3").hide();
+                //$("#_first_variant").hide();
+                //$("#_second_variant").hide();
+                //$("#Btn_AddVariant").hide();
+
+                var final_first_variant_array = (first_variant_array.length > second_variant_array.length ? first_variant_array : second_variant_array);
+                //var final_second_variant_array = (second_variant_array.length < first_variant_array.length ? second_variant_array : first_variant_array);
+
+                var div = "";
+                for (var i = 0; i < final_first_variant_array.length; i++) {
+
+                    div += "<tr class='CommonClass'>"
+                      + "<th class='wd-10'><input type='text' class='form-control' readonly='readonly' value='" + final_first_variant_array[i] + "' /></th>"
+                      + "<th class='wd-10'><input type='text' class='form-control first' value='' /></th>"
+                      + "<th class='wd-10'><input type='text' class='form-control second' value='' /></th>"
+                      + "<th class='wd-10'><input type='text' class='form-control third' value='' /></th>"
+                      + "<th class='wd-10'><i class='mdi mdi-delete-forever RemoveVariantFromList'></i></th>"
+                      + "</tr>"
+                }
+
+                $("#varianl_List").prepend(div);
+                $("#variantTable").show();
+
+                $("#_all_first_variant").html("");
+                $("#_all_second_variant").html("");
+
+                first_variant_array = [];
+                second_variant_array = [];
+
+
+            }
+            else {
+
+                if ($("#_all_first_variant").children().length == 0 || $("#_all_second_variant").children().length == 0) {
+                    swal({
+                        title: "Warning!",
+                        text: "Please enter variant value",
+                        type: "error",
+                        icon: "error",
+                    }, function () {
+                        //window.location = "AddProduct";
+                    });
+
+                    return false;
+                }
+                //$("#dy1").text(GlobalVariantText);
+                //$("#dy2").text("Size");
+                $("#dy3").show();
+                //$("#_first_variant").hide();
+                //$("#_second_variant").hide();
+                //$("#Btn_AddVariant").hide();
+
+                var final_first_variant_array = (first_variant_array.length > second_variant_array.length ? first_variant_array : second_variant_array);
+                var final_second_variant_array = (second_variant_array.length < first_variant_array.length ? second_variant_array : first_variant_array);
+
+                var div = "";
+                for (var i = 0; i < final_first_variant_array.length; i++) {
+
+                    for (var j = 0; j < final_second_variant_array.length; j++) {
+
+                        div += "<tr class='CommonClass'>"
+                      + "<th class='wd-10'><input type='text' class='form-control' readonly='readonly' value='" + final_first_variant_array[i] + " / " + final_second_variant_array[j] + "' /></th>"
+                      + "<th class='wd-10'><input type='text' class='form-control first' value='' /></th>"
+                      + "<th class='wd-10'><input type='text' class='form-control second' value='' /></th>"
+                      + "<th class='wd-10'><input type='text' class='form-control third' value='' /></th>"
+                      + "<th class='wd-10'><input type='text' class='form-control fourth' value='' /></th>"
+                      + "<th class='wd-10'><i class='mdi mdi-delete-forever RemoveVariantFromList'></i></th>"
+                      + "</tr>"
+                    }
+
+                }
+                $("#varianl_List").prepend(div);
+                $("#variantTable").show();
+
+                $("#_all_first_variant").html("");
+                $("#_all_second_variant").html("");
+
+                first_variant_array = [];
+                second_variant_array = [];
+
+
+            }
+
+        });
+
+
+        $('input[type="file"]').change(function () {
+
+            var sizefile = Number(this.files[0].size);
+            if (sizefile > 2097152) {
+                var cursive = parseFloat(this.files[0].size / 1048576).toFixed(2);
+                swal({
+                    title: "Alert!",
+                    text: "Your file size " + cursive + " MB. File size should not exceed 2 MB",
+                    type: "info",
+                    icon: "info",
+                }, function () {
+                    //window.location = "";
+                });
+
+                $(this).val("");
+                return;
+            }
+            var validfile = ["bmp", "gif", "png", "jpg", "jpeg"];
+            var source = $(this).val();
+            var ext = source.substring(source.lastIndexOf(".") + 1, source.length).toLowerCase();
+            for (var i = 0; i < validfile.length; i++) {
+                if (validfile[i] == ext) {
+                    break;
+                }
+            }
+            if (i >= validfile.length) {
+                swal({
+                    title: "Alert!",
+                    text: "Only following file extention is allowed " + validfile.join(", "),
+                    type: "info",
+                    icon: "info",
+                }, function () {
+                    //window.location = "";
+                });
+
+                $(this).val("");
+                return;
+            }
+            else {
+                var input = this;
+                var targ = "";
+
+                if (input.files && input.files[0]) {
+
+                    var filesAmount = input.files.length;
+                    var div = "";
+                    for (i = 0; i < filesAmount; i++) {
+                        var reader = new FileReader();
+
+                        reader.onload = function (event) {
+                            div = '<li>'
+                               + '<div class="uploaded-images" style="display: ;">'
+                                   + '<img src="' + event.target.result + '" id="" width="100%" height="auto" />'
+                                   + '<span class="mdi mdi-close-circle circle-remove RemoveMe"></span>'
+                               + '</div>'
+                           + '</li>'
+                            $("#ulid").append(div);
+                            //$($.parseHTML('<img>')).attr('src', event.target.result).appendTo("#ulid");
+                        }
+
+                        reader.readAsDataURL(input.files[i]);
+                    }
+
+                    //var reader = new FileReader();
+                    //reader.onload = function (e) {
+                    //    targ = e.target.result;
+                    //    // here e.target.result shows the image 
+
+                    //    $(input).parent().parent().hide()
+                    //    $(input).parent().parent().next().find(".uploaded-images").show()
+                    //    $(input).parent().parent().next().find(".img").attr("src", targ);
+                    //};
+                    //reader.readAsDataURL(input.files[0])
+
+                }
+                //var formdata = new FormData();
+                //var file = $(this).get(0).files;
+                //formdata.append(file[0].name, file[0]);
+                //UploadImage(formdata);
+
+                //$.ajax({
+                //    type: "POST",
+                //    url: '/Master/Upload_ProductImage',
+                //    dataType: "json",
+                //    data: function () {
+                //        debugger;
+                //        var formdata = new FormData();
+                //        var file = $(input).get(0).files;
+                //        formdata.append(file[0].name, file[0]);
+
+                //        return formdata;
+                //    }(),
+                //    contentType: false,
+                //    processData: false,
+                //    //contentType: "application/json; charset=utf-8",
+                //    success: function (result) {
+
+                //    }
+                //});
+
+            }
+        });
+
+        $("#Btn_Product_Update").click(function () {
+
+            $('form').validate();
+
+            if ($('form').valid()) {
+
+                var Product_ID = $.trim($("#txthiddenId").val());
+                var Category_ID = $.trim($("#ddlEditCategory").val());
+                var Sub_Category_ID = $.trim($("#ddlEditSubCategory").val());
+                var Product_Variant_Id = $.trim($("#ddlProduct_Variant").val());
+                var Brand = $.trim($("#EdittxtBrandName").val());
+                var Product_Name = $.trim($("#EdittxtProductName").val());
+                var Product_Code = $.trim($("#EdittxtProductCode").val());
+                var Price = $.trim($("#EdittxtProductPrice").val());
+                var Quantity = $.trim($("#EdittxtProductQuantity").val());
+                var Discount = $.trim($("#EdittxtProductDiscount").val());
+                var Description = CKEDITOR.instances['EdittxtProductDesc'].getData();
+
+                $("#Btn_Product_Update").attr('disabled', 'disabled');
+                $("#Btn_Product_Update").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...');
+
+                ShowLoader();
+
+                $.ajax({
+                    type: "POST",
+                    url: 'UpdateProductDetails',
+                    // url: 'AddProductDetails' + qString,
+                    //dataType: "json",
+                    //data: obj,
+                    data: function () {
+                        var files = $('#fUpload').prop("files");
+                        var formdata = new FormData();
+                        for (var i = 0; i < files.length; i++) {
+                            formdata.append(files[i].name, files[i]);
+                        }
+
+                        var GlobalVariantText = $("#select2-ddlProduct_Variant-container").attr("title");
+                        var varcollec = [];
+                        $(".CommonClass").each(function () {
+
+                            if (GlobalVariantType != "4") {
+
+                                var First_Input = $(this).find('.first').val();
+                                var Second_Input = $(this).find('.second').val();
+                                var Third_Input = $(this).find('.third').val();
+
+                                //VariantCollection.push({ First_Input: First_Input, Second_Input: Second_Input, Third_Input: Third_Input })
+                                varcollec.push(GlobalVariantText + "|" + First_Input + "|" + Second_Input + "|" + Third_Input);
+                            }
+                            else {
+
+                                var First_Input = $(this).find('.first').val();
+                                var Second_Input = $(this).find('.second').val();
+                                var Third_Input = $(this).find('.third').val();
+                                var Fourth_Input = $(this).find('.fourth').val();
+
+                                //VariantCollection.push({ First_Input: First_Input, Second_Input: Second_Input, Third_Input: Third_Input, Fourth_Input: Fourth_Input })
+                                varcollec.push(GlobalVariantText + "|" + First_Input + "|" + Second_Input + "|" + Third_Input + "|" + Fourth_Input);
+                            }
+
+                        });
+
+                        var VariantCollection = varcollec.join("<|>");
+
+                        formdata.append('ID', Product_ID);
+                        formdata.append('Category_ID', Category_ID);
+                        formdata.append('Sub_Category_ID', Sub_Category_ID);
+                        formdata.append('Product_Variant_Id', Product_Variant_Id);
+                        formdata.append('Brand', Brand);
+                        formdata.append('Product_Name', Product_Name);
+                        formdata.append('Product_Code', Product_Code);
+                        formdata.append('Price', Price);
+                        formdata.append('Quantity', Quantity);
+                        formdata.append('Discount', Discount);
+                        formdata.append('Description', Description);
+                        //formdata.append('VariantCollection', JSON.stringify(VariantCollection));
+                        formdata.append('VariantCollection', VariantCollection);
+
+                        return formdata;
+                    }(),
+                    contentType: false,
+                    processData: false,
+                    //contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+                        debugger;
+                        $("#Btn_Product_Update").removeAttr('disabled');
+                        $("#Btn_Product_Update").html('Add Product');
+
+                        HideLoader();
+
+                        //var result = JSON.parse(result);
+                        if (result.Action == "Session_Expire") {
+                            swal({
+                                title: "Warning!",
+                                text: result.message,
+                                type: "error",
+                                icon: "error",
+                            }, function () {
+                                window.location = "../Account/Signup";
+                            });
+                        }
+                        else if (result == "done") {
+
+                            swal({
+                                title: "Success!",
+                                text: "Product added successfully!",
+                                type: "success",
+                                icon: "success",
+                            }, function () {
+                                window.location = "ProductList";
+                            });
+
+                        }
+                        else {
+
+                            swal({
+                                title: "Warning!",
+                                text: "Cannot create product this time please try again later",
+                                type: "error",
+                                icon: "error",
+                            }, function () {
+                                window.location = "ProductList";
+                            });
+
+                        }
+
+                    }
+                });
+
+            }
+            else {
+                $('body, html').animate({ scrollTop: 0 }, 'slow');
+            }
+
+        });
+
+
+    });
+
+
+    $(document).on('click', ".RemoveMe", function () {
+        $(this).parent().parent().remove();
+        $(this).val("");
+    });
+
+    $("body").on("click", "#firstremoveselection", function () {
+        var removeItem = $(this).parent().text();
+        first_variant_array.splice($.inArray(removeItem, first_variant_array), 1);
+        $(this).parent().remove();
+    });
+
+    $("body").on("click", "#secondremoveselection", function () {
+        var removeItem = $(this).parent().text();
+        second_variant_array.splice($.inArray(removeItem, second_variant_array), 1);
+        $(this).parent().remove();
+    });
+    $("body").on("click", ".RemoveVariantFromList", function () {
+        $(this).parent().parent().remove();
+        var leng = $("#varianl_List").find("tr").length;
+        if (leng == 0) {
+            $("#variantTable").hide();
+        }
+
+    });
+
+    $("body").on("change", "#ddlEditCategory", function () {
+        $("#ddlEditSubCategory").empty();
+        var Category_Id = $(this).val();
+
+        var obj = JSON.stringify({ Category_Id: Category_Id });
+        $.ajax({
+            type: "POST",
+            url: 'GetSubCategoryList_ByCategoryId',
+            dataType: "json",
+            data: obj,
+            contentType: "application/json; charset=utf-8",
+            success: function (result) {
+
+                if (result.Action == "Session_Expire") {
+                    swal({
+                        title: "Warning!",
+                        text: result.message,
+                        type: "error",
+                        icon: "error",
+                    }, function () {
+                        window.location = "../Account/Signup";
+                    });
+                }
+                else {
+
+                    for (var i in result) {
+                        $("#ddlEditSubCategory").append("<option value='" + result[i].SubCategoryId + "'>" + result[i].SubCategory + "</option>");
+
+                    }
+                }
+
+            }
+        });
+
+        //$.get("GetSubCategoryList_ByCategoryId", { Category_Id: Category_Id }, function (result) {
+        //    for (var i in result) {
+        //        $("#ddlEditSubCategory").append("<option value='" + result[i].SubCategoryId + "'>" + result[i].SubCategory + "</option>");
+
+        //    }
+
+        //});
+
+    });
+
+
+    function DeleteVariantFromList(that, Record_Id) {
+        swal({
+            title: "Confirmation?",
+            text: "Are you sure want to delete this record.",
+            type: "info",
+            icon: "info",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes",
+            cancelButtonText: "No",
+            closeOnConfirm: false,
+            closeOnCancel: true
+        }, function (isConfirm) {
+            if (isConfirm) {
+                var Product_ID = $.trim($("#txthiddenId").val());
+                debugger;
+                var obj = JSON.stringify({
+                    Product_ID: Product_ID,
+                    Record_Id: Record_Id
+                });
+
+                $.ajax({
+                    type: "POST",
+                    url: 'DeleteProductVariantRecord',//?Record_Id=' + Record_Id,
+                    dataType: "json",
+                    data: obj,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+
+                        if (result.Action == "Session_Expire") {
+                            swal({
+                                title: "Warning!",
+                                text: result.message,
+                                type: "error",
+                                icon: "error",
+                            }, function () {
+                                window.location = "../Account/Signup";
+                            });
+                        }
+                        else if (result.Action == "done") {
+                            swal({
+                                title: "Deleted!",
+                                text: result.msg,
+                                type: "success",
+                                icon: "success"
+                            });
+
+                            $(that).parent().parent().remove();
+                        }
+                        else {
+                            swal({
+                                title: "Not Deleted!",
+                                text: result.msg,
+                                type: "error",
+                                icon: "error"
+                            });
+
+                        }
+                    }
+                });
+
+            } else {
+                //swal("Cancelled", "Your imaginary file is safe :)", "error");
+            }
+        });
+
+    }
+
+    function DeleteImage(that, productid, imagename) {
+        swal({
+            title: "Confirmation?",
+            text: "Are you sure want to delete this image.",
+            type: "info",
+            icon: "info",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes",
+            cancelButtonText: "No",
+            closeOnConfirm: false,
+            closeOnCancel: true
+        }, function (isConfirm) {
+            if (isConfirm) {
+                $.ajax({
+                    type: "POST",
+                    url: 'DeleteProduct_Images',
+                    dataType: "json",
+                    data: JSON.stringify({ productid: productid, imagename: imagename }),
+                    processData: false,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+                        if (result.Action == "Session_Expire") {
+                            swal({
+                                title: "Warning!",
+                                text: result.message,
+                                type: "error",
+                                icon: "error",
+                            }, function () {
+                                window.location = "../Account/Signup";
+                            });
+                        }
+                        else if (result == "done") {
+                            swal({
+                                title: "Success!",
+                                text: 'Image has been deleted.',
+                                type: "success",
+                                icon: "success"
+                            }, function () {
+                                //window.location = "DisplayProductList";
+                                $(that).parent().parent().remove();
+                            });
+
+                        }
+                        else {
+                            swal({
+                                title: "Warning!",
+                                text: 'Unable to delete image this time please try again later.',
+                                type: "error",
+                                icon: "error"
+                            }, function () {
+                                //window.location = "DisplayProductList";
+                            });
+
+                        }
+                    }
+                });
+
+            } else {
+                //swal("Cancelled", "Your imaginary file is safe :)", "error");
+            }
+        });
+
+    }
+
+</script>

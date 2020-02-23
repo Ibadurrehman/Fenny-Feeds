@@ -1,0 +1,745 @@
+﻿@model FennyFeeds.ViewModels.VM_Product
+
+@{
+    ViewBag.Title = "ProductList";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<style type="text/css">
+    .hide-product-strip {
+        background-color: #d43e3e !important;
+        color: #fff !important;
+    }
+
+    .select2-container {
+        width: 100% !important;
+        max-width: 370px;
+    }
+</style>
+<section class="inner-wrapper">
+    <div class="header-wrapper">
+        <h3><i class="mdi mdi-cart mr-1"></i>Product List</h3>
+    </div>
+    <div class="body-wrapper body-grid">
+        <div class="btn-group" onclick="BulkDelete();">
+            <button type="button" class="btn btn-danger btn-sm"><span class="mdi mdi-delete"></span></button>
+            <button type="button" class="btn btn-danger btn-sm">Delete</button>
+        </div>
+        <div class="btn-group" onclick="Bulk_Hide_ShowProduct();">
+            <button type="button" class="btn btn-warning btn-sm"><span class="mdi mdi-delete"></span></button>
+            <button type="button" class="btn btn-warning btn-sm">Hide / Show Product</button>
+        </div>
+        <table class="table table-bordered bg-white table-product" id="ProductList">
+            <thead>
+                <tr>
+                    <th class="wd-checkbox">
+                        <div class="td-center">
+                            <input type="checkbox" id="CheckboxHead" />
+                        </div>
+                    </th>
+                    <th class="wd-20">Product Name</th>
+                    <th class="wd-10">Product Code</th>
+                    <th class="wd-10">Category</th>
+                    <th class="wd-10">Brand</th>
+                    <th class="wd-10">Price</th>
+                    <th class="wd-10">Quantity</th>
+                    <th class="wd-10">Discount</th>
+                    @*<th class="wd-10">isDeleted</th>*@
+                    <th class="wd-105">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @*    <tr>
+                    <td>
+                        <div class="td-center">
+                            <input type="checkbox" /></div>
+                    </td>
+                    <td>Product Name one</td>
+                    <td>P12546</td>
+                    <td>Cat-1</td>
+                    <td>Brand-1</td>
+                    <td>500</td>
+                    <td>10%</td>
+                    <td>5</td>
+                    <td>No</td>
+                    <td class="options-overflow">
+                        <div class="dropdown">
+                            <a class="btn btn-warning btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Options
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#viewProduct"><i class="mdi mdi-eye mr-2"></i>More Details</a>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editProduct"><i class="mdi mdi-pencil mr-2"></i>Edit</a>
+                                <a class="dropdown-item" href="#"><i class="mdi mdi-delete mr-2"></i>Delete</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>*@
+            </tbody>
+            <tfoot>
+                <thead>
+                    <tr>
+                        @*  <th class="wd-checkbox">
+                            <div class="td-center">
+                                <input type="checkbox" />
+                            </div>
+                        </th>*@
+                        <th></th>
+                        <th class="wd-20">Product Name</th>
+                        <th class="wd-10">Product Code</th>
+                        <th class="wd-10">Category</th>
+                        <th class="wd-10">Brand</th>
+                        <th class="wd-10">Price</th>
+                        <th class="wd-10">Quantity</th>
+                        <th class="wd-10">Discount</th>
+                        @*<th class="wd-10">isDeleted</th>*@
+                        <th class="wd-105">Action</th>
+                    </tr>
+                </thead>
+            </tfoot>
+        </table>
+    </div>
+
+</section>
+
+<!--View Product Modal -->
+
+<div class="modal fade" id="viewProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><i class="mdi mdi-eye mr-1"></i>Product Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="ProductDetails">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--Edit Modal -->
+
+<div class="modal fade" id="editProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document" id="editmodal">
+    </div>
+</div>
+
+
+<script src="~/content/scripts/jquery-3.3.1.min.js"></script>
+<script src="~/content/scripts/select2.min.js"></script>
+<script src="~/content/scripts/bootstrap.bundle.min.js"></script>
+
+
+@*<script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>*@
+
+
+@*<script src="https://cdn.datatables.net/select/1.3.0/js/dataTables.select.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>*@
+
+<script>
+
+    $(document).ready(function () {
+        ShowLoader();
+        $.ajax({
+            url: "@Url.Action("Get_ProductList")",
+            method: "get",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                HideLoader();
+                $('#ProductList').DataTable({
+                    data: data,
+                    //"createdRow": [{
+                    //    "data": "Product_Is_Hide",
+                    //    "render": function (row, data, index) {
+                    //        return $(row).addClass(data);
+                    //        //$('td', row).eq(5).addClass('highlight');
+                    //    }
+                    //}],
+                    "createdRow": function (row, data, Index) {
+                        if (data.Product_Is_Hide != "") {
+                            return $(row).addClass(data.Product_Is_Hide);
+                        }
+
+                    },
+                    'columnDefs': [{
+                        "data": "Product_ID",
+                        'targets': 0,
+                        'searchable': false,
+                        'orderable': false,
+                        'className': 'dt-body-center',
+                        'render': function (data, type, full, meta) {
+                            return '<input type="checkbox" name="checkboxChild" onchange"ChildChangeEvent();" value="' + data + '">';
+                            //return '<input type="checkbox" name="id[]" value="'
+                            //   + $('<div/>').text(data).html() + '">';
+                        }
+                    }],
+
+                    //"lengthMenu": [[10, 25, 50, -1], ["10 Record", "25 Record", "50 Record", "All"]],
+                    order: [[0, 'dsc']],
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'copyHtml5',
+                        'excelHtml5',
+                        'csvHtml5',
+                        'pdfHtml5',
+                        'print'
+                    ],
+                    columns: [
+                    { "": "" },
+                    { "data": "Product_Name" },
+                    { "data": "Product_Code" },
+                    { "data": "Category" },
+                    { "data": "Brand" },
+                    { "data": "Price" },
+                    { "data": "Quantity" },
+                    { "data": "Discount" },
+                    {
+                        "data": "Product_ID", "className": "options-overflow", "render": function (data) { // <-- `ID` instead of `id`
+                            return "<button onclick='openProductLightboxForEdit(" + data + ")'>E</button> / <button Onclick=RemoveMeIamProduct(this," + data + ");>D</button> / <button onclick='openProductLightboxForDetails(" + data + ")'>M</button>"
+                            //return "<td class='options-overflow'><div class='dropdown'><a class='btn btn-warning btn-sm dropdown-toggle' href='#' role='button' id='dropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Options</a><div class='dropdown-menu dropdown-menu-right' aria-labelledby='dropdownMenuLink'><a class='dropdown-item' href='#' data-toggle='modal' data-target='#viewProduct'><i class='mdi mdi-eye mr-2'></i>More Details</a><a class='dropdown-item' href='#' data-toggle='modal' data-target='#editProduct'><i class='mdi mdi-pencil mr-2'></i>Edit</a><a class='dropdown-item' href='#'><i class='mdi mdi-delete mr-2'></i>Delete</a></div></div></td>"
+                        },
+                    }
+                     //{
+                     //    data: null,
+                     //    className: "center",
+                     //    defaultContent: '<button onclick="EditProduct(' + Product_ID + ')">E</button> / <button onclick="EditProduct(Product_ID)">D</button> / <button onclick="EditProduct(Product_ID)">M</button>'
+                     //}
+                    //{
+                    //    data: null,
+                    //    className: "center",
+                    //    defaultContent: buttonString
+                    //}
+
+                    ]
+
+
+                });
+            }
+        });
+
+
+        //$('input[type="file"]').change(function () {
+
+        //    var sizefile = Number(this.files[0].size);
+        //    if (sizefile > 2097152) {
+        //        var cursive = parseFloat(this.files[0].size / 1048576).toFixed(2);
+        //        swal({
+        //            title: "Alert!",
+        //            text: "Your file size " + cursive + " MB. File size should not exceed 2 MB",
+        //            type: "info",
+        //            icon: "info",
+        //        }, function () {
+        //            //window.location = "";
+        //        });
+
+        //        $(this).val("");
+        //        return;
+        //    }
+        //    var validfile = ["bmp", "gif", "png", "jpg", "jpeg"];
+        //    var source = $(this).val();
+        //    var ext = source.substring(source.lastIndexOf(".") + 1, source.length).toLowerCase();
+        //    for (var i = 0; i < validfile.length; i++) {
+        //        if (validfile[i] == ext) {
+        //            break;
+        //        }
+        //    }
+        //    if (i >= validfile.length) {
+        //        swal({
+        //            title: "Alert!",
+        //            text: "Only following file extention is allowed " + validfile.join(", "),
+        //            type: "info",
+        //            icon: "info",
+        //        }, function () {
+        //            //window.location = "";
+        //        });
+
+        //        $(this).val("");
+        //        return;
+        //    }
+        //    else {
+        //        var input = this;
+        //        var targ = "";
+
+        //        if (input.files && input.files[0]) {
+        //            var reader = new FileReader();
+        //            reader.onload = function (e) {
+        //                targ = e.target.result;
+        //                // here e.target.result shows the image 
+
+        //                $(input).parent().parent().hide()
+        //                $(input).parent().parent().next().find(".uploaded-images").show()
+        //                $(input).parent().parent().next().find(".img").attr("src", targ);
+        //            };
+        //            reader.readAsDataURL(input.files[0])
+
+        //        }
+
+        //    }
+        //});
+
+        //$("#Btn_Product_Update").click(function () {
+
+        //    $('form').validate();
+
+        //    if ($('form').valid()) {
+
+        //        var Category_ID = $.trim($("#ddlEditCategory").val());
+        //        var Brand = $.trim($("#EdittxtBrandName").val());
+        //        var Product_Name = $.trim($("#EdittxtProductName").val());
+        //        var Product_Code = $.trim($("#EdittxtProductCode").val());
+        //        var Price = $.trim($("#EdittxtProductPrice").val());
+        //        var Quantity = $.trim($("#EdittxtProductQuantity").val());
+        //        var Discount = $.trim($("#EdittxtProductDiscount").val());
+        //        //var Description = $.trim($("#txtProductDescription").val());
+        //        //var Description = CKEDITOR.instances.txtProductDescription.getData();
+        //        var Description = CKEDITOR.instances['EdittxtProductDesc'].getData();
+        //        //var obj = JSON.stringify({
+        //        //    Category_ID: Category_ID,
+        //        //    Brand: Brand,
+        //        //    Product_Name: Product_Name,
+        //        //    Product_Code: Product_Code,
+        //        //    Price: Price,
+        //        //    Quantity: Quantity,
+        //        //    Discount: Discount,
+        //        //    Description: Description,
+        //        //})
+
+        //        var qString = '?Category_ID=' + Category_ID + '&Brand=' + Brand + '&Product_Name=' + Product_Name + '&Product_Code=' + Product_Code + '&Price=' + Price + '&Quantity=' + Quantity + '&Discount=' + Discount + '&Description=' + Description;
+
+        //        $("#Btn_Product_Update").attr('disabled', 'disabled');
+        //        $("#Btn_Product_Update").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...');
+
+        //        ShowLoader();
+
+        //        $.ajax({
+        //            type: "POST",
+        //            url: 'UpdateProductDetails' + qString,
+        //            //dataType: "json",
+        //            //data: obj,
+        //            data: function () {
+        //                var formdata = new FormData();
+
+        //                $('input[type="file"]').each(function () {
+        //                    if (!$(this).val() == "") {
+        //                        var file = $(this).get(0).files;
+        //                        formdata.append(file[0].name, file[0]);
+        //                    }
+        //                });
+        //                return formdata;
+        //            }(),
+        //            contentType: false,
+        //            processData: false,
+        //            //contentType: "application/json; charset=utf-8",
+        //            success: function (result) {
+
+        //                $("#Btn_Product_Update").removeAttr('disabled');
+        //                $("#Btn_Product_Update").html('Update Product');
+
+        //                HideLoader();
+
+        //                //var result = JSON.parse(result);
+        //                if (result == "done") {
+
+        //                    swal({
+        //                        title: "Success!",
+        //                        text: "Product edit successfully!",
+        //                        type: "success",
+        //                        icon: "success",
+        //                    }, function () {
+        //                        window.location = "ProductList";
+        //                    });
+
+        //                }
+        //                else {
+
+        //                    swal({
+        //                        title: "Error!",
+        //                        text: "Cannot edit product this time please try again later",
+        //                        type: "error",
+        //                        icon: "error",
+        //                    }, function () {
+        //                        window.location = "ProductList";
+        //                    });
+
+        //                }
+
+        //            }
+        //        });
+
+        //    }
+        //    else {
+        //        $('#editProduct').animate({ scrollTop: 0 }, 'slow');
+        //    }
+
+        //});
+
+        $("#CheckboxHead").change(function () {
+            $('input[type="checkbox"]').prop("checked", $(this).prop("checked"));
+        });
+
+    });
+
+    function openProductLightboxForDetails(Product_Id) {
+        ShowLoader();
+        $.ajax({
+            type: "GET",
+            url: 'GetProductRecords?Product_Id=' + Product_Id,
+            //dataType: "json",
+            //data: obj,
+            data: function () {
+
+            }(),
+            contentType: false,
+            processData: false,
+            //contentType: "application/json; charset=utf-8",
+            success: function (result) {
+                HideLoader();
+
+                var div = "";
+                var img_div = "";
+                for (var i in result) {
+                    debugger;
+                    if (result[i].ImageCollection != 0) {
+                        debugger;
+                        //loop for all product images
+                        for (var j in result[i].ImageCollection) {
+                            img_div += '<li><div class="uploaded-images"><img src="../content/Product_Image/' + Product_Id + "/" + result[i].ImageCollection[j] + '" /></div></li>';
+                        }
+
+                    }
+                    else {
+                        img_div = '<li><div class="uploaded-images"><img src="../content/Product_Image/no_image.jpg" /></div></li>';
+                    }
+
+                    div = '<div class="product-details-table">'
+                        + '<table class="table table-bordered table-hover">'
+                        + '<tbody>'
+                        + '<tr><td>Product Category</td><td>' + result[i].Category + '</td></tr>'
+                        + '<tr><td>Brand</td><td>' + result[i].BrandName + '</td></tr>'
+                        + '<tr><td>Product Name</td><td>' + result[i].ProductName + '</td></tr>'
+                        + '<tr><td>Product Code</td><td>' + result[i].ProductCode + '</td></tr>'
+                        + '<tr><td>Product Unit Price</td><td>' + result[i].ProductPrice + '</td></tr>'
+                        + '<tr><td>Product Quantity</td><td>' + result[i].ProductQuantity + '</td></tr>'
+                        + '<tr><td>Product Discount</td><td>' + result[i].ProductDiscount + '</td></tr>'
+                        + '<tr><td>Creation Date</td><td>' + result[i].CreationDate + '</td></tr>'
+                        //+ '<tr><td>Product Description</td><td>' + result[i].CreationDate + '</td></tr>'
+                        + '<tr><td>Product Images</td>'
+                        + '<td>'
+                        + '<div class="pro_img_container">'
+                        + '<ul>'
+                        + img_div
+                        + '</ul>'
+                        + '</div>'
+                        + '</td>'
+                        + '</tr>'
+                        + '</tbody>'
+                        + '</table>'
+                        + '</div>'
+                }
+
+                $("#ProductDetails").html(div);
+                $("#viewProduct").modal("show");
+
+            }
+
+
+        });
+
+
+    }
+
+    function openProductLightboxForEdit(Product_Id) {
+
+        ShowLoader();
+        var url = 'GetProductRecordsForEdit?Product_Id=' + Product_Id;// '@Url.Action("GetProductRecordsForEdit?Record_ID=")';
+
+        $("#editmodal").load(url, function () {
+            HideLoader();
+            $("#editProduct").modal("show");
+
+        })
+
+        //ShowLoader();
+
+        //$.ajax({
+        //    type: "GET",
+        //    url: 'GetProductRecords?Product_Id=' + Product_Id,
+        //    //dataType: "json",
+        //    //data: obj,
+        //    data: function () {
+
+        //    }(),
+        //    contentType: false,
+        //    processData: false,
+        //    //contentType: "application/json; charset=utf-8",
+        //    success: function (result) {
+        //        HideLoader();
+
+        //        $("#Btn_Product_Update").attr("data-updateid", result.ProductId);
+
+        //        $("#EdittxtBrandName").val(result[0].BrandName);
+        //        $("#EdittxtProductName").val(result[0].ProductName);
+        //        $("#EdittxtProductCode").val(result[0].ProductCode);
+        //        $("#EdittxtProductPrice").val(result[0].ProductPrice);
+        //        $("#EdittxtProductQuantity").val(result[0].ProductQuantity);
+        //        $("#EdittxtProductDiscount").val(result[0].ProductDiscount);
+        //        $("#ddlEditCategory").val(result[0].Category);
+
+
+        //        //$("#EdittxtProductDesc").val(result[0].Description);
+        //        CKEDITOR.instances['EdittxtProductDesc'].setData(result[0].Description);
+        //        //$("#PI_Showing").attr("src", result.ProductImagePath);
+
+        //        var imagescoll = result[0].ImageCollection;
+        //        for (var i in imagescoll) {
+        //            $("#img" + i).attr("src", imagescoll[i]);
+        //            $("#img" + i).parent().show();
+        //            $("#file" + i).parent().hide();
+
+        //        }
+
+        //        $("#editProduct").modal('show');
+        //    }
+        //});
+
+
+    }
+
+    function RemoveMeIamProduct(that, Product_Id) {
+        swal({
+            title: "Confirmation?",
+            text: "Are you sure want to delete this record.",
+            type: "info",
+            icon: "info",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes",
+            cancelButtonText: "No",
+            closeOnConfirm: false,
+            closeOnCancel: true
+        }, function (isConfirm) {
+            if (isConfirm) {
+
+                $.ajax({
+                    type: "POST",
+                    url: 'DeleteProductSingleRecord?Product_Id=' + Product_Id,
+                    dataType: "json",
+                    data: function () {
+
+                    }(),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+                        if (result.Action == "Session_Expire") {
+                            swal({
+                                title: "Warning!",
+                                text: result.message,
+                                type: "error",
+                                icon: "error",
+                            }, function () {
+                                window.location = "../Account/Signup";
+                            });
+                        }
+                        else if (result == "done") {
+                            swal({
+                                title: "Deleted!",
+                                text: "Record deleted successfully!",
+                                type: "success",
+                                icon: "success"
+                            });
+
+                            $(that).parent().parent().remove();
+                        }
+                        else {
+                            swal({
+                                title: "Not Deleted!",
+                                text: "Can not delete record this time. Please try again later",
+                                type: "error",
+                                icon: "error"
+                            });
+
+                        }
+                    }
+                });
+
+                
+            } else {
+                //swal("Cancelled", "Your imaginary file is safe :)", "error");
+            }
+        });
+
+    }
+
+    function ChildChangeEvent() {
+        $("#CheckboxHead").prop("checked", false);
+    }
+
+    function BulkDelete() {
+
+        if (Number($('input[name="checkboxChild"]:checked').length) == 0) {
+            swal({
+                title: "Warning!",
+                text: "Please select record first",
+                type: "error",
+                icon: "error"
+            });
+            return false;
+        }
+
+        var ProductIds = [];
+
+        $('input[name="checkboxChild"]:checked').each(function () {
+            ProductIds.push($(this).val());
+        });
+
+        RemoveProductInBulk(ProductIds.join(","));
+    }
+
+    function RemoveProductInBulk(ProductIds) {
+        swal({
+            title: "Confirmation?",
+            text: "Are you sure want to delete this record.",
+            type: "info",
+            icon: "info",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes",
+            cancelButtonText: "No",
+            closeOnConfirm: false,
+            closeOnCancel: true
+        }, function (isConfirm) {
+            if (isConfirm) {
+
+                var obj = JSON.stringify({ ProductIds: ProductIds });
+
+                $.ajax({
+                    type: "POST",
+                    url: 'DeleteProductMultipleRecord',
+                    dataType: "json",
+                    data: obj,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+                        if (result.Action == "Session_Expire") {
+                            swal({
+                                title: "Warning!",
+                                text: result.message,
+                                type: "error",
+                                icon: "error",
+                            }, function () {
+                                window.location = "../Account/Signup";
+                            });
+                        }
+                        else if (result == "done") {
+                            swal({
+                                title: "Success!",
+                                text: "Record deleted successfully!",
+                                type: "success",
+                                icon: "success"
+                            }, function () {
+                                window.location = "ProductList";
+                            });
+
+                        }
+                        else {
+                            swal({
+                                title: "Warning!",
+                                text: "Can not delete record this time. Please try again later",
+                                type: "error",
+                                icon: "error"
+                            });
+
+                        }
+                    }
+                });
+
+            } else {
+                //swal("Cancelled", "Your imaginary file is safe :)", "error");
+            }
+        });
+
+    }
+
+    function Bulk_Hide_ShowProduct() {
+
+        if (Number($('input[name="checkboxChild"]:checked').length) == 0) {
+            swal({
+                title: "Warning!",
+                text: "Please select record first",
+                type: "error",
+                icon: "error"
+            });
+            return false;
+        }
+
+        var ProductIds = [];
+
+        $('input[name="checkboxChild"]:checked').each(function () {
+            ProductIds.push($(this).val());
+        });
+
+        Hide_Show_ProductInBulk(ProductIds.join(","));
+    }
+
+    function Hide_Show_ProductInBulk(ProductIds) {
+       
+        var obj = JSON.stringify({ ProductIds: ProductIds });
+
+        $.ajax({
+            type: "POST",
+            url: 'Hide_Show_ProductMultipleRecord',
+            dataType: "json",
+            data: obj,
+            contentType: "application/json; charset=utf-8",
+            success: function (result) {
+                if (result.Action == "Session_Expire") {
+                    swal({
+                        title: "Warning!",
+                        text: result.message,
+                        type: "error",
+                        icon: "error",
+                    }, function () {
+                        window.location = "../Account/Signup";
+                    });
+                }
+                else if (result == "done") {
+                    swal({
+                        title: "Success!",
+                        text: "Changes done successfully!",
+                        type: "success",
+                        icon: "success"
+                    }, function () {
+                        window.location = "ProductList";
+                    });
+
+                }
+                else {
+                    swal({
+                        title: "Warning!",
+                        text: "Can not hide selected record this time. Please try again later",
+                        type: "error",
+                        icon: "error"
+                    });
+
+                }
+            }
+        });
+
+    }
+
+    //$('#ddlEditCategory').select2({
+    //    //minimumResultsForSearch: Infinity
+    //});
+
+</script>

@@ -1,0 +1,312 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>DashBoard</title>
+    <script src="~/Scripts/jquery-1.7.1.min.js"></script>
+    @* <script src="~/Scripts/jquery.validate.min.js"></script>*@
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+</head>
+<body>
+
+
+    <section class="inner-wrapper">
+        <div class="header-wrapper">
+            <h3><i class="mdi mdi-cart mr-1"></i>DashBoard</h3>
+        </div>
+
+        <div class="body-wrapper">
+            @using (Html.BeginForm(new { @id = "" }))
+            {
+                @Html.ValidationSummary(true)
+    
+                <div class="row form-group">
+                    <div class="col-sm-4 text-right">
+                        <label class="lb-name">Banner Images :</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="pro_img_container">
+                            <ul>
+                                <li>
+                                    <div class="add-pro-images">
+                                        <span class="mdi mdi-plus"></span>
+                                        <input type="file" id="file0" name="filename" />
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="uploaded-images" style="display: none;">
+                                        <img src="~/content/images/s1.jpg" class="img" id="img0" width="100%" height="auto" />
+                                        <span class="mdi mdi-close-circle circle-remove"></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="add-pro-images">
+                                        <span class="mdi mdi-plus"></span>
+                                        <input type="file" id="file1" name="filename" />
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="uploaded-images" style="display: none;">
+                                        <img src="~/content/images/s1.jpg" class="img" id="img1" width="100%" height="auto" />
+                                        <span class="mdi mdi-close-circle circle-remove"></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="add-pro-images">
+                                        <span class="mdi mdi-plus"></span>
+                                        <input type="file" id="file2" name="filename" />
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="uploaded-images" style="display: none;">
+                                        <img src="~/content/images/s1.jpg" class="img" id="img2" width="100%" height="auto" />
+                                        <span class="mdi mdi-close-circle circle-remove"></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="add-pro-images">
+                                        <span class="mdi mdi-plus"></span>
+                                        <input type="file" id="file3" name="filename" />
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="uploaded-images" style="display: none;">
+                                        <img src="~/content/images/s1.jpg" class="img" id="img3" width="100%" height="auto" />
+                                        <span class="mdi mdi-close-circle circle-remove"></span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="add-pro-images">
+                                        <span class="mdi mdi-plus"></span>
+                                        <input type="file" id="file4" name="filename" />
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="uploaded-images" style="display: none;">
+                                        <img src="~/content/images/s1.jpg" class="img" id="img4" width="100%" height="auto" />
+                                        <span class="mdi mdi-close-circle circle-remove"></span>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-4 offset-sm-4">
+                        <div class="input-group">
+                            <button type="button" class="btn btn-success" id="Btn_AddBanner"><i class="mdi mdi-cart-plus mr-1"></i>Add Banner</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+    </section>
+
+</body>
+</html>
+
+<script>
+
+    $(document).ready(function () {
+
+        Get_BannerImages();
+
+        //var i = 0;
+        //$("#Btn_AddBox").click(function () {
+        //    i = i + 1;
+        //    var div = "<li>"
+        //    +"<div class='add-pro-images'>"
+        //    +"<span class='mdi mdi-plus'></span>"
+        //    +"<input type='file' id='file"+i+"' name='filename' />"
+        //    +"</div>"
+        //    +"</li>"
+        //    +"<li>"
+        //    +"<div class='uploaded-images' style='display: none;'>"
+        //    + "<img src='~/content/images/s1.jpg' class='img' id='img" + i + "' width='100%' height='auto' />"
+        //    +"<span class='mdi mdi-close-circle circle-remove'></span>"
+        //    +"</div>"
+        //    +"</li>"
+
+        //    $("#_forbox").append(div);
+        //});
+
+
+        $('input[type="file"]').change(function () {
+            debugger;
+            var sizefile = Number(this.files[0].size);
+            if (sizefile > 2097152) {
+                var cursive = parseFloat(this.files[0].size / 1048576).toFixed(2);
+                swal({
+                    title: "Alert!",
+                    text: "Your file size " + cursive + " MB. File size should not exceed 2 MB",
+                    type: "info",
+                    icon: "info",
+                }, function () {
+                    //window.location = "AddCategory";
+                });
+                      
+                $(this).val("");
+                return;
+            }
+            var validfile = ["bmp", "gif", "png", "jpg", "jpeg"];
+            var source = $(this).val();
+            var ext = source.substring(source.lastIndexOf(".") + 1, source.length).toLowerCase();
+            for (var i = 0; i < validfile.length; i++) {
+                if (validfile[i] == ext) {
+                    break;
+                }
+            }
+            if (i >= validfile.length) {
+                swal({
+                    title: "Alert!",
+                    text: "Only following file extention is allowed " + validfile.join(", "),
+                    type: "info",
+                    icon: "info",
+                }, function () {
+                    //window.location = "";
+                });
+
+                $(this).val("");
+                return;
+            }
+            else {
+                var input = this;
+                var targ = "";
+
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        targ = e.target.result;
+                        // here e.target.result shows the image 
+
+                        $(input).parent().parent().hide()
+                        $(input).parent().parent().next().find(".uploaded-images").show()
+                        $(input).parent().parent().next().find(".img").attr("src", targ);
+                    };
+                    reader.readAsDataURL(input.files[0])
+
+                }
+
+            }
+        });
+
+        $(".circle-remove").click(function () {
+            $(this).parent().hide();
+            $(this).parent().parent().prev().show();
+            $(this).val("");
+        });
+
+
+        $("#Btn_AddBanner").click(function () {
+
+            $('form').validate();
+
+            if ($('form').valid()) {
+
+                $("#Btn_AddBanner").attr('disabled', 'disabled');
+                $("#Btn_AddBanner").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...');
+
+                ShowLoader();
+
+                $.ajax({
+                    type: "POST",
+                    url: 'Upload_ProductImage',
+                    //dataType: "json",
+                    //data: obj,
+                    data: function () {
+
+                        var formdata = new FormData();
+
+                        $('input[type="file"]').each(function () {
+                            if (!$(this).val() == "") {
+                                var file = $(this).get(0).files;
+                                formdata.append(file[0].name, file[0]);
+                            }
+                        });
+                        return formdata;
+                    }(),
+                    contentType: false,
+                    processData: false,
+                    //contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+
+                        $("#Btn_AddBanner").removeAttr('disabled');
+                        $("#Btn_AddBanner").html('Add Banner');
+
+                        HideLoader();
+
+                        //var result = JSON.parse(result);
+                        if (result == "done") {
+
+                            swal({
+                                title: "Success!",
+                                text: "Banner image added successfully!",
+                                type: "success",
+                                icon: "success",
+                            }, function () {
+                                window.location = "Dashboard";
+                            });
+                              
+                        }
+                        else {
+
+                            swal({
+                                title: "Warning!",
+                                text: "Cannot add Banner image this time please try again later",
+                                type: "error",
+                                icon: "error",
+                            }, function () {
+                                window.location = "Dashboard";
+                            });
+
+                        }
+
+                    }
+                });
+
+            }
+            else {
+                $('body, html').animate({ scrollTop: 0 }, 'slow');
+            }
+
+        });
+
+
+    });
+
+
+    function Get_BannerImages() {
+    
+            $.ajax({
+                type: "POST",
+                url: 'Get_BannerImages',
+                dataType: "json",
+                data: function () {
+
+                }(),
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
+                    debugger;
+                    for (var i in result) {
+                        $("#img" + i).attr("src", result[i]);
+                        $("#img" + i).parent().show();
+                        $("#file" + i).parent().hide();
+
+                    }
+                       
+                }
+            });
+
+
+    }
+</script>

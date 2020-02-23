@@ -1,0 +1,162 @@
+﻿body 
+{
+    background-color:#fe9126;
+    margin:0;
+    overflow:hidden;
+}
+.signin-container {
+    width: 100%;
+    height: auto;
+    display: inline-block;
+    position: relative;
+    height: 100vh;
+    background-color:#fe9126;
+}
+
+.signin-block {
+   width: 900px;
+   height: 475px;
+   background-color: #44413f;
+   border-radius: 4px;
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+   padding: 30px 40px;
+   padding-left: 480px;
+   padding-right: 30px;
+}
+
+.signin_title {
+    color: #1e202c;
+    text-align: center;
+    font-size: 24px;
+}
+
+#SignUp, #forgotPassword {
+    display: none;
+}
+
+.sign-in-option li {
+    float: left;
+    margin-right: 15px;
+    color: #a5a5a5;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    padding-bottom: 5px;
+}
+
+.active-tab {
+    border-bottom: 2px solid #f3f3f3;
+    color: #fff !important;
+}
+
+.default-block {
+    width: 100%;
+    height: auto;
+    display: inline-block;
+}
+
+.form-group-row {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.sign-in-option {
+    padding: 10px 0px;
+}
+
+.form-properties {
+    border-radius: 25px;
+    height: calc(1.8em + .75rem + 2px);
+    font-size: 16px;
+    padding-left: 40px;
+    border-color: #484848;
+    background-color: rgba(19, 20, 24, 0.7);
+    color: #dadada;
+}
+
+.btn-curve {
+    border-radius: 20px;
+    background: -moz-linear-gradient(272deg, rgba(61,63,74,1) 0%, rgba(0,0,0,1) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgb(255,154,56)), color-stop(100%, rgb(255,154,56)));
+    background: -webkit-linear-gradient(272deg, rgb(212,105,0) 0%, rgb(255,154,56) 100%);
+    background: linear-gradient(178deg, rgb(255, 154, 56) 0%, rgb(212, 105, 0) 100%);
+    border: 0;
+    height: 38px;
+    outline: 0 !important;
+    color: #fff;
+    transition: all ease-in-out .5s;
+}
+
+    .btn-curve:hover, .btn-curve:active, .btn-curve:focus, .btn-curve:visited {
+       background: -moz-linear-gradient(272deg, rgba(61,63,74,1) 0%, rgba(0,0,0,1) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgb(255,154,56)), color-stop(100%, rgb(255,154,56)));
+    background: -webkit-linear-gradient(272deg, rgb(212,105,0) 0%, rgb(255,154,56) 100%);
+    background: linear-gradient(178deg, rgb(255, 154, 56) 0%, rgb(212, 105, 0) 100%);
+        outline: 0;
+        border-radius: 20px;
+        color: #fff;
+    }
+
+.signin-icon {
+    position: absolute;
+    left: 15px;
+    top: 8px;
+    color: #a5a5a5;
+}
+
+.check-remember {
+    width: 15px;
+    height: 15px;
+    float: left;
+    margin-right: 7px !important;
+    margin-left:0;
+    position: relative;
+}
+
+.rem_text {
+    color: #a5a5a5;
+}
+
+.forgot-txt {
+    float: right;
+    color: #a5a5a5;
+}
+
+#navPassword {
+    visibility: hidden;
+}
+.signin-img 
+{
+    width: 450px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background-color: #212123;
+    background-image: url(../images/login-img.jpg);
+    background-size: cover;
+    background-position: 50%;
+}
+.forgot-txt:hover, .forgot-txt:focus, .rem_text:hover, .rem_text:focus 
+{
+    color:#fff;
+}
+.loader 
+{
+    position:absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 100;
+}
+/*SignIn End*/

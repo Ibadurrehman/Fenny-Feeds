@@ -1,0 +1,288 @@
+﻿@model FennyFeeds.ViewModels.VM_LayoutMaster
+<!DOCTYPE html>
+
+@{
+    var session = Session[FennyFeeds.HelperClasses.SessionNames.USERID.ToString()];
+                         //var ipaddress = FennyFeeds.HelperClasses.MyHelperClass.Get_IP_Address();
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Fenny Feeds | Online Shop for Pets</title>
+    <link href="~/content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/content/css/materialdesignicons.min.css" rel="stylesheet" />
+    <link href="~/content/css/owl.carousel.min.css" rel="stylesheet" />
+    <link href="~/content/css/select2.css" rel="stylesheet" />
+    <link href="~/content/css/style.css" rel="stylesheet" />
+    <link href="~/content/css/newcss.css" rel="stylesheet" />
+
+    <script src="~/content/scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/content/scripts/bootstrap.bundle.min.js"></script>
+    <script src="~/content/scripts/owl.carousel.min.js"></script>
+    <script src="~/content/scripts/jquery.mask.min.js"></script>
+    <script src="~/content/scripts/select2.min.js"></script>
+    <script src="~/content/scripts/myScript.js"></script>
+    <script src="~/Scripts/master.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.10/jquery.validate.unobtrusive.js"></script>
+    <style>
+        .loader {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: 100;
+        }
+        /* styles for validation helpers */
+        .field-validation-error {
+            color: red;
+            font-weight: 500;
+            font-size: small;
+        }
+
+        .field-validation-valid {
+            display: none;
+        }
+
+        input.input-validation-error {
+            border: 1px solid red;
+        }
+
+        input[type="checkbox"].input-validation-error {
+            border: 0 none;
+        }
+
+        .validation-summary-errors {
+            color: #e80c4d;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .validation-summary-valid {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <main class="main-container">
+    <nav>
+    <div class="header-address">
+    <div class="container">
+    <div class="row">
+    <div class="top-links">
+    <a href="https://web.whatsapp.com/+91-7047879999"><span class="mdi mdi-whatsapp"> +91-7047879999</span></a>
+    <a href="mailto:info@fennyfeeds.com"><span class="mdi mdi-email"></span> info@fennyfeeds.com</a>
+    </div>
+    </div>
+    </div>
+    </div>
+    </nav>
+    <nav class="header-second">
+    
+    <div class="main-logo">
+        <img src="~/content/images/FennyFeedsLogo.png" width="200" />
+    </div>
+
+    
+    
+    </nav>
+    <header class="navigation-header">
+    <nav class="navbar navbar-expand-lg navbar-bg">
+            <div class="navbar-header">
+                
+            </div>
+    
+            <div class="navbar-collapse collapset">
+                <div class="container">
+                <div class="row">
+                <div class="search-content">
+                <div class="input-group main-search">
+                <input type="text" class="form-control" placeholder="Search">
+                 <a href="#" class="input-group-append">
+                    <span class="mdi mdi-magnify"></span>
+                </a>
+                </div>
+                <ul class="nav navbar-nav navbar-ul">
+                     @if (User.Identity.IsAuthenticated)
+                     {
+                         <li><a href="~/UserProfile/Profile"><i class="mdi mdi-account"></i>@Session[FennyFeeds.HelperClasses.SessionNames.USERSCREENNAME.ToString()]</a></li>
+                         <li><a href="~/Account/Logout"><i class="mdi mdi-account"></i>Logout</a></li>
+                        
+                    <li><a href="~/CartList/CartList"><i class="mdi mdi-cart"></i> Cart</a></li>
+                    <li><a href="javascript:;" onclick="CheckUserLoginOrNot('redirect_to_wishlist','')"><i class="mdi mdi-heart"></i> Wish List</a></li>
+                     }
+                     else
+                     {
+                             <li><a href="~/Account/SignUp"><i class="mdi mdi-account"></i> Login / SignUp</a></li>
+                    <li><a href="~/CartList/CartList"><i class="mdi mdi-cart"></i> Cart</a></li>
+                    <li><a href="javascript:;" onclick="CheckUserLoginOrNot('redirect_to_wishlist','')"><i class="mdi mdi-heart"></i> Wish List</a></li>
+                     }
+
+                   @* @if (session != null)
+                    {
+                         <li><a href="~/UserProfile/Profile"><i class="mdi mdi-account"></i>@Session[FennyFeeds.HelperClasses.SessionNames.USERSCREENNAME.ToString()]</a></li>
+                         <li><a href="~/Account/Logout"><i class="mdi mdi-account"></i>Logout</a></li>
+                        
+                    <li><a href="~/CartList/CartList"><i class="mdi mdi-cart"></i> Cart</a></li>
+                    <li><a href="javascript:;" onclick="CheckUserLoginOrNot('redirect_to_wishlist','')"><i class="mdi mdi-heart"></i> Wish List</a></li>
+                    }
+                    else
+                    {
+                             <li><a href="~/Account/SignUp"><i class="mdi mdi-account"></i> Login / SignUp</a></li>
+                    <li><a href="~/CartList/CartList"><i class="mdi mdi-cart"></i> Cart</a></li>
+                    <li><a href="javascript:;" onclick="CheckUserLoginOrNot('redirect_to_wishlist','')"><i class="mdi mdi-heart"></i> Wish List</a></li>
+                    }*@
+                </ul>
+                </div>
+                </div>
+                </div>
+            </div>
+    </nav>
+    <nav class="top-menu">
+    <div class="container">
+    <div class="row">
+    <div class="top-menu-ul">
+    <ul>
+    <li><a href="~/Home/Home">Shop</a></li>
+    <li>
+    <a href="#">Blood Bank<span class="mdi mdi-chevron-down"></span></a>
+    <div class="inner-menu">
+    <ul>
+    <li><a href="~/Search_Blood/SearchBlood">Search Blood</a></li>
+    <li><a href="~/Donate_Blood/DonateBlood">Donate Blood</a></li>
+    <li><a href="~/Request_Blood/RequestBlood">Request Blood</a></li>
+    </ul>
+    </div>
+    </li>
+         <li>
+    <a href="#">Services<span class="mdi mdi-chevron-down"></span></a>
+    <div class="inner-menu">
+    <ul>
+    <li><a href="#">Hostel</a></li>
+    <li><a href="#">Training</a></li>
+    <li><a href="#">Grooming</a></li>
+    <li><a href="#">Veterinary services</a></li>
+    </ul>
+    </div>
+    </li>
+    @*<li><a href="#">Brand</a></li>
+    <li><a href="#">Pharmacy</a></li>
+    <li><a href="#">Services</a></li>*@
+    </ul>
+    </div>
+    </div>
+    </div>
+    </nav>
+    </header>
+    @RenderBody()
+
+
+    <footer class="footer-container">
+    <div class="footer-subscribe">
+    <div class="subscribe-holder">
+
+   
+    </div>
+    </div>
+        <div class="footer-top-section">
+        <div class="container">
+<div class="row">
+<div class="col-sm-3">
+<div class="footer-content footer-links">
+<h4>QUICK LINKS</h4>
+<ul>
+<li><a href="#"><i class="mdi mdi-chevron-right"></i>Home</a></li>
+<li><a href="#"><i class="mdi mdi-chevron-right"></i>About</a></li>
+<li><a href="#"><i class="mdi mdi-chevron-right"></i>Contact</a></li>
+</ul>
+</div>
+</div>
+<div class="col-sm-3">
+<div class="footer-content">
+<h4>ACCOUNTS</h4>
+<ul>
+<li><a href="#"><i class="mdi mdi-cart"></i>My Cart</a></li>
+<li><a href="~/Account/SignUp"><i class="mdi mdi-account"></i>Login</a></li>
+<li><a href="#"><i class="mdi mdi-account-plus"></i>Create Account</a></li>
+</ul>
+</div>
+</div>
+<div class="col-sm-3">
+<div class="footer-content">
+<h4>CONTACT US</h4>
+<ul>
+<li><a href="#"><i class="mdi mdi-map-marker"></i>Street no. 7 Sadar Bazar Jabalpur</a></li>
+<li><a href="mailto:info@fennyfeeds.com"><i class="mdi mdi-email"></i>info@fennyfeeds.com</a></li>
+<li><a href="callto:+91-7047879999"><i class="mdi mdi-phone"></i>+91-7047879999</a></li>
+</ul>
+</div>
+</div>
+<div class="col-sm-3">
+<div class="footer-content">
+<h4>STAY CONNECTED</h4>
+<p>Enter your email to be the first to know when a new product hites the site.</p>
+  <form id="form1">
+<div class="input-group main-search">
+     @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @placeholder = "Subscribe Us", @id = "txtSub_Email" })
+                @*<input type="text" class="form-control" placeholder="Enter Email">*@
+                 <a href="javascript:;" class="input-group-append btn-subscribe" id="Btn_Subscription">
+                    <span class="mdi mdi-send"></span>
+                </a>
+                </div>
+        @Html.ValidationMessageFor(model => model.Email)
+              </form>
+ 
+<ul><li><a href="#"><span class="mdi mdi-facebook"></span></a></li></ul>
+
+</div>
+</div>
+</div>
+        </div>
+        </div>
+        <div class="footer-copyright"><span>&copy; @DateTime.Now.Year - All Rights Reserved | Designed by <strong>Fenny Feeds</strong></span></div>
+            
+     </footer>
+      
+    </main>
+
+    <!--Start-->
+    <div class="modal fade" id="productquickviewmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document" id="loadproductquickview">
+        </div>
+    </div>
+    <!--end-->
+
+
+    <div class="loader" style="display: none;">
+        <div class="spinner-border text-light" style="width: 5rem; height: 5rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+
+</body>
+</html>
+<input type="hidden" value="@session" id="hide"/>
+
+<script>
+    function CheckLoginOrNotForWishList() {
+        var data = $("#hide").val();
+        Check_LoginOrNotForWishList(data);
+    }
+    function CheckUserLoginOrNot(action, ProductID) {
+        debugger;
+        var data = $("#hide").val();
+        Check_UserLoginOrNot(action, data, ProductID);
+    }
+</script>
+

@@ -1,0 +1,122 @@
+﻿@model FennyFeeds.ViewModels.VM_Search_Blood
+
+@{
+    ViewBag.Title = "SearchBlood";
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+
+<div class="wrapper-container">
+    <div class="search-blood-banner">
+        <div class="search-banner-text">
+            <h1>Search Blood for your pets</h1>
+            <p>Our bloodMatch tool matches your preferences with pet's personality to find you the perfect pet's blood.</p>
+            @using (Html.BeginForm(new { @id = "" }))
+            {
+                @Html.ValidationSummary(true)
+    
+ <div class="input-group search-area-block">
+     <div class="col-sm-5">
+         <div class="row">
+             @Html.DropDownListFor(x => x.Pet_Breed, FennyFeeds.HelperClasses.MyHelperClass.DropdownPet_Breed(), "Select Breeds", new { @class = "form-control breedlist", @id = "ddlBreeds" })
+             @Html.ValidationMessageFor(model => model.Pet_Breed)
+         </div>
+     </div>
+     <div class="col-sm-5">
+         <div class="row">
+             @Html.DropDownListFor(x => x.City, FennyFeeds.HelperClasses.MyHelperClass.DropdownCity(), "Select City", new { @class = "form-control searchcity", @id = "ddlCity" })
+             @Html.ValidationMessageFor(model => model.City)
+         </div>
+     </div>
+     <div class="col-sm-2">
+         <div class="row">
+             <button type="button" class="btn btn-form" id="Btn_SearchDonar"><i class="mdi mdi-magnify"></i>Search</button>
+         </div>
+     </div>
+ </div>
+            }
+        </div>
+    </div>
+
+    <div class="search-container">
+        <div class="container">
+            <div class="row seach-inner" id="DonarResult">
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+        $(".search-container").hide();
+
+        $("#Btn_SearchDonar").click(function () {
+
+            $('form').validate();
+
+            if ($('form').valid()) {
+
+                var Pet_Breed = $.trim($("#ddlBreeds").val());
+                var City = $.trim($("#ddlCity").val());
+
+                $("#Btn_SearchDonar").attr('disabled', 'disabled');
+                $("#Btn_SearchDonar").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...');
+               
+                $.post("SearchBloodDonarRecords?Pet_Breed=" + Pet_Breed + "&City=" + City, function (data) {
+                    debugger;
+                    $("#Btn_SearchDonar").removeAttr('disabled');
+                    $("#Btn_SearchDonar").html('<i class="mdi mdi-magnify"></i>Search');
+                    
+                    if (data != "") {
+                        var div = "";
+
+                        for (var i in data) {
+                            div += "<div class='col-sm-12 col-md-6'>"
+                            + "<div class='bl-content'>"
+                            + "<table class='table table-bordered'>"
+                            + "<tr>"
+                            + "<td class='td-title'>Pet's Name : </td>"
+                            + "<td class='td-data'>" + data[i].PetName + "</td>"
+                            + "<td class='td-title'>Breed : </td>"
+                            + "<td class='td-data'>" + data[i].PetBreed + "</td>"
+                            + "</tr>"
+                            + "<tr>"
+                            + "<td class='td-title'>Gender : </td>"
+                            + "<td class='td-data'>" + data[i].PetGender + "</td>"
+                            + "<td class='td-title'>Age : </td>"
+                            + "<td class='td-data'>" + data[i].PetAge + "</td>"
+                            + "</tr>"
+                            + "<tr>"
+                            + "<td class='td-title'>Weight : </td>"
+                            + "<td class='td-data'>" + data[i].PetWeight + "</td>"
+                            + "<td class='td-title'>Location : </td>"
+                            + "<td class='td-data'>" + data[i].City + "</td>"
+                            + "</tr>"
+                            + "</table>"
+                            + " <a href='../Request_Blood/RequestBlood?Donarid=" + data[i].DonarID + "' class='btn btn-dark btn-sm float-right'><i class='mdi mdi-account'></i>Contact Donner</a>"
+                            //+ "<button type='button' class='btn btn-dark btn-sm float-right'><i class='mdi mdi-account'></i>Contact Donner</button>"
+                            + "<div class='clearfix'></div>"
+                            + "</div>"
+                            + "</div>"
+
+                            $("#DonarResult").html(div);
+                        }
+                        
+                    }
+                    else {
+                        $("#DonarResult").html("<div class='alert alert-danger text-center col-sm-12 col-md-6'>Oops ! No Record Found</div>");
+                    }
+                    $(".search-container").show();
+                });
+            }
+        });
+
+    });
+    
+    $('#ddlBreeds, #ddlCity').select2({
+        //minimumResultsForSearch: Infinity
+    });
+
+</script>

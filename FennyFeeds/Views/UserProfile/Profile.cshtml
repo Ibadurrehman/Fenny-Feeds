@@ -1,0 +1,111 @@
+﻿@model FennyFeeds.ViewModels.VM_User_Registration
+
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_LayoutMaster.cshtml";
+}
+
+<h2>Profile</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="row form-group">
+        <div class="col-sm-4 text-right">
+            <label class="lb-name">First Name :</label>
+        </div>
+        <div class="col-sm-4">
+            @* <input type="text" class="form-control" placeholder="Enter Brand Name" />*@
+            @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", @placeholder = "Enter First Name", @id = "txtFirstName" })
+            @Html.ValidationMessageFor(model => model.FirstName)
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-sm-4 text-right">
+            <label class="lb-name">Last Name :</label>
+        </div>
+        <div class="col-sm-4">
+            @* <input type="text" class="form-control" placeholder="Enter Brand Name" />*@
+            @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", @placeholder = "Enter Last Name", @id = "txtLastName" })
+            @Html.ValidationMessageFor(model => model.LastName)
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-sm-4 text-right">
+            <label class="lb-name">Email :</label>
+        </div>
+        <div class="col-sm-4">
+            @* <input type="text" class="form-control" placeholder="Enter Brand Name" />*@
+            @Html.TextBoxFor(model => model.Email_ID, new { @class = "form-control", @placeholder = "Enter Email", @id = "txtEmail" })
+            @Html.ValidationMessageFor(model => model.Email_ID)
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-sm-4 text-right">
+            <label class="lb-name">Mobile :</label>
+        </div>
+        <div class="col-sm-4">
+            @* <input type="text" class="form-control" placeholder="Enter Brand Name" />*@
+            @Html.TextBoxFor(model => model.Mobile, new { @class = "form-control", @placeholder = "Enter Mobile", @id = "txtMobile" })
+            @Html.ValidationMessageFor(model => model.Mobile)
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-sm-4 text-right">
+            <label class="lb-name">PinCode :</label>
+        </div>
+        <div class="col-sm-4">
+            @* <input type="text" class="form-control" placeholder="Enter Brand Name" />*@
+            @Html.TextBoxFor(model => model.PinCode, new { @class = "form-control", @placeholder = "Enter PinCode", @id = "txtPinCode" })
+            @Html.ValidationMessageFor(model => model.PinCode)
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-sm-4 text-right">
+            <label class="lb-name">Address :</label>
+        </div>
+        <div class="col-sm-4">
+            @* <input type="text" class="form-control" placeholder="Enter Brand Name" />*@
+            @Html.TextBoxFor(model => model.Address, new { @class = "form-control", @placeholder = "Enter Address", @id = "txtAddress" })
+            @Html.ValidationMessageFor(model => model.Address)
+        </div>
+    </div>
+
+}
+
+<script>
+
+    $(document).ready(function () {
+        GetUserProfile();
+    });
+
+    function GetUserProfile() {
+        debugger;
+        ShowLoader();
+
+        try {
+            $.ajax({
+                type: "POST",
+                url: "../UserProfile/GetUserProfile",
+                data: "",
+                //contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    HideLoader();
+                    debugger;
+                    $("#Btn_User_Update").attr("data-updateid", result.UserID);
+
+                    $("#txtFirstName").val(result[0].FirstName);
+                    $("#txtLastName").val(result[0].LastName);
+                    $("#txtEmail").val(result[0].Email_ID);
+                    $("#txtMobile").val(result[0].Mobile);
+                    $("#txtPinCode").val(result[0].PinCode);
+                    $("#txtAddress").val(result[0].Address);
+
+                }
+            });
+
+        } catch (e) {
+
+        }
+    }
+</script>

@@ -1,0 +1,627 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DbContext.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="DbContextStoreContainer">
+    <EntitySet Name="FF_Account_Activity" EntityType="DbContext.Store.FF_Account_Activity" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FF_Admin_Registration" EntityType="DbContext.Store.FF_Admin_Registration" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FF_Cart_List" EntityType="DbContext.Store.FF_Cart_List" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FF_Category" EntityType="DbContext.Store.FF_Category" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FF_Contact" EntityType="DbContext.Store.FF_Contact" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FF_Donate_Blood" EntityType="DbContext.Store.FF_Donate_Blood" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FF_HomePage_Display_Product" EntityType="DbContext.Store.FF_HomePage_Display_Product" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FF_Invoice_Table" EntityType="DbContext.Store.FF_Invoice_Table" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FF_Pet_Details" EntityType="DbContext.Store.FF_Pet_Details" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FF_Product_SubTable" EntityType="DbContext.Store.FF_Product_SubTable" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FF_Product_Variants" EntityType="DbContext.Store.FF_Product_Variants" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FF_Products" EntityType="DbContext.Store.FF_Products" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FF_Purchase_Order_List" EntityType="DbContext.Store.FF_Purchase_Order_List" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FF_Registration" EntityType="DbContext.Store.FF_Registration" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FF_Request_Blood" EntityType="DbContext.Store.FF_Request_Blood" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FF_Service_Area" EntityType="DbContext.Store.FF_Service_Area" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FF_Shipping_Address" EntityType="DbContext.Store.FF_Shipping_Address" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FF_Sub_Category" EntityType="DbContext.Store.FF_Sub_Category" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FF_Subscription" EntityType="DbContext.Store.FF_Subscription" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FF_User_Role" EntityType="DbContext.Store.FF_User_Role" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FF_Variants_Value" EntityType="DbContext.Store.FF_Variants_Value" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FF_Wish_List" EntityType="DbContext.Store.FF_Wish_List" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_FF_Account_Activity_FF_Registration" Association="DbContext.Store.FK_FF_Account_Activity_FF_Registration">
+      <End Role="FF_Registration" EntitySet="FF_Registration" />
+      <End Role="FF_Account_Activity" EntitySet="FF_Account_Activity" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FF_Cart_List_FF_Products" Association="DbContext.Store.FK_FF_Cart_List_FF_Products">
+      <End Role="FF_Products" EntitySet="FF_Products" />
+      <End Role="FF_Cart_List" EntitySet="FF_Cart_List" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FF_Category_FF_Category" Association="DbContext.Store.FK_FF_Category_FF_Category">
+      <End Role="FF_Category" EntitySet="FF_Category" />
+      <End Role="FF_Category1" EntitySet="FF_Category" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FF_HomePage_Display_Product_FF_Category1" Association="DbContext.Store.FK_FF_HomePage_Display_Product_FF_Category1">
+      <End Role="FF_Category" EntitySet="FF_Category" />
+      <End Role="FF_HomePage_Display_Product" EntitySet="FF_HomePage_Display_Product" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FF_Invoice_Table_FF_Products" Association="DbContext.Store.FK_FF_Invoice_Table_FF_Products">
+      <End Role="FF_Products" EntitySet="FF_Products" />
+      <End Role="FF_Invoice_Table" EntitySet="FF_Invoice_Table" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FF_Pet_Details_FF_Donate_Blood" Association="DbContext.Store.FK_FF_Pet_Details_FF_Donate_Blood">
+      <End Role="FF_Donate_Blood" EntitySet="FF_Donate_Blood" />
+      <End Role="FF_Pet_Details" EntitySet="FF_Pet_Details" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FF_Product_SubTable_FF_Product_Variants" Association="DbContext.Store.FK_FF_Product_SubTable_FF_Product_Variants">
+      <End Role="FF_Product_Variants" EntitySet="FF_Product_Variants" />
+      <End Role="FF_Product_SubTable" EntitySet="FF_Product_SubTable" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FF_Product_SubTable_FF_Products" Association="DbContext.Store.FK_FF_Product_SubTable_FF_Products">
+      <End Role="FF_Product_Variants" EntitySet="FF_Product_Variants" />
+      <End Role="FF_Product_SubTable" EntitySet="FF_Product_SubTable" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FF_Product_SubTable_FF_Variants_Value" Association="DbContext.Store.FK_FF_Product_SubTable_FF_Variants_Value">
+      <End Role="FF_Variants_Value" EntitySet="FF_Variants_Value" />
+      <End Role="FF_Product_SubTable" EntitySet="FF_Product_SubTable" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FF_Product_Variants_FF_Product_Variants" Association="DbContext.Store.FK_FF_Product_Variants_FF_Product_Variants">
+      <End Role="FF_Product_Variants" EntitySet="FF_Product_Variants" />
+      <End Role="FF_Product_Variants1" EntitySet="FF_Product_Variants" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FF_Products_FF_Category" Association="DbContext.Store.FK_FF_Products_FF_Category">
+      <End Role="FF_Category" EntitySet="FF_Category" />
+      <End Role="FF_Products" EntitySet="FF_Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FF_Products_FF_Products" Association="DbContext.Store.FK_FF_Products_FF_Products">
+      <End Role="FF_Products" EntitySet="FF_Products" />
+      <End Role="FF_Products1" EntitySet="FF_Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FF_Purchase_Order_List_FF_Products" Association="DbContext.Store.FK_FF_Purchase_Order_List_FF_Products">
+      <End Role="FF_Products" EntitySet="FF_Products" />
+      <End Role="FF_Purchase_Order_List" EntitySet="FF_Purchase_Order_List" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FF_Shipping_Address_FF_Registration" Association="DbContext.Store.FK_FF_Shipping_Address_FF_Registration">
+      <End Role="FF_Registration" EntitySet="FF_Registration" />
+      <End Role="FF_Shipping_Address" EntitySet="FF_Shipping_Address" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FF_Sub_Category_FF_Category" Association="DbContext.Store.FK_FF_Sub_Category_FF_Category">
+      <End Role="FF_Category" EntitySet="FF_Category" />
+      <End Role="FF_Sub_Category" EntitySet="FF_Sub_Category" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FF_Variants_Value_FF_Product_Variants" Association="DbContext.Store.FK_FF_Variants_Value_FF_Product_Variants">
+      <End Role="FF_Product_Variants" EntitySet="FF_Product_Variants" />
+      <End Role="FF_Variants_Value" EntitySet="FF_Variants_Value" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FF_Variants_Value_FF_Products" Association="DbContext.Store.FK_FF_Variants_Value_FF_Products">
+      <End Role="FF_Products" EntitySet="FF_Products" />
+      <End Role="FF_Variants_Value" EntitySet="FF_Variants_Value" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FF_Wish_List_FF_Products" Association="DbContext.Store.FK_FF_Wish_List_FF_Products">
+      <End Role="FF_Products" EntitySet="FF_Products" />
+      <End Role="FF_Wish_List" EntitySet="FF_Wish_List" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FF_Wish_List_FF_Registration" Association="DbContext.Store.FK_FF_Wish_List_FF_Registration">
+      <End Role="FF_Registration" EntitySet="FF_Registration" />
+      <End Role="FF_Wish_List" EntitySet="FF_Wish_List" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Role_FF_Registration" Association="DbContext.Store.FK_User_Role_FF_Registration">
+      <End Role="FF_Registration" EntitySet="FF_Registration" />
+      <End Role="FF_User_Role" EntitySet="FF_User_Role" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="FF_Account_Activity">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="User_Id" Type="int" Nullable="false" />
+    <Property Name="Browser" Type="nvarchar" MaxLength="50" />
+    <Property Name="IP_Address" Type="nvarchar" MaxLength="50" />
+    <Property Name="Access_Date" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FF_Admin_Registration">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="LastName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Email_ID" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Mobile" Type="nvarchar" MaxLength="50" />
+    <Property Name="Address" Type="nvarchar" MaxLength="50" />
+    <Property Name="PinCode" Type="nvarchar" MaxLength="6" />
+    <Property Name="City" Type="nvarchar" MaxLength="50" />
+    <Property Name="State" Type="nvarchar" MaxLength="50" />
+    <Property Name="Country" Type="nvarchar" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="FF_Cart_List">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="User_ID" Type="int" />
+    <Property Name="Product_ID" Type="int" Nullable="false" />
+    <Property Name="Product_Price" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Temp_UserName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Quantity" Type="int" />
+  </EntityType>
+  <EntityType Name="FF_Category">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Category" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="FF_Contact">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Subject" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Message" Type="nvarchar" Nullable="false" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="FF_Donate_Blood">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email_ID" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Mobile" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Address" Type="nvarchar" MaxLength="500" />
+    <Property Name="PinCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="City" Type="nvarchar" MaxLength="50" />
+    <Property Name="State" Type="nvarchar" MaxLength="50" />
+    <Property Name="Creation_Date" Type="datetime" />
+  </EntityType>
+  <EntityType Name="FF_HomePage_Display_Product">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Category_ID" Type="int" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="FF_Invoice_Table">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="User_ID" Type="int" />
+    <Property Name="Product_ID" Type="int" Nullable="false" />
+    <Property Name="Temp_UserName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Quantity" Type="int" />
+  </EntityType>
+  <EntityType Name="FF_Pet_Details">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="User_ID" Type="int" Nullable="false" />
+    <Property Name="Pet_Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Pet_Breed" Type="nvarchar" MaxLength="50" />
+    <Property Name="Pet_Gender" Type="nvarchar" MaxLength="50" />
+    <Property Name="Pet_Age" Type="nvarchar" MaxLength="50" />
+    <Property Name="Pet_Weight" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="FF_Product_SubTable">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Product_Id" Type="int" Nullable="false" />
+    <Property Name="Product_Variant_Id" Type="int" Nullable="false" />
+    <Property Name="Variant_Value_Id" Type="int" />
+    <Property Name="Product_Size" Type="nvarchar" MaxLength="50" />
+    <Property Name="Product_Colour" Type="nvarchar" MaxLength="50" />
+    <Property Name="Product_Quantity" Type="nvarchar" MaxLength="50" />
+    <Property Name="Product_Weight" Type="nvarchar" MaxLength="50" />
+    <Property Name="Product_Price" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="FF_Product_Variants">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Product_Id" Type="int" Nullable="false" />
+    <Property Name="Variants_Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="FF_Products">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Category_ID" Type="int" Nullable="false" />
+    <Property Name="Sub_Category_ID" Type="int" Nullable="false" />
+    <Property Name="User_ID" Type="int" Nullable="false" />
+    <Property Name="Brand" Type="nvarchar" MaxLength="50" />
+    <Property Name="Product_Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Product_Code" Type="nvarchar" MaxLength="50" />
+    <Property Name="Price" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Quantity" Type="nvarchar" MaxLength="50" />
+    <Property Name="Description" Type="text" />
+    <Property Name="Image" Type="nvarchar" MaxLength="100" />
+    <Property Name="Discount" Type="nvarchar" MaxLength="50" />
+    <Property Name="Creation_Date" Type="datetime" Nullable="false" />
+    <Property Name="IsProduct_Hide" Type="bit" />
+  </EntityType>
+  <EntityType Name="FF_Purchase_Order_List">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="User_Id" Type="int" Nullable="false" />
+    <Property Name="Product_Id" Type="int" Nullable="false" />
+    <Property Name="Order_Id" Type="nvarchar" MaxLength="50" />
+    <Property Name="Product_Price" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+    <Property Name="Payment_Date" Type="datetime" Nullable="false" />
+    <Property Name="Ispayment_Done" Type="bit" Nullable="false" />
+    <Property Name="Order_Status" Type="nvarchar" MaxLength="50" />
+    <Property Name="Dispatch_Date" Type="datetime" />
+    <Property Name="Delivered_Date" Type="datetime" />
+    <Property Name="Return_Date" Type="datetime" />
+  </EntityType>
+  <EntityType Name="FF_Registration">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email_ID" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Mobile" Type="nvarchar" MaxLength="50" />
+    <Property Name="Address" Type="nvarchar" MaxLength="500" />
+    <Property Name="PinCode" Type="nvarchar" MaxLength="6" />
+    <Property Name="City" Type="nvarchar" MaxLength="50" />
+    <Property Name="State" Type="nvarchar" MaxLength="50" />
+    <Property Name="Country" Type="nvarchar" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="Login_With" Type="nvarchar" MaxLength="50" />
+    <Property Name="Recovery_Link" Type="nvarchar" MaxLength="50" />
+    <Property Name="Creation_Date" Type="datetime" />
+  </EntityType>
+  <EntityType Name="FF_Request_Blood">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email_ID" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Mobile" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Address" Type="nvarchar" MaxLength="500" />
+    <Property Name="PinCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="City" Type="nvarchar" MaxLength="50" />
+    <Property Name="State" Type="nvarchar" MaxLength="50" />
+    <Property Name="Pet_Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Pet_Breed" Type="nvarchar" MaxLength="50" />
+    <Property Name="Request_Date" Type="datetime" />
+  </EntityType>
+  <EntityType Name="FF_Service_Area">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="PinCode" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FF_Shipping_Address">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="User_ID" Type="int" Nullable="false" />
+    <Property Name="First_Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Last_Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Address" Type="nvarchar" Nullable="false" MaxLength="500" />
+    <Property Name="PinCode" Type="nvarchar" Nullable="false" MaxLength="6" />
+    <Property Name="Landmark" Type="nvarchar" MaxLength="50" />
+    <Property Name="City" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="State" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Contact" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="Alternate_No" Type="nvarchar" MaxLength="10" />
+    <Property Name="Invoice_No" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="Purchase_Date" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FF_Sub_Category">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Category_ID" Type="int" Nullable="false" />
+    <Property Name="SubCategory" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="IsActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="FF_Subscription">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Subscription_Date" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FF_User_Role">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="User_ID" Type="int" Nullable="false" />
+    <Property Name="Role" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="FF_Variants_Value">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Product_Id" Type="int" Nullable="false" />
+    <Property Name="Variants_Id" Type="int" Nullable="false" />
+    <Property Name="Variants_Value" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="FF_Wish_List">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="User_ID" Type="int" Nullable="false" />
+    <Property Name="Product_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_FF_Account_Activity_FF_Registration">
+    <End Role="FF_Registration" Type="DbContext.Store.FF_Registration" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="FF_Account_Activity" Type="DbContext.Store.FF_Account_Activity" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FF_Registration">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="FF_Account_Activity">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FF_Cart_List_FF_Products">
+    <End Role="FF_Products" Type="DbContext.Store.FF_Products" Multiplicity="1" />
+    <End Role="FF_Cart_List" Type="DbContext.Store.FF_Cart_List" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FF_Products">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="FF_Cart_List">
+        <PropertyRef Name="Product_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FF_Category_FF_Category">
+    <End Role="FF_Category" Type="DbContext.Store.FF_Category" Multiplicity="1" />
+    <End Role="FF_Category1" Type="DbContext.Store.FF_Category" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="FF_Category">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="FF_Category1">
+        <PropertyRef Name="ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FF_HomePage_Display_Product_FF_Category1">
+    <End Role="FF_Category" Type="DbContext.Store.FF_Category" Multiplicity="1" />
+    <End Role="FF_HomePage_Display_Product" Type="DbContext.Store.FF_HomePage_Display_Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FF_Category">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="FF_HomePage_Display_Product">
+        <PropertyRef Name="Category_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FF_Invoice_Table_FF_Products">
+    <End Role="FF_Products" Type="DbContext.Store.FF_Products" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="FF_Invoice_Table" Type="DbContext.Store.FF_Invoice_Table" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FF_Products">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="FF_Invoice_Table">
+        <PropertyRef Name="Product_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FF_Pet_Details_FF_Donate_Blood">
+    <End Role="FF_Donate_Blood" Type="DbContext.Store.FF_Donate_Blood" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="FF_Pet_Details" Type="DbContext.Store.FF_Pet_Details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FF_Donate_Blood">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="FF_Pet_Details">
+        <PropertyRef Name="User_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FF_Product_SubTable_FF_Product_Variants">
+    <End Role="FF_Product_Variants" Type="DbContext.Store.FF_Product_Variants" Multiplicity="1" />
+    <End Role="FF_Product_SubTable" Type="DbContext.Store.FF_Product_SubTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FF_Product_Variants">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="FF_Product_SubTable">
+        <PropertyRef Name="Product_Variant_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FF_Product_SubTable_FF_Products">
+    <End Role="FF_Product_Variants" Type="DbContext.Store.FF_Product_Variants" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="FF_Product_SubTable" Type="DbContext.Store.FF_Product_SubTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FF_Product_Variants">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="FF_Product_SubTable">
+        <PropertyRef Name="Product_Variant_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FF_Product_SubTable_FF_Variants_Value">
+    <End Role="FF_Variants_Value" Type="DbContext.Store.FF_Variants_Value" Multiplicity="0..1" />
+    <End Role="FF_Product_SubTable" Type="DbContext.Store.FF_Product_SubTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FF_Variants_Value">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="FF_Product_SubTable">
+        <PropertyRef Name="Variant_Value_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FF_Product_Variants_FF_Product_Variants">
+    <End Role="FF_Product_Variants" Type="DbContext.Store.FF_Product_Variants" Multiplicity="1" />
+    <End Role="FF_Product_Variants1" Type="DbContext.Store.FF_Product_Variants" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="FF_Product_Variants">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="FF_Product_Variants1">
+        <PropertyRef Name="ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FF_Products_FF_Category">
+    <End Role="FF_Category" Type="DbContext.Store.FF_Category" Multiplicity="1" />
+    <End Role="FF_Products" Type="DbContext.Store.FF_Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FF_Category">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="FF_Products">
+        <PropertyRef Name="Category_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FF_Products_FF_Products">
+    <End Role="FF_Products" Type="DbContext.Store.FF_Products" Multiplicity="1" />
+    <End Role="FF_Products1" Type="DbContext.Store.FF_Products" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="FF_Products">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="FF_Products1">
+        <PropertyRef Name="ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FF_Purchase_Order_List_FF_Products">
+    <End Role="FF_Products" Type="DbContext.Store.FF_Products" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="FF_Purchase_Order_List" Type="DbContext.Store.FF_Purchase_Order_List" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FF_Products">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="FF_Purchase_Order_List">
+        <PropertyRef Name="Product_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FF_Shipping_Address_FF_Registration">
+    <End Role="FF_Registration" Type="DbContext.Store.FF_Registration" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="FF_Shipping_Address" Type="DbContext.Store.FF_Shipping_Address" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FF_Registration">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="FF_Shipping_Address">
+        <PropertyRef Name="User_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FF_Sub_Category_FF_Category">
+    <End Role="FF_Category" Type="DbContext.Store.FF_Category" Multiplicity="1" />
+    <End Role="FF_Sub_Category" Type="DbContext.Store.FF_Sub_Category" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FF_Category">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="FF_Sub_Category">
+        <PropertyRef Name="Category_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FF_Variants_Value_FF_Product_Variants">
+    <End Role="FF_Product_Variants" Type="DbContext.Store.FF_Product_Variants" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="FF_Variants_Value" Type="DbContext.Store.FF_Variants_Value" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FF_Product_Variants">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="FF_Variants_Value">
+        <PropertyRef Name="Variants_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FF_Variants_Value_FF_Products">
+    <End Role="FF_Products" Type="DbContext.Store.FF_Products" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="FF_Variants_Value" Type="DbContext.Store.FF_Variants_Value" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FF_Products">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="FF_Variants_Value">
+        <PropertyRef Name="Product_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FF_Wish_List_FF_Products">
+    <End Role="FF_Products" Type="DbContext.Store.FF_Products" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="FF_Wish_List" Type="DbContext.Store.FF_Wish_List" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FF_Products">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="FF_Wish_List">
+        <PropertyRef Name="Product_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FF_Wish_List_FF_Registration">
+    <End Role="FF_Registration" Type="DbContext.Store.FF_Registration" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="FF_Wish_List" Type="DbContext.Store.FF_Wish_List" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FF_Registration">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="FF_Wish_List">
+        <PropertyRef Name="User_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Role_FF_Registration">
+    <End Role="FF_Registration" Type="DbContext.Store.FF_Registration" Multiplicity="1" />
+    <End Role="FF_User_Role" Type="DbContext.Store.FF_User_Role" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FF_Registration">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="FF_User_Role">
+        <PropertyRef Name="User_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

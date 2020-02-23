@@ -1,0 +1,287 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DbContextStoreContainer" CdmEntityContainer="DataContext">
+    <EntitySetMapping Name="FF_Account_Activity">
+      <EntityTypeMapping TypeName="DbContext.FF_Account_Activity">
+        <MappingFragment StoreEntitySet="FF_Account_Activity">
+          <ScalarProperty Name="Access_Date" ColumnName="Access_Date" />
+          <ScalarProperty Name="IP_Address" ColumnName="IP_Address" />
+          <ScalarProperty Name="Browser" ColumnName="Browser" />
+          <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FF_Admin_Registration">
+      <EntityTypeMapping TypeName="DbContext.FF_Admin_Registration">
+        <MappingFragment StoreEntitySet="FF_Admin_Registration">
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="PinCode" ColumnName="PinCode" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+          <ScalarProperty Name="Email_ID" ColumnName="Email_ID" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FF_Cart_List">
+      <EntityTypeMapping TypeName="DbContext.FF_Cart_List">
+        <MappingFragment StoreEntitySet="FF_Cart_List">
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Temp_UserName" ColumnName="Temp_UserName" />
+          <ScalarProperty Name="Product_Price" ColumnName="Product_Price" />
+          <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+          <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FF_Category">
+      <EntityTypeMapping TypeName="DbContext.FF_Category">
+        <MappingFragment StoreEntitySet="FF_Category">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FF_Contact">
+      <EntityTypeMapping TypeName="DbContext.FF_Contact">
+        <MappingFragment StoreEntitySet="FF_Contact">
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FF_Donate_Blood">
+      <EntityTypeMapping TypeName="DbContext.FF_Donate_Blood">
+        <MappingFragment StoreEntitySet="FF_Donate_Blood">
+          <ScalarProperty Name="Creation_Date" ColumnName="Creation_Date" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="PinCode" ColumnName="PinCode" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+          <ScalarProperty Name="Email_ID" ColumnName="Email_ID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FF_HomePage_Display_Product">
+      <EntityTypeMapping TypeName="DbContext.FF_HomePage_Display_Product">
+        <MappingFragment StoreEntitySet="FF_HomePage_Display_Product">
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Category_ID" ColumnName="Category_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FF_Invoice_Table">
+      <EntityTypeMapping TypeName="DbContext.FF_Invoice_Table">
+        <MappingFragment StoreEntitySet="FF_Invoice_Table">
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Temp_UserName" ColumnName="Temp_UserName" />
+          <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+          <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FF_Pet_Details">
+      <EntityTypeMapping TypeName="DbContext.FF_Pet_Details">
+        <MappingFragment StoreEntitySet="FF_Pet_Details">
+          <ScalarProperty Name="Pet_Weight" ColumnName="Pet_Weight" />
+          <ScalarProperty Name="Pet_Age" ColumnName="Pet_Age" />
+          <ScalarProperty Name="Pet_Gender" ColumnName="Pet_Gender" />
+          <ScalarProperty Name="Pet_Breed" ColumnName="Pet_Breed" />
+          <ScalarProperty Name="Pet_Name" ColumnName="Pet_Name" />
+          <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FF_Product_SubTable">
+      <EntityTypeMapping TypeName="DbContext.FF_Product_SubTable">
+        <MappingFragment StoreEntitySet="FF_Product_SubTable">
+          <ScalarProperty Name="Product_Price" ColumnName="Product_Price" />
+          <ScalarProperty Name="Product_Weight" ColumnName="Product_Weight" />
+          <ScalarProperty Name="Product_Quantity" ColumnName="Product_Quantity" />
+          <ScalarProperty Name="Product_Colour" ColumnName="Product_Colour" />
+          <ScalarProperty Name="Product_Size" ColumnName="Product_Size" />
+          <ScalarProperty Name="Variant_Value_Id" ColumnName="Variant_Value_Id" />
+          <ScalarProperty Name="Product_Variant_Id" ColumnName="Product_Variant_Id" />
+          <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FF_Product_Variants">
+      <EntityTypeMapping TypeName="DbContext.FF_Product_Variants">
+        <MappingFragment StoreEntitySet="FF_Product_Variants">
+          <ScalarProperty Name="Variants_Name" ColumnName="Variants_Name" />
+          <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FF_Products">
+      <EntityTypeMapping TypeName="DbContext.FF_Products">
+        <MappingFragment StoreEntitySet="FF_Products">
+          <ScalarProperty Name="IsProduct_Hide" ColumnName="IsProduct_Hide" />
+          <ScalarProperty Name="Creation_Date" ColumnName="Creation_Date" />
+          <ScalarProperty Name="Discount" ColumnName="Discount" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Product_Code" ColumnName="Product_Code" />
+          <ScalarProperty Name="Product_Name" ColumnName="Product_Name" />
+          <ScalarProperty Name="Brand" ColumnName="Brand" />
+          <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+          <ScalarProperty Name="Sub_Category_ID" ColumnName="Sub_Category_ID" />
+          <ScalarProperty Name="Category_ID" ColumnName="Category_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FF_Purchase_Order_List">
+      <EntityTypeMapping TypeName="DbContext.FF_Purchase_Order_List">
+        <MappingFragment StoreEntitySet="FF_Purchase_Order_List">
+          <ScalarProperty Name="Return_Date" ColumnName="Return_Date" />
+          <ScalarProperty Name="Delivered_Date" ColumnName="Delivered_Date" />
+          <ScalarProperty Name="Dispatch_Date" ColumnName="Dispatch_Date" />
+          <ScalarProperty Name="Order_Status" ColumnName="Order_Status" />
+          <ScalarProperty Name="Ispayment_Done" ColumnName="Ispayment_Done" />
+          <ScalarProperty Name="Payment_Date" ColumnName="Payment_Date" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Product_Price" ColumnName="Product_Price" />
+          <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
+          <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
+          <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FF_Registration">
+      <EntityTypeMapping TypeName="DbContext.FF_Registration">
+        <MappingFragment StoreEntitySet="FF_Registration">
+          <ScalarProperty Name="Creation_Date" ColumnName="Creation_Date" />
+          <ScalarProperty Name="Recovery_Link" ColumnName="Recovery_Link" />
+          <ScalarProperty Name="Login_With" ColumnName="Login_With" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="PinCode" ColumnName="PinCode" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+          <ScalarProperty Name="Email_ID" ColumnName="Email_ID" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FF_Request_Blood">
+      <EntityTypeMapping TypeName="DbContext.FF_Request_Blood">
+        <MappingFragment StoreEntitySet="FF_Request_Blood">
+          <ScalarProperty Name="Request_Date" ColumnName="Request_Date" />
+          <ScalarProperty Name="Pet_Breed" ColumnName="Pet_Breed" />
+          <ScalarProperty Name="Pet_Name" ColumnName="Pet_Name" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="PinCode" ColumnName="PinCode" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+          <ScalarProperty Name="Email_ID" ColumnName="Email_ID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FF_Service_Area">
+      <EntityTypeMapping TypeName="DbContext.FF_Service_Area">
+        <MappingFragment StoreEntitySet="FF_Service_Area">
+          <ScalarProperty Name="PinCode" ColumnName="PinCode" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FF_Shipping_Address">
+      <EntityTypeMapping TypeName="DbContext.FF_Shipping_Address">
+        <MappingFragment StoreEntitySet="FF_Shipping_Address">
+          <ScalarProperty Name="Purchase_Date" ColumnName="Purchase_Date" />
+          <ScalarProperty Name="Invoice_No" ColumnName="Invoice_No" />
+          <ScalarProperty Name="Alternate_No" ColumnName="Alternate_No" />
+          <ScalarProperty Name="Contact" ColumnName="Contact" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Landmark" ColumnName="Landmark" />
+          <ScalarProperty Name="PinCode" ColumnName="PinCode" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Last_Name" ColumnName="Last_Name" />
+          <ScalarProperty Name="First_Name" ColumnName="First_Name" />
+          <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FF_Sub_Category">
+      <EntityTypeMapping TypeName="DbContext.FF_Sub_Category">
+        <MappingFragment StoreEntitySet="FF_Sub_Category">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="SubCategory" ColumnName="SubCategory" />
+          <ScalarProperty Name="Category_ID" ColumnName="Category_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FF_Subscription">
+      <EntityTypeMapping TypeName="DbContext.FF_Subscription">
+        <MappingFragment StoreEntitySet="FF_Subscription">
+          <ScalarProperty Name="Subscription_Date" ColumnName="Subscription_Date" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FF_User_Role">
+      <EntityTypeMapping TypeName="DbContext.FF_User_Role">
+        <MappingFragment StoreEntitySet="FF_User_Role">
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FF_Variants_Value">
+      <EntityTypeMapping TypeName="DbContext.FF_Variants_Value">
+        <MappingFragment StoreEntitySet="FF_Variants_Value">
+          <ScalarProperty Name="Variants_Value" ColumnName="Variants_Value" />
+          <ScalarProperty Name="Variants_Id" ColumnName="Variants_Id" />
+          <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FF_Wish_List">
+      <EntityTypeMapping TypeName="DbContext.FF_Wish_List">
+        <MappingFragment StoreEntitySet="FF_Wish_List">
+          <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+          <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
